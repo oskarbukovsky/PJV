@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
         "javaparser"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
