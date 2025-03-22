@@ -4,7 +4,6 @@ import cz.cvut.fel.pjv.impl.CircularArrayQueue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
 public class CircularArrayQueuePublicTest {
 
     /**
@@ -16,9 +15,10 @@ public class CircularArrayQueuePublicTest {
         CircularArrayQueue instance = new CircularArrayQueue();
         int expResult = 0;
         int result = instance.size();
-        Assertions.assertEquals(expResult, result, "Queue size function test after creating CircularArrayQueue with default capacity");
+        Assertions.assertEquals(expResult, result,
+                "Queue size function test after creating CircularArrayQueue with default capacity");
 
-        instance.enqueue("Darth Vader");
+        Assertions.assertTrue(instance.enqueue("Darth Vader"));
         expResult = 1;
         result = instance.size();
         Assertions.assertEquals(expResult, result, "Queue size function test after adding one element.");
@@ -31,7 +31,8 @@ public class CircularArrayQueuePublicTest {
         CircularArrayQueue instance2 = new CircularArrayQueue(20);
         int expResult2 = 0;
         int result2 = instance2.size();
-        Assertions.assertEquals(expResult2, result2, "Queue size function test after creating CircularArrayQueue with capacity 20");
+        Assertions.assertEquals(expResult2, result2,
+                "Queue size function test after creating CircularArrayQueue with capacity 20");
         instance2.dequeue();
 
         result2 = instance2.size();
@@ -113,15 +114,14 @@ public class CircularArrayQueuePublicTest {
                 Assertions.assertEquals(expected, actual, "Queue should provide given values");
             }
 
-
             for (int j = 0; j < 4; j++) {
                 boolean actual = instance.enqueue(items[j]);
-                Assertions.assertTrue(actual,"Queue should provide given values");
+                Assertions.assertTrue(actual, "Queue should provide given values");
             }
 
             for (int j = 0; j < 4; j++) {
                 final String actual = instance.dequeue();
-                Assertions.assertEquals(items[j], actual,"Queue should provide given values");
+                Assertions.assertEquals(items[j], actual, "Queue should provide given values");
             }
         }
     }
@@ -154,7 +154,7 @@ public class CircularArrayQueuePublicTest {
         System.out.println("dequeue");
         CircularArrayQueue instance = new CircularArrayQueue(5);
         String result = instance.dequeue();
-        Assertions.assertNull(result,"Test dequeue if CircularArrayQueue is empty");
+        Assertions.assertNull(result, "Test dequeue if CircularArrayQueue is empty");
     }
 
     @Test
@@ -170,7 +170,8 @@ public class CircularArrayQueuePublicTest {
         }
         queue.enqueue("Darth Maul");
         queue.enqueue("Darth Vader");
-        Assertions.assertEquals(2, queue.size(), "Test on size function when queue is starting again on beginning (indices are switched)");
+        Assertions.assertEquals(2, queue.size(),
+                "Test on size function when queue is starting again on beginning (indices are switched)");
     }
 
     @Test
@@ -204,5 +205,3 @@ public class CircularArrayQueuePublicTest {
         }
     }
 }
-
-
