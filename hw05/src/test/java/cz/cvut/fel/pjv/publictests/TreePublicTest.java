@@ -22,7 +22,9 @@ class TreePublicTest {
 
 		Node root = tree.getRoot();
 		Assertions.assertNull(root, "Root of empty tree is expected to be null, but it is %s".formatted(root));
-		Assertions.assertEquals("", tree.toString(), "String representation of empty tree is expected to be empty, but it is %n-----%n%s".formatted(tree.toString()));
+		Assertions.assertEquals("", tree.toString(),
+				"String representation of empty tree is expected to be empty, but it is %n-----%n%s"
+						.formatted(tree.toString()));
 	}
 
 	@ParameterizedTest
@@ -33,36 +35,39 @@ class TreePublicTest {
 
 		Node root = tree.getRoot();
 		Assertions.assertNotNull(root, "Root of tree is expected to be not null, but it is %s".formatted(root));
-		Assertions.assertEquals(expectedRoot, root.getValue(), "Root of tree is expected to be %d, but it is %d".formatted(expectedRoot, root.getValue()));
-		Assertions.assertEquals(expectedString, tree.toString(), "String representation of tree is expected to be %n-----%n%s%n-----%n, but it is %n-----%n%s".formatted(expectedString, tree.toString()));
+		Assertions.assertEquals(expectedRoot, root.getValue(),
+				"Root of tree is expected to be %d, but it is %d".formatted(expectedRoot, root.getValue()));
+		Assertions.assertEquals(expectedString, tree.toString(),
+				"String representation of tree is expected to be %n-----%n%s%n-----%n, but it is %n-----%n%s"
+						.formatted(expectedString, tree.toString()));
 	}
 
 	static Stream<Arguments> getTreeInputs() {
 		return Stream.of(
-				Arguments.of(new int[]{1}, 1, "- 1\n"),
-				Arguments.of(new int[]{1, 2}, 2, """
+				Arguments.of(new int[] { 1 }, 1, "- 1\n"),
+				Arguments.of(new int[] { 1, 2 }, 2, """
 						- 2
 						 - 1
 						 """),
-				Arguments.of(new int[]{1, 2, 3}, 2, """
+				Arguments.of(new int[] { 1, 2, 3 }, 2, """
 						- 2
 						 - 1
 						 - 3
 						 """),
-				Arguments.of(new int[]{1, 2, 3, 4}, 3, """
+				Arguments.of(new int[] { 1, 2, 3, 4 }, 3, """
 						- 3
 						 - 2
 						  - 1
 						 - 4
 						 """),
-				Arguments.of(new int[]{1, 2, 3, 4, 5}, 3, """
+				Arguments.of(new int[] { 1, 2, 3, 4, 5 }, 3, """
 						- 3
 						 - 2
 						  - 1
 						 - 5
 						  - 4
 						  """),
-				Arguments.of(new int[]{1, 2, 3, 4, 5, 6}, 4, """
+				Arguments.of(new int[] { 1, 2, 3, 4, 5, 6 }, 4, """
 						- 4
 						 - 2
 						  - 1
@@ -70,7 +75,7 @@ class TreePublicTest {
 						 - 6
 						  - 5
 						  """),
-				Arguments.of(new int[]{1, 2, 3, 4, 5, 6, 7}, 4, """
+				Arguments.of(new int[] { 1, 2, 3, 4, 5, 6, 7 }, 4, """
 						- 4
 						 - 2
 						  - 1
@@ -79,7 +84,7 @@ class TreePublicTest {
 						  - 5
 						  - 7
 						  """),
-				Arguments.of(new int[]{1, 2, 3, 4, 5, 6, 7, 8}, 5, """
+				Arguments.of(new int[] { 1, 2, 3, 4, 5, 6, 7, 8 }, 5, """
 						- 5
 						 - 3
 						  - 2
@@ -89,7 +94,7 @@ class TreePublicTest {
 						  - 6
 						  - 8
 						  """),
-				Arguments.of(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9}, 5, """
+				Arguments.of(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 5, """
 						- 5
 						 - 3
 						  - 2
@@ -100,7 +105,7 @@ class TreePublicTest {
 						   - 6
 						  - 9
 						  """),
-				Arguments.of(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 6, """
+				Arguments.of(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, 6, """
 						- 6
 						 - 3
 						  - 2
@@ -111,8 +116,7 @@ class TreePublicTest {
 						  - 8
 						   - 7
 						  - 10
-						 """)
-		);
+						 """));
 	}
 
 }
