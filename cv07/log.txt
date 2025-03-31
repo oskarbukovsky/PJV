@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2025-03-31T13:32:36.045853Z</date>
+  <millis>1743427956045</millis>
+  <nanos>853000</nanos>
+  <sequence>0</sequence>
+  <logger>cz.cvut.fel.pjv.utils.Logger</logger>
+  <level>SEVERE</level>
+  <class>cz.cvut.fel.pjv.utils.Logger</class>
+  <method>error</method>
+  <thread>1</thread>
+  <message>Error message</message>
+</record>
+<record>
+  <date>2025-03-31T13:32:36.063817600Z</date>
+  <millis>1743427956063</millis>
+  <nanos>817600</nanos>
+  <sequence>1</sequence>
+  <logger>cz.cvut.fel.pjv.utils.Logger</logger>
+  <level>WARNING</level>
+  <class>cz.cvut.fel.pjv.utils.Logger</class>
+  <method>warn</method>
+  <thread>1</thread>
+  <message>Warn message</message>
+</record>
+<record>
+  <date>2025-03-31T13:32:36.064845100Z</date>
+  <millis>1743427956064</millis>
+  <nanos>845100</nanos>
+  <sequence>2</sequence>
+  <logger>cz.cvut.fel.pjv.utils.Logger</logger>
+  <level>INFO</level>
+  <class>cz.cvut.fel.pjv.utils.Logger</class>
+  <method>info</method>
+  <thread>1</thread>
+  <message>Info message</message>
+</record>
+<record>
+  <date>2025-03-31T13:32:36.065854300Z</date>
+  <millis>1743427956065</millis>
+  <nanos>854300</nanos>
+  <sequence>3</sequence>
+  <logger>cz.cvut.fel.pjv.utils.Logger</logger>
+  <level>FINE</level>
+  <class>cz.cvut.fel.pjv.utils.Logger</class>
+  <method>debug</method>
+  <thread>1</thread>
+  <message>Debug message</message>
+</record>
+<record>
+  <date>2025-03-31T13:32:36.065854300Z</date>
+  <millis>1743427956065</millis>
+  <nanos>854300</nanos>
+  <sequence>4</sequence>
+  <logger>cz.cvut.fel.pjv.utils.Logger</logger>
+  <level>FINER</level>
+  <class>cz.cvut.fel.pjv.utils.Logger</class>
+  <method>trace</method>
+  <thread>1</thread>
+  <message>Trace message</message>
+</record>
+</log>
