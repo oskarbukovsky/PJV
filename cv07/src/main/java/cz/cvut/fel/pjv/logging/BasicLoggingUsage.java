@@ -72,7 +72,8 @@ public class BasicLoggingUsage {
         PdfWriter writer;
         try {
             LOG.info("Creating PDF document...");
-            writer = new PdfWriter("C:\\Users\\janos\\OneDrive\\Dokumenty\\CVUT\\S02\\PJV\\cv07\\output.pdf");
+            writer = new PdfWriter(
+                    "C:\\Users\\janos\\OneDrive\\Dokumenty\\CVUT\\S02\\PJV\\cv07_BIFBIUABUAFBUGBUG\\output.pdf");
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
             PdfFont font = PdfFontFactory.createFont();
