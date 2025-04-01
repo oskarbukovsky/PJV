@@ -43,6 +43,7 @@ public class BasicLoggingUsage {
     protected static final Logger LOG = new Logger();
 
     public static void main(String[] args) {
+        Thread.currentThread().setName("MainThread");
         // LogManager.getLogManager().readConfiguration(new
         // FileInputStream("C:\\tmp\\logging.properties"));
         // LOG.setLevel(Level.FINEST);
@@ -73,7 +74,7 @@ public class BasicLoggingUsage {
         try {
             LOG.info("Creating PDF document...");
             writer = new PdfWriter(
-                    "C:\\Users\\janos\\OneDrive\\Dokumenty\\CVUT\\S02\\PJV\\cv07_BIFBIUABUAFBUGBUG\\output.pdf");
+                    "C:\\Users\\janos\\OneDrive\\Dokumenty\\CVUT\\S02\\PJV\\cv07_NEEXISTUJE!!!!\\output.pdf");
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
             PdfFont font = PdfFontFactory.createFont();

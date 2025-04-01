@@ -7,7 +7,6 @@ import java.util.logging.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.diogonunes.jcolor.Attribute.*;
 import static com.diogonunes.jcolor.Ansi.colorize;
 import static com.diogonunes.jcolor.Attribute.TEXT_COLOR;
 
@@ -57,7 +56,7 @@ public final class Logger {
         LOG.finer(getStackTrace(exception));
     }
 
-    private String formatLog(LogRecord record, SimpleDateFormat dateFormatter, boolean colorize) {
+    private String formatLog(LogRecord record, SimpleDateFormat dateFormatter, boolean console) {
         StringBuilder result = new StringBuilder();
         String time = dateFormatter.format(new Date(record.getMillis()));
         ColorAttribute color = new ColorAttribute(0, 0, 0);
@@ -78,11 +77,21 @@ public final class Logger {
                 color = new ColorAttribute(255, 96, 96);
                 break;
         }
-        result.append("[");
-        result.append(time + " " + record.getSourceMethodName().toUpperCase());
-        result.append("] ");
-        result.append(record.getMessage() + " " + "\n");
-        if (colorize) {
+        result.append("[" + time);
+        if (console) {
+            result.append(" ");
+        } else {
+            result.append("] [" + Thread.currentThread().getName() + "/");
+        }
+        result.append(record.getSourceMethodName().toUpperCase());
+        result.append("]");
+        if (console) {
+            result.append(":");
+        } else {
+            result.append(" [" + Thread.currentThread().getStackTrace()[12].getClassName() + "/]:");
+        }
+        result.append(" " + record.getMessage() + " " + "\n");
+        if (console) {
             return colorize(result.toString(), TEXT_COLOR(color.r, color.g, color.b));
         }
         return result.toString();
@@ -110,22 +119,24 @@ public final class Logger {
         };
 
         SimpleDateFormat dateFormatter = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat dateFormatterFile = new SimpleDateFormat("HH:mm:ss.SSS");
         stdout.setFormatter(new Formatter() {
             @Override
             public String format(LogRecord record) {
                 return formatLog(record, dateFormatter, true);
             }
         });
+        LOG.addHandler(stdout);
+
         try {
             FileHandler logFile = new FileHandler(
                     System.getProperty("user.dir") + "\\log.log", false);
             logFile.setFormatter(new Formatter() {
                 @Override
                 public String format(LogRecord record) {
-                    return formatLog(record, dateFormatter, false);
+                    return formatLog(record, dateFormatterFile, false);
                 }
             });
-            LOG.addHandler(stdout);
             LOG.addHandler(logFile);
         } catch (IOException e) {
             trace(e);
