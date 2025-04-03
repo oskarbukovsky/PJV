@@ -7,7 +7,6 @@ import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
 
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -15,6 +14,8 @@ public final class GameLoop extends Thread {
 
     Config config;
     Clock clock;
+    private final Object windowLock = new Object();
+    private Object gameLock;
 
     public GameLoop(Config config) {
         this.config = config;
@@ -29,7 +30,8 @@ public final class GameLoop extends Thread {
 
         Window window;
         try {
-            window = new Window(this.config);
+            window = new Window(this.config, windowLock);
+            window.start();
         } catch (Throwable e) {
             return;
         }
@@ -64,11 +66,26 @@ public final class GameLoop extends Thread {
 
         long counter = 0;
 
+        synchronized (windowLock) {
+            while (!window.loadingFinished()) {
+                try {
+                    windowLock.wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
+        }
+
         while (!GLFW.glfwWindowShouldClose(window.getHandle())) {
             clock.awaitTick();
             LOG.debug("Tick: " + counter++);
 
-            GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+            synchronized (window.getGameLock()) {
+                window.getGameLock().notifyAll();
+            }
+
+            // GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 
             RenderWindow.Render();
 

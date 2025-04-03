@@ -20,11 +20,23 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class Window {
+public class Window extends Thread {
     private final int width;
     private final int height;
-    private final long handle;
+    private long handle;
     private AppConfig config;
+    private Object windowLock;
+    private final Object gameLock = new Object();
+
+    public final Object getGameLock() {
+        return this.gameLock;
+    }
+
+    private boolean loadingFinished = false;
+
+    public boolean loadingFinished() {
+        return this.loadingFinished;
+    }
 
     public int getWidth() {
         return this.width;
@@ -40,7 +52,13 @@ public class Window {
 
     public Window(Config config) throws Throwable {
         this.config = config.getConfig();
+        this.width = this.config.window.width;
+        this.height = this.config.window.height;
+        this.windowLock = windowLock;
+    }
 
+    @Override
+    public void run() throws RuntimeException {
         GLFWErrorCallback.createPrint(System.err).set();
 
         if (!glfwInit()) {
