@@ -9,6 +9,11 @@ import java.nio.file.Path;
 import java.util.logging.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.Date;
+import java.util.List;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import cz.cvut.fel.pjv.bukovja4.utils.constants.Const;
 
@@ -16,12 +21,6 @@ import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.model.ZipParameters;
 import net.lingala.zip4j.model.enums.CompressionLevel;
 import net.lingala.zip4j.model.enums.CompressionMethod;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
 
 import static com.diogonunes.jcolor.Ansi.colorize;
 import static com.diogonunes.jcolor.Attribute.TEXT_COLOR;
@@ -63,12 +62,14 @@ public final class LOG {
         Logger.severe(message);
     }
 
-    public static void error(String message, Throwable exception) {
+    public static void error(String message, Throwable exception) throws Throwable {
         Logger.severe(message + ": " + getStackTrace(exception));
+        throw exception;
     }
 
-    public static void trace(Throwable exception) {
+    public static void trace(Throwable exception) throws Throwable {
         Logger.finer(getStackTrace(exception));
+        throw exception;
     }
 
     private static String formatLog(LogRecord record, SimpleDateFormat dateFormatter, boolean console) {
@@ -118,7 +119,7 @@ public final class LOG {
         return result.toString();
     }
 
-    private static Path getNextAvailableFilePath(Path dir, String baseDate, String extension) {
+    private static Path getNextAvailableFilePath(Path dir, String baseDate, String extension) throws Throwable {
         List<String> logs = Stream.of(dir.toFile().listFiles())
                 .filter(file -> file.getName().contains(baseDate) && file.getName().endsWith(extension))
                 .sorted((f1, f2) -> {
@@ -131,8 +132,12 @@ public final class LOG {
                 .map(File::getName)
                 .collect(Collectors.toList());
 
-        if (logs.toArray().length >= Const.MAX_COMPRESSED_LOGS) {
-            for (int i = 0; i < logs.toArray().length - Const.MAX_COMPRESSED_LOGS + 1; i++) {
+        int highestIndex = logs.size() > 0 ? Integer
+                .parseInt(logs.getLast().substring(logs.getLast().lastIndexOf("_") + 1, logs.getLast().indexOf(".")))
+                : -1;
+
+        if (logs.toArray().length >= Const.MAX_COMPRESSED_LOGS_PER_DAY) {
+            for (int i = 0; i < logs.toArray().length - Const.MAX_COMPRESSED_LOGS_PER_DAY + 1; i++) {
                 Path oldPath = dir.resolve(logs.get(i));
                 try {
                     Files.delete(oldPath);
@@ -141,8 +146,9 @@ public final class LOG {
                 }
             }
         }
-        int highestIndex = Integer
-                .parseInt(logs.getLast().substring(logs.getLast().lastIndexOf("_") + 1, logs.getLast().indexOf(".")));
+
+        // TODO: Const.MAX_COMPRESSED_LOGS_TOTAL
+
         return dir.resolve(baseDate + "_" + (highestIndex + 1) + extension);
     }
 
@@ -183,8 +189,13 @@ public final class LOG {
             if (logFileLatest.exists()) {
                 LocalDate today = LocalDate.now();
 
-                Path compressedOldLogPath = getNextAvailableFilePath(logFolder.toPath(),
-                        today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), ".log.gz");
+                Path compressedOldLogPath = null;
+                try {
+                    compressedOldLogPath = getNextAvailableFilePath(logFolder.toPath(),
+                            today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), ".log.gz");
+                } catch (Throwable e) {
+                    System.exit(1);
+                }
                 ZipFile zipFile = new ZipFile(compressedOldLogPath.toFile());
 
                 ZipParameters parameters = new ZipParameters();
@@ -206,7 +217,10 @@ public final class LOG {
             });
             Logger.addHandler(logHandler);
         } catch (IOException e) {
-            error("Error while logging", e);
+            try {
+                error("Error while logging", e);
+            } catch (Throwable f) {
+            }
         }
     }
 }

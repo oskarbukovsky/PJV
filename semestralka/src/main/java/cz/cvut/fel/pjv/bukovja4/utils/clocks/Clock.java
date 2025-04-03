@@ -2,22 +2,24 @@ package cz.cvut.fel.pjv.bukovja4.utils.clocks;
 
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
-public class Clock extends Thread {
+public final class Clock extends Thread {
     private final double TICK_TIME;
     private long last;
     private double deltaTick;
 
     private final Object tickLock = new Object();
     private volatile boolean tickOccurred = false;
+    private String threadName;
 
-    public Clock(int tps) {
+    public Clock(int tps, String threadName) {
         TICK_TIME = 1_000_000_000.0d / tps;
         this.last = System.nanoTime();
+        this.threadName = threadName;
     }
 
     @Override
     public void run() {
-        Thread.currentThread().setName("ClockThread");
+        Thread.currentThread().setName(this.threadName);
         LOG.debug("Clock thread started");
         while (!Thread.currentThread().isInterrupted()) {
             long now = System.nanoTime();
@@ -30,7 +32,7 @@ public class Clock extends Thread {
             }
 
             try {
-                Thread.sleep(1);
+                Thread.sleep(5);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;

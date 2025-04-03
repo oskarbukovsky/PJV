@@ -1,23 +1,35 @@
 package cz.cvut.fel.pjv.bukovja4;
 
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
-import cz.cvut.fel.pjv.bukovja4.utils.constants.Const;
+
 import cz.cvut.fel.pjv.bukovja4.utils.Utils;
+// import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
+import cz.cvut.fel.pjv.bukovja4.utils.config.*;
 
-import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
+public final class Main {
+    public static void main(String[] args) {
+        try {
+            Thread.currentThread().setName("MainThread");
 
-public class Main {
-    public static void main(String[] args) throws InterruptedException {
-        Thread.currentThread().setName("MainThread");
+            LOG.info("Starting game...");
+            LOG.debug("Game DIR: " + System.getProperty("user.dir"));
 
-        LOG.info("Starting game...");
+            Config config = new Config();
+            config.Load();
 
-        GameLoop game = new GameLoop("GameLoop111");
-        game.start();
+            // Clock clock = new Clock(Const.DESIRED_TPS);
+            // clock.start();
 
-        Clock clock = new Clock(Const.DESIRED_TPS);
-        clock.start();
-
-        Utils.CloseGame();
+            GameLoop game = new GameLoop(config);
+            game.start();
+            try {
+                game.join();
+            } catch (InterruptedException e) {
+                LOG.error("Game interrupted", e);
+            }
+        } catch (Throwable e) {
+        } finally {
+            Utils.CloseGame();
+        }
     }
 }
