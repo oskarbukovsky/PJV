@@ -7,7 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
-import cz.cvut.fel.pjv.bukovja4.utils.Utils;
+import cz.cvut.fel.pjv.bukovja4.Main;
+// import cz.cvut.fel.pjv.bukovja4.utils.Utils;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -26,7 +27,7 @@ final class LoadConfig {
         configFile = new File(configFolder + "\\config.yml");
         if (!configFile.exists()) {
             LOG.info("Config file not found, creating a new one.");
-            Utils.copyFromResources(configFile.getAbsolutePath(), "config\\default_config.yml");
+            Main.copyFromResources(configFile.getAbsolutePath(), "config/default_config.yml");
             LOG.info("Config file created successfully.");
         }
         Yaml yaml = new Yaml();
