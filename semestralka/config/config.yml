@@ -1,5 +1,5 @@
 window:
-  width: 800
-  height: 600
   fullscreen: false
   fpsLock: 3
+  width: 1376
+  height: 518

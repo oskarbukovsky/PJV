@@ -10,4 +10,9 @@ public final class Config {
     public void Load() throws Throwable {
         this.config = LoadConfig.Load();
     }
+
+    public void Update(AppConfig config) throws Throwable {
+        this.config = config;
+        UpdateConfig.Update(config);
+    }
 }
