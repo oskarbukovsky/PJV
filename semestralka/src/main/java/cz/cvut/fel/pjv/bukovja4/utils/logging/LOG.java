@@ -67,6 +67,16 @@ public final class LOG {
         throw exception;
     }
 
+    public static void error(String message, RuntimeException exception) throws RuntimeException {
+        Logger.severe(message + ": " + getStackTrace(exception));
+        throw exception;
+    }
+
+    public static void error(String message, IOException exception) throws IOException {
+        Logger.severe(message + ": " + getStackTrace(exception));
+        throw exception;
+    }
+
     public static void trace(Throwable exception) throws Throwable {
         Logger.finer(getStackTrace(exception));
         throw exception;
