@@ -13,7 +13,7 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.error.YAMLException;
 
 final class LoadConfig {
-    protected static final AppConfig Load() throws Throwable {
+    static AppConfig Load() throws Throwable {
         File configFolder = null;
         try {
             configFolder = new File(System.getProperty("user.dir") + "\\config");

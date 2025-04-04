@@ -9,7 +9,7 @@ public final class Clock extends Thread {
 
     private final Object tickLock = new Object();
     private volatile boolean tickOccurred = false;
-    private String threadName;
+    private final String threadName;
 
     public Clock(int tps, String threadName) {
         TICK_TIME = 1_000_000_000.0d / tps;

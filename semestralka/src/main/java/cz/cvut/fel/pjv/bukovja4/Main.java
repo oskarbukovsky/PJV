@@ -12,9 +12,12 @@ public final class Main {
             LOG.info("Starting game...");
             LOG.debug("Game DIR: " + System.getProperty("user.dir"));
 
+            
+
             TestingThings.Test();
 
             Config config = new Config();
+
             config.Load();
 
             GameLoop game = new GameLoop(config);

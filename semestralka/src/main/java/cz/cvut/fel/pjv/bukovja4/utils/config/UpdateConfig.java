@@ -12,7 +12,7 @@ import org.yaml.snakeyaml.Yaml;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
 final class UpdateConfig {
-    protected static final void Update(AppConfig config) throws Throwable {
+    static void Update(AppConfig config) throws Throwable {
         try {
             DumperOptions options = new DumperOptions();
             options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);

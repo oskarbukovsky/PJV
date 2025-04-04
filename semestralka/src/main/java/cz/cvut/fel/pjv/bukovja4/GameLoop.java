@@ -2,6 +2,10 @@ package cz.cvut.fel.pjv.bukovja4;
 
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import cz.cvut.fel.pjv.bukovja4.client.Window;
+import cz.cvut.fel.pjv.bukovja4.client.player.*;
+import cz.cvut.fel.pjv.bukovja4.client.player.controls.KeyControls;
+import cz.cvut.fel.pjv.bukovja4.client.player.controls.MouseControls;
+import cz.cvut.fel.pjv.bukovja4.client.player.controls.ScrollControls;
 import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
 
@@ -12,6 +16,8 @@ public final class GameLoop extends Thread {
 
     Config config;
     Clock clock;
+
+    // Camera camera;
 
     public GameLoop(Config config) {
         this.config = config;
@@ -57,6 +63,9 @@ public final class GameLoop extends Thread {
             // RenderWindow.Render();
         });
 
+        // glfwSetKeyCallback(window.getHandle(), new KeyControls());
+        // glfwSetScrollCallback(window.getHandle(), new ScrollControls());
+        glfwSetMouseButtonCallback(window.getHandle(), new MouseControls());
 
         long counter = 0;
         while (!glfwWindowShouldClose(window.getHandle())) {
@@ -64,7 +73,6 @@ public final class GameLoop extends Thread {
             LOG.debug("Tick: " + counter++);
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            
 
             window.Render();
 
@@ -72,11 +80,11 @@ public final class GameLoop extends Thread {
             glfwPollEvents();
         }
 
-        glfwSetWindowSizeCallback(window.getHandle(), null).free();
+        // glfwSetWindowSizeCallback(window.getHandle(), null).free();
 
         glfwDestroyWindow(window.getHandle());
         glfwTerminate();
-        glfwSetErrorCallback(null).free();
+        // glfwSetErrorCallback(null).free();
         LOG.info("GameLoop finished");
         this.clock.interrupt();
         Thread.currentThread().interrupt();

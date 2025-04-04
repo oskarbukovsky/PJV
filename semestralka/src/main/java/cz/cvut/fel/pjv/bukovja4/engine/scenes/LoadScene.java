@@ -1,6 +1,10 @@
 package cz.cvut.fel.pjv.bukovja4.engine.scenes;
 
+import cz.cvut.fel.pjv.bukovja4.Main;
+
 final class LoadScene {
-    protected static final void Load(String sceneName) throws Throwable {
+    static void Load(String sceneName) throws Throwable {
+        
+         Main.class.getResourceAsStream("/" + sceneName);
     }
 }

@@ -92,42 +92,42 @@ public final class LOG {
         String time = dateFormatter.format(new Date(record.getMillis()));
         ColorAttribute color = new ColorAttribute(0, 0, 0);
         String level;
-        switch (record.getLevel().getName()) {
-            case "SEVERE":
+        color = switch (record.getLevel().getName()) {
+            case "SEVERE" -> {
                 level = "ERROR";
-                color = new ColorAttribute(255, 0, 0);
-                break;
-            case "WARNING":
+                yield new ColorAttribute(255, 0, 0);
+            }
+            case "WARNING" -> {
                 level = "WARN";
-                color = new ColorAttribute(255, 196, 0);
-                break;
-            case "INFO":
+                yield new ColorAttribute(255, 196, 0);
+            }
+            case "INFO" -> {
                 level = "INFO";
-                color = new ColorAttribute(0, 0, 255);
-                break;
-            case "FINE":
+                yield new ColorAttribute(0, 0, 255);
+            }
+            case "FINE" -> {
                 level = "DEBUG";
-                color = new ColorAttribute(152, 16, 255);
-                break;
-            default:
+                yield new ColorAttribute(152, 16, 255);
+            }
+            default -> {
                 level = "TRACE";
-                color = new ColorAttribute(255, 96, 96);
-                break;
-        }
-        result.append("[" + time);
+                yield new ColorAttribute(255, 96, 96);
+            }
+        };
+        result.append("[").append(time);
         if (console) {
             result.append(" ");
         } else {
-            result.append("] [" + Thread.currentThread().getName() + "/");
+            result.append("] [").append(Thread.currentThread().getName()).append("/");
         }
         result.append(level);
         result.append("]");
         if (console) {
             result.append(":");
         } else {
-            result.append(" [" + Thread.currentThread().getStackTrace()[12].getClassName() + "/]:");
+            result.append(" [").append(Thread.currentThread().getStackTrace()[12].getClassName()).append("/]:");
         }
-        result.append(" " + record.getMessage() + " " + "\n");
+        result.append(" ").append(record.getMessage()).append(" ").append("\n");
         if (console) {
             return colorize(result.toString(), TEXT_COLOR(color.r, color.g, color.b));
         }
@@ -145,9 +145,9 @@ public final class LOG {
                     return Integer.compare(index1, index2);
                 })
                 .map(File::getName)
-                .collect(Collectors.toList());
+                .toList();
 
-        int highestIndex = logs.size() > 0 ? Integer
+        int highestIndex = !logs.isEmpty() ? Integer
                 .parseInt(logs.getLast().substring(logs.getLast().lastIndexOf("_") + 1, logs.getLast().indexOf(".")))
                 : -1;
 
@@ -234,7 +234,7 @@ public final class LOG {
         } catch (IOException e) {
             try {
                 error("Error while logging", e);
-            } catch (Throwable f) {
+            } catch (Throwable ignored) {
             }
         }
     }

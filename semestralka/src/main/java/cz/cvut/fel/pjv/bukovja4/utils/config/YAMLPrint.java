@@ -8,7 +8,7 @@ public class YAMLPrint {
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
-        result.append(this.getClass().getSimpleName() + "{");
+        result.append(this.getClass().getSimpleName()).append("{");
         Field[] fields = this.getClass().getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             Field field = fields[i];

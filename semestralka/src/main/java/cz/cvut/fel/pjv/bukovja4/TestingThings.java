@@ -19,11 +19,10 @@ import cz.cvut.fel.pjv.bukovja4.engine.elements.specific.*;
 // import cz.cvut.fel.pjv.bukovja4.engine.elements.*;
 
 import static cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory.*;
-import static cz.cvut.fel.pjv.bukovja4.engine.elements.Element.*;
+import static cz.cvut.fel.pjv.bukovja4.engine.elements.ElementTypes.*;
 
 public final class TestingThings {
     public static void Test() {
-
         ElementFactory<Dim2d> testFactory = new ElementFactory<Dim2d>();
 
         Button<Dim3d> testButton1 = Factory3d.create(BUTTON, new Pos<Dim3d>(1, 2, 3), new Pos<Dim3d>(4, 5, 6));

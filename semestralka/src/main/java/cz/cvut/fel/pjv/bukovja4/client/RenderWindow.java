@@ -7,6 +7,7 @@ package cz.cvut.fel.pjv.bukovja4.client;
 // import org.lwjgl.stb.STBImage;
 
 // import static org.lwjgl.glfw.GLFW.*;
+
 import static org.lwjgl.opengl.GL11.*;
 // import static org.lwjgl.system.MemoryUtil.*;
 

@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import cz.cvut.fel.pjv.bukovja4.Main;
+import cz.cvut.fel.pjv.bukovja4.client.player.controls.*;
 import cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
 import cz.cvut.fel.pjv.bukovja4.utils.constants.Const;
@@ -25,13 +26,7 @@ public class Window {
     private int width;
     private int height;
     private long handle;
-    private AppConfig config;
-
-    private boolean loadingFinished = false;
-
-    public boolean loadingFinished() {
-        return this.loadingFinished;
-    }
+    private final AppConfig config;
 
     public int getWidth() {
         return this.width;
@@ -93,8 +88,7 @@ public class Window {
         IntBuffer channels = BufferUtils.createIntBuffer(1);
 
         ByteBuffer image = null;
-        try {
-            InputStream imageStream = Main.class.getResourceAsStream("/favicon.png");
+        try (InputStream imageStream = Main.class.getResourceAsStream("/favicon.png");) {
             if (imageStream != null) {
                 byte[] imageBytes = imageStream.readAllBytes();
                 ByteBuffer imageBuf = BufferUtils.createByteBuffer(imageBytes.length);

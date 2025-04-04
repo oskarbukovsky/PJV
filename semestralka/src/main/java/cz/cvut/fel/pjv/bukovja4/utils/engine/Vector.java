@@ -8,7 +8,7 @@ import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
  * @param <D> The dimension type (Dim2d, Dim3d, etc.)
  */
 public class Vector<D extends Dim> {
-    private float[] components;
+    public float[] components;
     private final int dimensionCount;
 
     public Vector(int dimensionCount) {
