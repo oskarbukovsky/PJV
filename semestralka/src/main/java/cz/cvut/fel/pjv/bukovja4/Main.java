@@ -12,8 +12,6 @@ public final class Main {
             LOG.info("Starting game...");
             LOG.debug("Game DIR: " + System.getProperty("user.dir"));
 
-            
-
             TestingThings.Test();
 
             Config config = new Config();
@@ -31,6 +29,7 @@ public final class Main {
             // e.printStackTrace();
         } finally {
             Utils.CloseGame();
+            LOG.info("Game exited");
         }
     }
 }

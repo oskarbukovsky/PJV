@@ -13,6 +13,7 @@ import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
 public final class Utils {
     public static void CloseGame() {
+        LOG.debug("Game is closing...");
         Thread[] threads = new Thread[Thread.activeCount()];
         Thread.enumerate(threads);
         for (Thread thread : threads) {
@@ -21,7 +22,6 @@ public final class Utils {
                 LOG.debug("Interrupted thread: " + thread.getName());
             }
         }
-        LOG.info("Game is closing...");
     }
 
     public static void copyFromResources(String targetPathString, String sourcePathString) throws Throwable {

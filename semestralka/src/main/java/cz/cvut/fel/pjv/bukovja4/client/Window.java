@@ -6,7 +6,6 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import cz.cvut.fel.pjv.bukovja4.Main;
-import cz.cvut.fel.pjv.bukovja4.client.player.controls.*;
 import cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
 import cz.cvut.fel.pjv.bukovja4.utils.constants.Const;
