@@ -1,8 +1,8 @@
-package cz.cvut.fel.pjv.bukovja4.utils.engine.pos;
+package cz.cvut.fel.pjv.bukovja4.utils.engine;
 
 import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
 
-public class Pos<T extends Dim> {
+public class Pos<D extends Dim> {
     public float x = 0;
     public float y = 0;
     public float z = 0;
@@ -12,16 +12,19 @@ public class Pos<T extends Dim> {
     public Pos(float x, float y) {
         this.x = x;
         this.y = y;
+        this.dimension = 2;
     }
 
     public Pos(float x, float y, float z) {
         this(x, y);
         this.z = z;
+        this.dimension = 3;
     }
 
     public Pos(float x, float y, float z, float special) {
         this(x, y, z);
         this.special = special;
+        this.dimension = 4;
     }
 
     public float distance(float x, float y) {
@@ -53,10 +56,26 @@ public class Pos<T extends Dim> {
     public Pos<Dim2d> toPos2d() {
         return new Pos<Dim2d>(this.x, this.y);
     }
+
     public Pos<Dim3d> toPos3d() {
         return new Pos<Dim3d>(this.x, this.y);
     }
+
     public Pos<Dim4d> toPos4d() {
         return new Pos<Dim4d>(this.x, this.y);
+    }
+
+    @Override
+    public String toString() {
+        if (this.dimension == 0) {
+            return "{}";
+        } else if (this.dimension == 1) {
+            return String.format("{%f}", this.x);
+        } else if (this.dimension == 2) {
+            return String.format("{%f,%f}", this.x, this.y);
+        } else if (this.dimension == 3) {
+            return String.format("{%f,%f,%f}", this.x, this.y, this.z);
+        } 
+        return String.format("{%f,%f,%f,%f}", this.x, this.y, this.z, this.special);
     }
 }

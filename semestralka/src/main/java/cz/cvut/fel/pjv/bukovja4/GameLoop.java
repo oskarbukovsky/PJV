@@ -8,7 +8,7 @@ import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
 
 import org.lwjgl.glfw.GLFW;
 
-import static org.lwjgl.opengl.GL11.*;
+// import static org.lwjgl.opengl.GL11.*;
 
 public final class GameLoop extends Thread {
 

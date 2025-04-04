@@ -72,6 +72,11 @@ public final class LOG {
         throw exception;
     }
 
+    public static void error(String message, IllegalArgumentException exception) throws IllegalArgumentException {
+        Logger.severe(message + ": " + getStackTrace(exception));
+        throw exception;
+    }
+
     public static void error(String message, IOException exception) throws IOException {
         Logger.severe(message + ": " + getStackTrace(exception));
         throw exception;

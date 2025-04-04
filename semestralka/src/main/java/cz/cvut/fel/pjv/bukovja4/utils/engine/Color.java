@@ -1,4 +1,4 @@
-package cz.cvut.fel.pjv.bukovja4.utils.engine.color;
+package cz.cvut.fel.pjv.bukovja4.utils.engine;
 
 public final class Color {
 

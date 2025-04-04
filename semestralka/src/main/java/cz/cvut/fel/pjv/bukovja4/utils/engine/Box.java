@@ -1,11 +1,10 @@
-package cz.cvut.fel.pjv.bukovja4.utils.engine.box;
+package cz.cvut.fel.pjv.bukovja4.utils.engine;
 
 import java.util.ArrayList;
 
 import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
-import cz.cvut.fel.pjv.bukovja4.utils.engine.pos.*;
 
-public class Box<T extends Dim> {
+public class Box<D extends Dim> {
     public float x1 = 0;
     public float y1 = 0;
 
@@ -76,13 +75,6 @@ public class Box<T extends Dim> {
 
         corners.add(new Pos<Dim2d>(x1, y2));
         corners.add(new Pos<Dim2d>(x2, y2));
-
-        corners.add(new Pos<Dim2d>(x1, y1));
-        corners.add(new Pos<Dim2d>(x2, y1));
-
-        corners.add(new Pos<Dim2d>(x1, y2));
-        corners.add(new Pos<Dim2d>(x2, y2));
-
         return corners;
     }
 
@@ -129,7 +121,7 @@ public class Box<T extends Dim> {
         this.depth = Math.abs(z2 - z1);
     }
 
-    public Box(Pos<T> first, Pos<T> second) {
+    public Box(Pos<D> first, Pos<D> second) {
         this.x1 = first.x;
         this.y1 = first.y;
 
