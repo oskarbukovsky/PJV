@@ -25,7 +25,6 @@ public class Window extends Thread {
     private final int height;
     private long handle;
     private AppConfig config;
-    private Object windowLock;
     private final Object gameLock = new Object();
 
     public final Object getGameLock() {
@@ -54,7 +53,6 @@ public class Window extends Thread {
         this.config = config.getConfig();
         this.width = this.config.window.width;
         this.height = this.config.window.height;
-        this.windowLock = windowLock;
     }
 
     @Override
@@ -68,15 +66,15 @@ public class Window extends Thread {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
-        this.width = this.config.window.width;
-        this.height = this.config.window.height;
-
         handle = glfwCreateWindow(width, height, Const.APP_TITLE, NULL, NULL);
         if (handle == NULL) {
             LOG.error("GLFW window could not be created", new RuntimeException());
         }
+        try {
+            setIcon();
+        } catch (IOException e) {
 
-        setIcon();
+        }
 
         glfwMakeContextCurrent(handle);
         glfwShowWindow(handle);
@@ -84,6 +82,7 @@ public class Window extends Thread {
 
         glOrtho(0, this.config.window.width, this.config.window.height, 0, 1, -1);
         glfwSwapInterval(1);
+        loadingFinished = true;
     }
 
     private void setIcon() throws RuntimeException, IOException {

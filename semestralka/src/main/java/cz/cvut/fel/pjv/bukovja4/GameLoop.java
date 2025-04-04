@@ -15,7 +15,6 @@ public final class GameLoop extends Thread {
     Config config;
     Clock clock;
     private final Object windowLock = new Object();
-    private Object gameLock;
 
     public GameLoop(Config config) {
         this.config = config;
@@ -30,39 +29,40 @@ public final class GameLoop extends Thread {
 
         Window window;
         try {
-            window = new Window(this.config, windowLock);
+            window = new Window(this.config);
             window.start();
         } catch (Throwable e) {
             return;
         }
 
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        // glEnable(GL_BLEND);
+        // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         // Add window resize callback
-        GLFW.glfwSetWindowSizeCallback(window.getHandle(), (windowHandle, newWidth, newHeight) -> {
-            LOG.debug("Window resized to: " + newWidth + "x" + newHeight);
+        // GLFW.glfwSetWindowSizeCallback(window.getHandle(), (windowHandle, newWidth,
+        // newHeight) -> {
+        // LOG.debug("Window resized to: " + newWidth + "x" + newHeight);
 
-            // Update the config with new dimensions
-            this.config.getConfig().window.width = newWidth;
-            this.config.getConfig().window.height = newHeight;
+        // // Update the config with new dimensions
+        // this.config.getConfig().window.width = newWidth;
+        // this.config.getConfig().window.height = newHeight;
 
-            // Save the updated config
-            try {
-                this.config.Update(this.config.getConfig());
-            } catch (Throwable e) {
+        // // Save the updated config
+        // try {
+        // this.config.Update(this.config.getConfig());
+        // } catch (Throwable e) {
 
-            }
-            // Update OpenGL viewport
-            GL11.glViewport(0, 0, newWidth, newHeight);
-            GL11.glMatrixMode(GL11.GL_PROJECTION);
-            GL11.glLoadIdentity();
-            GL11.glOrtho(0, newWidth, newHeight, 0, 1, -1);
-            GL11.glMatrixMode(GL11.GL_MODELVIEW);
-            GL11.glLoadIdentity();
+        // }
+        // // Update OpenGL viewport
+        // glViewport(0, 0, newWidth, newHeight);
+        // glMatrixMode(GL_PROJECTION);
+        // glLoadIdentity();
+        // glOrtho(0, newWidth, newHeight, 0, 1, -1);
+        // glMatrixMode(GL_MODELVIEW);
+        // glLoadIdentity();
 
-            // RenderWindow.Render();
-        });
+        // // RenderWindow.Render();
+        // });
 
         long counter = 0;
 

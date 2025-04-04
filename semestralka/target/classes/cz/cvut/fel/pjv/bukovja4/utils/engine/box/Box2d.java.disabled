@@ -2,7 +2,8 @@ package cz.cvut.fel.pjv.bukovja4.utils.engine.box;
 
 import java.util.ArrayList;
 
-import cz.cvut.fel.pjv.bukovja4.utils.engine.pos.Pos2d;
+import cz.cvut.fel.pjv.bukovja4.utils.engine.pos.*;
+import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
 
 public class Box2d {
     public float x1;
@@ -23,13 +24,13 @@ public class Box2d {
         return this.height;
     }
 
-    public ArrayList<Pos2d> getCorners2d() {
-        ArrayList<Pos2d> corners = new ArrayList<Pos2d>();
+    public ArrayList<Pos<Dim2d>> getCorners2d() {
+        ArrayList<Pos<Dim2d>> corners = new ArrayList<Pos<Dim2d>>();
 
-        corners.add(new Pos2d(x1, y1));
-        corners.add(new Pos2d(x2, y1));
-        corners.add(new Pos2d(x1, y2));
-        corners.add(new Pos2d(x2, y2));
+        corners.add(new Pos<Dim2d>(x1, y1));
+        corners.add(new Pos<Dim2d>(x2, y1));
+        corners.add(new Pos<Dim2d>(x1, y2));
+        corners.add(new Pos<Dim2d>(x2, y2));
 
         return corners;
     }
@@ -45,7 +46,7 @@ public class Box2d {
         this.height = Math.abs(y2 - y1);
     }
 
-    Box2d(Pos2d first, Pos2d second) {
+    Box2d(Pos<Dim2d> first, Pos<Dim2d> second) {
         this.x1 = first.x;
         this.y1 = first.y;
 

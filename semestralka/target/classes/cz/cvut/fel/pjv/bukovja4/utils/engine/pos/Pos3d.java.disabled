@@ -35,4 +35,8 @@ public class Pos3d implements Pos<Dim3d> {
                     + Math.pow(this.z - pos.z, 2) + Math.pow(this.special - pos.special, 2));
         }
     }
+
+    public Pos2d toPos2d() {
+        return new Pos2d(x, y);
+    }
 }
