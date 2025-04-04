@@ -1,5 +1,6 @@
 window:
   fullscreen: false
   fpsLock: 3
-  width: 1376
-  height: 518
+  width: 860
+  fov: 70.0
+  height: 586

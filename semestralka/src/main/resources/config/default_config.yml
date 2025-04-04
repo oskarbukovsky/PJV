@@ -1,4 +1,5 @@
 window:
+  fov: 70
   fullscreen: false
   fpsLock: 3
   width: 800

@@ -5,12 +5,12 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
+import cz.cvut.fel.pjv.bukovja4.Main;
 import cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
 import cz.cvut.fel.pjv.bukovja4.utils.constants.Const;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
-import org.lwjgl.opengl.GL;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWImage;
@@ -19,17 +19,13 @@ import org.lwjgl.stb.STBImage;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryUtil.*;
+import static org.lwjgl.opengl.GL.*;
 
-public class Window extends Thread {
-    private final int width;
-    private final int height;
+public class Window {
+    private int width;
+    private int height;
     private long handle;
     private AppConfig config;
-    private final Object gameLock = new Object();
-
-    public final Object getGameLock() {
-        return this.gameLock;
-    }
 
     private boolean loadingFinished = false;
 
@@ -49,14 +45,17 @@ public class Window extends Thread {
         return handle;
     }
 
-    public Window(Config config) throws Throwable {
+    public Window(Config config) {
         this.config = config.getConfig();
         this.width = this.config.window.width;
         this.height = this.config.window.height;
     }
 
-    @Override
-    public void run() throws RuntimeException {
+    public void Render() {
+        RenderWindow.Render();
+    }
+
+    public void init() throws RuntimeException {
         GLFWErrorCallback.createPrint(System.err).set();
 
         if (!glfwInit()) {
@@ -66,23 +65,26 @@ public class Window extends Thread {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
+        this.width = this.config.window.width;
+        this.height = this.config.window.height;
+
         handle = glfwCreateWindow(width, height, Const.APP_TITLE, NULL, NULL);
         if (handle == NULL) {
             LOG.error("GLFW window could not be created", new RuntimeException());
         }
+
         try {
             setIcon();
         } catch (IOException e) {
-
         }
 
         glfwMakeContextCurrent(handle);
         glfwShowWindow(handle);
-        GL.createCapabilities();
+        createCapabilities();
 
         glOrtho(0, this.config.window.width, this.config.window.height, 0, 1, -1);
         glfwSwapInterval(1);
-        loadingFinished = true;
+
     }
 
     private void setIcon() throws RuntimeException, IOException {
@@ -90,19 +92,15 @@ public class Window extends Thread {
         IntBuffer height = BufferUtils.createIntBuffer(1);
         IntBuffer channels = BufferUtils.createIntBuffer(1);
 
-        // Load the image
         ByteBuffer image = null;
         try {
-            // First try to load from classpath resources
-            InputStream imageStream = getClass().getResourceAsStream("/favicon.png");
+            InputStream imageStream = Main.class.getResourceAsStream("/favicon.png");
             if (imageStream != null) {
-                // Convert to bytes
                 byte[] imageBytes = imageStream.readAllBytes();
                 ByteBuffer imageBuf = BufferUtils.createByteBuffer(imageBytes.length);
                 imageBuf.put(imageBytes);
                 imageBuf.flip();
 
-                // Load from memory
                 STBImage.stbi_set_flip_vertically_on_load(false);
                 image = STBImage.stbi_load_from_memory(imageBuf, width, height, channels, 4);
             }
@@ -112,17 +110,14 @@ public class Window extends Thread {
                 return;
             }
 
-            // Create a GLFWImage
             GLFWImage.Buffer icons = GLFWImage.malloc(1);
             icons.position(0);
             icons.width(width.get(0));
             icons.height(height.get(0));
             icons.pixels(image);
 
-            // Set the window icon
             glfwSetWindowIcon(handle, icons);
 
-            // Free the image memory
             STBImage.stbi_image_free(image);
             icons.free();
 
