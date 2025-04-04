@@ -1,5 +1,0 @@
-package cz.cvut.fel.pjv.bukovja4.client.player.controls;
-
-public class Controls {
-
-}

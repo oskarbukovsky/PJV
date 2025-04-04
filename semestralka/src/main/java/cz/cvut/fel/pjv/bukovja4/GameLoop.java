@@ -2,10 +2,7 @@ package cz.cvut.fel.pjv.bukovja4;
 
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import cz.cvut.fel.pjv.bukovja4.client.Window;
-import cz.cvut.fel.pjv.bukovja4.client.player.*;
-import cz.cvut.fel.pjv.bukovja4.client.player.controls.KeyControls;
-import cz.cvut.fel.pjv.bukovja4.client.player.controls.MouseControls;
-import cz.cvut.fel.pjv.bukovja4.client.player.controls.ScrollControls;
+import cz.cvut.fel.pjv.bukovja4.client.player.controls.*;
 import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
 
@@ -63,9 +60,10 @@ public final class GameLoop extends Thread {
             // RenderWindow.Render();
         });
 
-        // glfwSetKeyCallback(window.getHandle(), new KeyControls());
+        glfwSetKeyCallback(window.getHandle(), new KeyControls());
         // glfwSetScrollCallback(window.getHandle(), new ScrollControls());
         glfwSetMouseButtonCallback(window.getHandle(), new MouseControls());
+        glfwSetCursorPosCallback(window.getHandle(), new MouseMoveControls());
 
         long counter = 0;
         while (!glfwWindowShouldClose(window.getHandle())) {
