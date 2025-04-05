@@ -33,7 +33,7 @@ public class Controls {
         LOG.info("Unregistering control: " + controlType);
         BaseEvent event = events.get(controlType);
         if (event != null) {
-            event.unRegister();
+            event.clearCallback();
             events.remove(controlType);
         }
     }
@@ -41,7 +41,7 @@ public class Controls {
     public void unRegisterAll() {
         LOG.info("Unregistering all controls");
         for (BaseEvent event : events.values()) {
-            event.unRegister();
+            event.clearCallback();
         }
         events.clear();
     }

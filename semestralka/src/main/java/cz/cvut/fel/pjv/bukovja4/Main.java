@@ -8,6 +8,7 @@ public final class Main {
     public static void main(String[] args) {
         try {
             Thread.currentThread().setName("MainThread");
+            // LOG.setLevel(LOG.LogLevel.ERROR);
 
             LOG.info("Starting game...");
             LOG.debug("Game DIR: " + System.getProperty("user.dir"));

@@ -1,6 +1,7 @@
 package cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events;
 
 import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWKeyCallbackI;
@@ -18,6 +19,11 @@ public class KeyPress extends BaseEvent implements GLFWKeyCallbackI {
     public void register() {
         LOG.warn("Registering event: " + this.getClass().getSimpleName());
         glfwSetKeyCallback(windowHandle, this);
+    }
+
+        @Override
+    public void unRegister() {
+        glfwSetScrollCallback(windowHandle, null);
     }
 
     @Override

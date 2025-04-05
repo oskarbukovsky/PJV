@@ -19,6 +19,11 @@ public class MouseMove extends BaseEvent implements GLFWCursorPosCallbackI {
     }
 
     @Override
+    public void unRegister() {
+        glfwSetCursorPosCallback(windowHandle, null);
+    }
+
+    @Override
     public void invoke(long window, double posX, double posY) {
 
         LOG.info("Mouse move: " + posX + ", " + posY);

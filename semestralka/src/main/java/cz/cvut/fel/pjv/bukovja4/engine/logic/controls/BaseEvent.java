@@ -12,14 +12,19 @@ public abstract class BaseEvent {
     public long windowHandle;
 
     public abstract void register();
+
+    public abstract void unRegister();;
+
     public Callback handler;
 
     public void init(Function<Object[], ?> callback) {
         this.callback = callback;
         LOG.warn("Initializing event: " + this.getClass().getSimpleName());
     }
- 
-    public void unRegister() {
+
+    public void clearCallback() {
+        unRegister();
+
         if (this.handler != null) {
             this.handler.free();
             this.handler = null;

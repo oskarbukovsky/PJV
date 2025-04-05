@@ -25,6 +25,9 @@ import static com.diogonunes.jcolor.Ansi.colorize;
 import static com.diogonunes.jcolor.Attribute.TEXT_COLOR;
 
 public final class LOG {
+    public static enum LogLevel {
+        TRACE, DEBUG, INFO, WARN, ERROR
+    }
     private static final class ColorAttribute {
         public int r;
         public int g;
@@ -38,6 +41,17 @@ public final class LOG {
     }
 
     public static final java.util.logging.Logger Logger = java.util.logging.Logger.getLogger(Logger.class.getName());
+
+
+    public static void setLevel(LogLevel level) {
+        switch (level) {
+            case TRACE -> Logger.setLevel(Level.FINEST);
+            case DEBUG -> Logger.setLevel(Level.FINE);
+            case INFO -> Logger.setLevel(Level.INFO);
+            case WARN -> Logger.setLevel(Level.WARNING);
+            case ERROR -> Logger.setLevel(Level.SEVERE);
+        }
+    }
 
     private static String getStackTrace(Throwable exception) {
         StringWriter stringWriter = new StringWriter();

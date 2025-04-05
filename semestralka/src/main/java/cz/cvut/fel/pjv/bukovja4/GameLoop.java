@@ -73,7 +73,17 @@ public final class GameLoop extends Thread {
                 return null;
             });
 
-            controls.unRegister(CLICK);
+            controls.register(KEY_PRESS, (event) -> {
+                LOG.warn("KeyPress fired");
+                return null;
+            });
+
+            controls.register(MOUSE_MOVE, (event) -> {
+                LOG.warn("MouseMove fired");
+                return null;
+            });
+
+            controls.unRegister(MOUSE_MOVE);
             // controls.unRegisterAll();
 
         } catch (Throwable e) {

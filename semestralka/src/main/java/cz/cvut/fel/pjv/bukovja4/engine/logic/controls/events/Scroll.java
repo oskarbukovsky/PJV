@@ -2,7 +2,7 @@ package cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events;
 
 import static org.lwjgl.glfw.GLFW.glfwSetScrollCallback;
 
-import org.lwjgl.glfw.GLFWScrollCallback;
+// import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.glfw.GLFWScrollCallbackI;
 
 import cz.cvut.fel.pjv.bukovja4.client.player.Camera;
@@ -14,12 +14,15 @@ public class Scroll extends BaseEvent implements GLFWScrollCallbackI {
         this.windowHandle = windowHandle;
     }
 
-    GLFWScrollCallback handler;
-
     @Override
     public void register() {
         LOG.warn("Registering event: " + this.getClass().getSimpleName());
         glfwSetScrollCallback(windowHandle, this);
+    }
+    
+    @Override
+    public void unRegister() {
+        glfwSetScrollCallback(windowHandle, null);
     }
 
     @Override
