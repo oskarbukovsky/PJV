@@ -1,6 +1,5 @@
 cz\cvut\fel\pjv\bukovja4\utils\logging\LOG$ColorAttribute.class
 cz\cvut\fel\pjv\bukovja4\engine\scenes\SceneTypes.class
-cz\cvut\fel\pjv\bukovja4\engine\scenes\SceneFactory$1.class
 cz\cvut\fel\pjv\bukovja4\utils\config\LoadConfig.class
 cz\cvut\fel\pjv\bukovja4\Main.class
 cz\cvut\fel\pjv\bukovja4\utils\logging\LOG$1.class
@@ -10,12 +9,10 @@ cz\cvut\fel\pjv\bukovja4\utils\config\Config.class
 cz\cvut\fel\pjv\bukovja4\client\RenderWindow.class
 cz\cvut\fel\pjv\bukovja4\utils\config\AppConfig.class
 cz\cvut\fel\pjv\bukovja4\client\player\Player.class
-cz\cvut\fel\pjv\bukovja4\client\player\controls\MouseControls.class
 cz\cvut\fel\pjv\bukovja4\client\Window.class
 cz\cvut\fel\pjv\bukovja4\utils\logging\LOG$2.class
 cz\cvut\fel\pjv\bukovja4\engine\scenes\SceneFactory.class
 cz\cvut\fel\pjv\bukovja4\utils\engine\dim\Dim.class
-cz\cvut\fel\pjv\bukovja4\client\player\controls\KeyControls.class
 cz\cvut\fel\pjv\bukovja4\engine\elements\specific\Label.class
 cz\cvut\fel\pjv\bukovja4\utils\engine\dim\Dim4d.class
 cz\cvut\fel\pjv\bukovja4\utils\logging\LOG.class
@@ -43,9 +40,6 @@ cz\cvut\fel\pjv\bukovja4\utils\logging\LOG$3.class
 cz\cvut\fel\pjv\bukovja4\engine\scenes\types\Menu.class
 cz\cvut\fel\pjv\bukovja4\utils\engine\Sprite.class
 cz\cvut\fel\pjv\bukovja4\engine\logic\GameLogic.class
-cz\cvut\fel\pjv\bukovja4\client\player\controls\ScrollControls.class
-cz\cvut\fel\pjv\bukovja4\engine\elements\ElementFactory$1.class
 cz\cvut\fel\pjv\bukovja4\engine\scenes\LoadScene.class
-cz\cvut\fel\pjv\bukovja4\client\player\controls\MouseMoveControls.class
 cz\cvut\fel\pjv\bukovja4\utils\constants\Const.class
 cz\cvut\fel\pjv\bukovja4\utils\engine\dim\Dim3d.class

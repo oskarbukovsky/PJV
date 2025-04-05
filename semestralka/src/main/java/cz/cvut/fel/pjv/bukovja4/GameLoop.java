@@ -2,9 +2,11 @@ package cz.cvut.fel.pjv.bukovja4;
 
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import cz.cvut.fel.pjv.bukovja4.client.Window;
-import cz.cvut.fel.pjv.bukovja4.client.player.controls.*;
+import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.*;
 import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
+
+import static cz.cvut.fel.pjv.bukovja4.engine.logic.controls.ControlTypes.*;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -13,8 +15,6 @@ public final class GameLoop extends Thread {
 
     Config config;
     Clock clock;
-
-    // Camera camera;
 
     public GameLoop(Config config) {
         this.config = config;
@@ -60,10 +60,25 @@ public final class GameLoop extends Thread {
             // RenderWindow.Render();
         });
 
-        glfwSetKeyCallback(window.getHandle(), new KeyControls());
-        // glfwSetScrollCallback(window.getHandle(), new ScrollControls());
-        glfwSetMouseButtonCallback(window.getHandle(), new MouseControls());
-        glfwSetCursorPosCallback(window.getHandle(), new MouseMoveControls());
+        // Create and configure the Controls instance with proper callback management
+        Controls controls = new Controls(window.getHandle());
+        try {
+            controls.register(SCROLL, (event) -> {
+                LOG.warn("Scroll fired");
+                return null;
+            });
+
+            controls.register(CLICK, (event) -> {
+                LOG.warn("Click fired");
+                return null;
+            });
+
+            controls.unRegister(CLICK);
+            // controls.unRegisterAll();
+
+        } catch (Throwable e) {
+            LOG.error("Error while registering handlers", (RuntimeException) e);
+        }
 
         long counter = 0;
         while (!glfwWindowShouldClose(window.getHandle())) {
@@ -78,11 +93,8 @@ public final class GameLoop extends Thread {
             glfwPollEvents();
         }
 
-        // glfwSetWindowSizeCallback(window.getHandle(), null).free();
-
         glfwDestroyWindow(window.getHandle());
         glfwTerminate();
-        // glfwSetErrorCallback(null).free();
         LOG.info("GameLoop finished");
         this.clock.interrupt();
         Thread.currentThread().interrupt();
