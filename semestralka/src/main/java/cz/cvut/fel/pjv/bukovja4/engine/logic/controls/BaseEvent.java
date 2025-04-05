@@ -18,7 +18,7 @@ public abstract class BaseEvent {
         this.callback = callback;
         LOG.warn("Initializing event: " + this.getClass().getSimpleName());
     }
-
+ 
     public void unRegister() {
         if (this.handler != null) {
             this.handler.free();
