@@ -1,6 +1,7 @@
 package cz.cvut.fel.pjv.bukovja4.utils.audio;
 
 import javax.sound.sampled.*;
+
 import java.io.IOException;
 
 import cz.cvut.fel.pjv.bukovja4.Main;
@@ -27,11 +28,11 @@ public final class Audio {
                         LOG.error("Line unavailable for audio file: " + fileName, e);
                     } catch (IOException e) {
                         LOG.error("I/O error while playing audio file: " + fileName, e);
-                    } catch (InterruptedException ignored) {
+                    } catch (final InterruptedException ignored) {
                     } catch (Throwable e) {
                         LOG.error("Error while playing audio file: " + fileName, e);
                     }
-                } catch (Throwable ignored) {
+                } catch (final Throwable ignored) {
                 }
             }
         });

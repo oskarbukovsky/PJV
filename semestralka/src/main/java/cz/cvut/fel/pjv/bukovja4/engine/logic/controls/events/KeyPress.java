@@ -18,7 +18,7 @@ public class KeyPress extends BaseEvent implements GLFWKeyCallbackI {
 
     @Override
     public void register() {
-        LOG.warn("Registering event: " + this.getClass().getSimpleName());
+        LOG.debug("Registering event: " + this.getClass().getSimpleName());
         glfwSetKeyCallback(windowHandle, this);
     }
 

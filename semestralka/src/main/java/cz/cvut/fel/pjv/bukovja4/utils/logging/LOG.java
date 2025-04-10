@@ -95,6 +95,11 @@ public final class LOG {
         throw exception;
     }
 
+    public static void error(Throwable exception) throws Throwable {
+        Logger.severe(getStackTrace(exception));
+        throw exception;
+    }
+
     public static void trace(Throwable exception) throws Throwable {
         Logger.finer(getStackTrace(exception));
         throw exception;
@@ -247,7 +252,7 @@ public final class LOG {
         } catch (IOException e) {
             try {
                 error("Error while logging", e);
-            } catch (Throwable ignored) {
+            } catch (final Throwable ignored) {
             }
         }
     }

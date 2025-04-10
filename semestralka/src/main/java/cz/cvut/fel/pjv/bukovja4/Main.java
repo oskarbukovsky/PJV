@@ -16,11 +16,11 @@ public final class Main {
             // TestingThings.Test();
 
             Config config = new Config();
-
             config.Load();
 
             GameLoop game = new GameLoop(config);
             game.start();
+            
             try {
                 game.join();
             } catch (InterruptedException e) {

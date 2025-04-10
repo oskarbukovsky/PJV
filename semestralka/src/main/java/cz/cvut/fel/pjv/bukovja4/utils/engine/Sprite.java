@@ -32,7 +32,7 @@ public class Sprite {
 
         try {
             path = new File(getClass().getResource(resourcePath).toURI()).getPath();
-        } catch (Exception ignored) {
+        } catch (final Exception ignored) {
         }
 
         ByteBuffer bb = STBImage.stbi_load(path, width, height, channels, 4);

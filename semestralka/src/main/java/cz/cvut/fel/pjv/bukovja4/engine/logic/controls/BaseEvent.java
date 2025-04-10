@@ -19,7 +19,7 @@ public abstract class BaseEvent {
 
     public void init(Function<Object[], ?> callback) {
         this.callback = callback;
-        LOG.warn("Initializing event: " + this.getClass().getSimpleName());
+        LOG.debug("Initializing event: " + this.getClass().getSimpleName());
     }
 
     public void clearCallback() {
@@ -30,6 +30,6 @@ public abstract class BaseEvent {
             this.handler = null;
         }
         this.callback = null;
-        LOG.warn("Unregistering event: " + this.getClass().getSimpleName());
+        LOG.debug("Unregistering event: " + this.getClass().getSimpleName());
     }
 }

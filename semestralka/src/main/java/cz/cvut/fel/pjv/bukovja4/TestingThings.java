@@ -37,7 +37,7 @@ public final class TestingThings {
 
         Playback playback = Audio.play("background.wav");
         Thread.sleep(1500);
-        Audio.play("background.wav");
+        Audio.play("background.mp3");
         Thread.sleep(3000);
         playback.stop();
     }

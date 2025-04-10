@@ -78,7 +78,6 @@ public class Window {
 
         glOrtho(0, this.config.window.width, this.config.window.height, 0, 1, -1);
         glfwSwapInterval(1);
-
     }
 
     private void setIcon() throws RuntimeException, IOException {
