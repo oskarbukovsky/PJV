@@ -30,6 +30,11 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
+                <!-- <targetPath>.</targetPath> -->
+                <!-- <targetPath>cz/cvut/fel/pjv/resources</targetPath> -->
+                <!-- <targetPath>cz/cvut/fel/pjv/bukovja4/resources</targetPath> -->
+                <!-- <targetPath>classes</targetPath> -->
+                <!-- <targetPath>cz/cvut/fel/pjv/bukovja4</targetPath> -->
             </resource>
         </resources>
         <plugins>
@@ -50,7 +55,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
+                            <!-- <classpathPrefix>lib/</classpathPrefix> -->
                             <mainClass>cz.cvut.fel.pjv.bukovja4.Main</mainClass>
                         </manifest>
                     </archive>

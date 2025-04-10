@@ -1,0 +1,93 @@
+package cz.cvut.fel.pjv.utils;
+
+import java.io.IOException;
+import java.util.logging.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.diogonunes.jcolor.AnsiFormat;
+import com.diogonunes.jcolor.Attribute;
+
+import static com.diogonunes.jcolor.Ansi.colorize;
+import static com.diogonunes.jcolor.Attribute.*;
+
+public final class Logger {
+    public static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger(Logger.class.getName());
+    private static boolean isInitialized = false;
+
+    public void info(String message) {
+        LOG.info(message);
+    }
+
+    public void warn(String message) {
+        LOG.warning(message);
+    }
+
+    public void error(String message) {
+        LOG.severe(message);
+    }
+
+    public void debug(String message) {
+        LOG.fine(message);
+    }
+
+    public void trace(String message) {
+        LOG.finer(message);
+    }
+
+    private String getLevelName(LogRecord record) {
+        switch (record.getLevel().getName()) {
+            case "SEVERE":
+                return colorize("ERROR", TEXT_COLOR(255, 0, 0));
+            case "WARNING":
+                return colorize("WARN", TEXT_COLOR(255, 196, 0));
+            case "INFO":
+                return colorize("INFO", TEXT_COLOR(0, 0, 255));
+            case "FINE":
+                return colorize("DEBUG", TEXT_COLOR(128, 96, 255));
+            default:
+                return colorize("TRACE", TEXT_COLOR(0, 196, 196));
+        }
+    }
+
+    public Logger() {
+        if (isInitialized) {
+            return;
+        }
+        isInitialized = true;
+
+        LOG.setLevel(Level.FINEST);
+        LOG.setUseParentHandlers(false);
+        Handler stdout = new StreamHandler(System.out, new SimpleFormatter()) {
+            @Override
+            public void publish(LogRecord record) {
+                super.publish(record);
+                flush();
+            }
+
+            @Override
+            public boolean isLoggable(LogRecord record) {
+                return record.getLevel().intValue() >= Level.ALL.intValue();
+            }
+        };
+        SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+
+        stdout.setFormatter(new Formatter() {
+            @Override
+            public String format(LogRecord record) {
+                String time = dateFormat.format(new Date(record.getMillis()));
+                return String.format("[%s %s]: %s%n", colorize(time, GREEN_TEXT()), getLevelName(record),
+                        record.getMessage());
+            }
+        });
+        LOG.addHandler(stdout);
+        try {
+            LOG.addHandler(
+                    new FileHandler("C:\\Users\\janos\\OneDrive\\Dokumenty\\CVUT\\S02\\PJV\\cv07\\log.txt", false));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+}

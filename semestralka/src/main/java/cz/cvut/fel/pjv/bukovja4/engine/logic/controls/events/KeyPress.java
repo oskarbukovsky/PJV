@@ -8,6 +8,7 @@ import org.lwjgl.glfw.GLFWKeyCallbackI;
 
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.BaseEvent;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
+
 import static cz.cvut.fel.pjv.bukovja4.utils.Utils.getCharacter;
 
 public class KeyPress extends BaseEvent implements GLFWKeyCallbackI {
@@ -15,13 +16,13 @@ public class KeyPress extends BaseEvent implements GLFWKeyCallbackI {
         this.windowHandle = windowHandle;
     }
 
-        @Override
+    @Override
     public void register() {
         LOG.warn("Registering event: " + this.getClass().getSimpleName());
         glfwSetKeyCallback(windowHandle, this);
     }
 
-        @Override
+    @Override
     public void unRegister() {
         glfwSetScrollCallback(windowHandle, null);
     }
@@ -42,7 +43,7 @@ public class KeyPress extends BaseEvent implements GLFWKeyCallbackI {
 
         if (this.callback != null) {
             try {
-                this.callback.apply(new Object[] { key, scanCode, action, modifiers });
+                this.callback.apply(new Object[]{key, scanCode, action, modifiers});
             } catch (Throwable e) {
                 try {
                     LOG.error("Error in scroll callback", e);

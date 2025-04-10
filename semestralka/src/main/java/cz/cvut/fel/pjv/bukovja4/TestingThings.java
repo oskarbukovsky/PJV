@@ -10,7 +10,7 @@ import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 // import cz.cvut.fel.pjv.bukovja4.utils.Utils;
 // import cz.cvut.fel.pjv.bukovja4.utils.config.*;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory;
-import cz.cvut.fel.pjv.bukovja4.engine.elements.specific.Button;
+import cz.cvut.fel.pjv.bukovja4.utils.audio.*;
 // import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
@@ -34,5 +34,11 @@ public final class TestingThings {
         Label<Dim3d> testLabel1 = Factory3d.create(LABEL, new Pos<Dim3d>(1, 2,
                 3), new Pos<Dim3d>(4, 5, 6));
         LOG.info(testLabel1.bounds.getCorners3d().toString());
+
+        Playback playback = Audio.play("background.wav");
+        Thread.sleep(1500);
+        Audio.play("background.wav");
+        Thread.sleep(3000);
+        playback.stop();
     }
 }
