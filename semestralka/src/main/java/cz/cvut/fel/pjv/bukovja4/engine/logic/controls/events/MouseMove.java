@@ -14,7 +14,6 @@ public class MouseMove extends BaseEvent implements GLFWCursorPosCallbackI {
 
     @Override
     public void register() {
-        LOG.debug("Registering event: " + this.getClass().getSimpleName());
         glfwSetCursorPosCallback(windowHandle, this);
     }
 

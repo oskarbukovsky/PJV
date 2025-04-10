@@ -19,7 +19,7 @@ public abstract class BaseEvent {
 
     public void init(Function<Object[], ?> callback) {
         this.callback = callback;
-        LOG.debug("Initializing event: " + this.getClass().getSimpleName());
+        LOG.debug("Registering event: " + this.getClass().getSimpleName());
     }
 
     public void clearCallback() {

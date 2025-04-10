@@ -16,7 +16,6 @@ public class Scroll extends BaseEvent implements GLFWScrollCallbackI {
 
     @Override
     public void register() {
-        LOG.debug("Registering event: " + this.getClass().getSimpleName());
         glfwSetScrollCallback(windowHandle, this);
     }
     

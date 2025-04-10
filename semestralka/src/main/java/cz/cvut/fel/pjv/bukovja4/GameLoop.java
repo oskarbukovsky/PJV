@@ -37,12 +37,6 @@ public final class GameLoop extends Thread {
             return;
         }
 
-        // try {
-        //     window.setScene(SceneFactory.create(SceneTypes.MENU, "default"));
-        // } catch (Throwable e) {
-        //     LOG.error("Error while creating scene", (RuntimeException) e);
-        // }
-
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -69,47 +63,43 @@ public final class GameLoop extends Thread {
         // Create and configure the Controls instance with proper callback management
         // Controls controls = new Controls(window.getHandle());
         // try {
-        //     controls.register(SCROLL, (event) -> {
-        //         LOG.warn("Scroll fired");
-        //         return null;
-        //     });
+        // controls.register(SCROLL, (event) -> {
+        // LOG.warn("Scroll fired");
+        // return null;
+        // });
 
-        //     controls.register(CLICK, (event) -> {
-        //         LOG.warn("Click fired");
-        //         return null;
-        //     });
+        // controls.register(CLICK, (event) -> {
+        // LOG.warn("Click fired");
+        // return null;
+        // });
 
-        //     controls.register(KEY_PRESS, (event) -> {
-        //         LOG.warn("KeyPress fired");
-        //         return null;
-        //     });
+        // controls.register(KEY_PRESS, (event) -> {
+        // LOG.warn("KeyPress fired");
+        // return null;
+        // });
 
-        //     controls.register(MOUSE_MOVE, (event) -> {
-        //         LOG.warn("MouseMove fired");
-        //         return null;
-        //     });
+        // controls.register(MOUSE_MOVE, (event) -> {
+        // LOG.warn("MouseMove fired");
+        // return null;
+        // });
 
-        //     controls.unRegister(MOUSE_MOVE);
-        //     // controls.unRegisterAll();
+        // controls.unRegister(MOUSE_MOVE);
+        // // controls.unRegisterAll();
 
         // } catch (Throwable e) {
-        //     LOG.error("Error while registering handlers", (RuntimeException) e);
+        // LOG.error("Error while registering handlers", (RuntimeException) e);
         // }
 
-        GameState gameState = new GameState(window.getHandle());
-        try{
-            GameState.getControls().register(SCROLL, (event) -> {
+        GameState gameState = null;
+        try {
+            gameState = new GameState(window.getHandle());
+            GameState.controls.register(SCROLL, (event) -> {
                 LOG.warn("Scroll fired");
                 return null;
             });
-        } catch (Throwable e) {
-            LOG.error("Error while registering handlers", (RuntimeException) e);
-        }
-
-        try {
             gameState.setScene(SceneFactory.create(SceneTypes.MENU, "main.yml"));
         } catch (Throwable e) {
-            LOG.error("Error while creating scene", (RuntimeException) e);
+            LOG.error("Error while creating game state", (RuntimeException) e);
         }
 
         long counter = 0;
@@ -124,9 +114,8 @@ public final class GameLoop extends Thread {
             glfwSwapBuffers(window.getHandle());
             glfwPollEvents();
         }
-
+        
         gameState.getScene().Unload();
-
         glfwDestroyWindow(window.getHandle());
         glfwTerminate();
         LOG.info("GameLoop finished");

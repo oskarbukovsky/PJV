@@ -14,7 +14,6 @@ public class Click extends BaseEvent implements GLFWMouseButtonCallbackI {
 
     @Override
     public void register() {
-        LOG.debug("Registering event: " + this.getClass().getSimpleName());
         glfwSetMouseButtonCallback(windowHandle, this);
     }
 

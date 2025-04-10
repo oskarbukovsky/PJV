@@ -13,7 +13,7 @@ public abstract class BaseScene {
     }
 
     public void Unload() {
-        GameState.getControls().unRegisterAll();
+        GameState.controls.unRegisterAll();
         LOG.info("Unloaded scene: " + file);
     }
 
