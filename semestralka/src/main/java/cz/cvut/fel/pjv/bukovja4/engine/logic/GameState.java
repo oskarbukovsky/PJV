@@ -1,6 +1,5 @@
 package cz.cvut.fel.pjv.bukovja4.engine.logic;
 
-
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.Controls;
 import cz.cvut.fel.pjv.bukovja4.engine.scenes.BaseScene;
 
@@ -11,14 +10,13 @@ public final class GameState {
     public int mouseXDelta = 0;
     public int mouseYDelta = 0;
 
-    public long windowHandle;
+    public static long windowHandle;
     public static Controls controls;
 
     public boolean isKeyPressed = false;
     public int keyPressed = 0;
 
     private BaseScene loadedScene = null;
-
 
     public void setScene(BaseScene scene) {
         if (loadedScene != null) {
@@ -32,7 +30,7 @@ public final class GameState {
     }
 
     public GameState(long windowHandle) {
-        this.windowHandle = windowHandle;
+        GameState.windowHandle = windowHandle;
         GameState.controls = new Controls(windowHandle);
     }
 }

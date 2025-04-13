@@ -13,6 +13,8 @@ public final class Main {
             LOG.info("Starting game...");
             LOG.debug("Game DIR: " + System.getProperty("user.dir"));
 
+            // TestingThings.TestElements();
+            // TestingThings.TestAudio();
             // TestingThings.Test();
 
             Config config = new Config();
@@ -20,7 +22,7 @@ public final class Main {
 
             GameLoop game = new GameLoop(config);
             game.start();
-            
+
             try {
                 game.join();
             } catch (InterruptedException e) {

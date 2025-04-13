@@ -4,7 +4,7 @@ import cz.cvut.fel.pjv.bukovja4.engine.scenes.BaseScene;
 
 public class Menu extends BaseScene {
     public Menu(String name) throws Throwable {
-        super.Load("menus\\" + name);
+        super.Load("menus/" + name);
     }
 
     @Override

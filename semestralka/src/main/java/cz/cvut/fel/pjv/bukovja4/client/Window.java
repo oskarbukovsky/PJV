@@ -22,17 +22,25 @@ import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.opengl.GL.*;
 
 public class Window {
-    private int width;
-    private int height;
+    private static int width;
+    private static int height;
     private long handle;
     private final AppConfig config;
 
-    public int getWidth() {
-        return this.width;
+    public static int getWidth() {
+        return Window.width;
     }
 
-    public int getHeight() {
-        return this.height;
+    public static int getHeight() {
+        return Window.height;
+    }
+
+    public static void setWidth(int width) {
+        Window.width = width;
+    }
+
+    public static void setHeight(int height) {
+        Window.height = height;
     }
 
     public long getHandle() {
@@ -41,8 +49,8 @@ public class Window {
 
     public Window(Config config) {
         this.config = config.getConfig();
-        this.width = this.config.window.width;
-        this.height = this.config.window.height;
+        Window.width = this.config.window.width;
+        Window.height = this.config.window.height;
     }
 
     public void Render() {
@@ -59,8 +67,8 @@ public class Window {
         glfwDefaultWindowHints();
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
-        this.width = this.config.window.width;
-        this.height = this.config.window.height;
+        Window.width = this.config.window.width;
+        Window.height = this.config.window.height;
 
         handle = glfwCreateWindow(width, height, Const.APP_TITLE, NULL, NULL);
         if (handle == NULL) {

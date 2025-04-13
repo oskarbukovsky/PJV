@@ -1,5 +1,4 @@
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\client\player\Camera.java
-c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\logic\controls\ControlCallbacks.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\scenes\types\Dialog.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\elements\BaseElement.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\audio\AudioListener.java
@@ -11,12 +10,14 @@ c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\scenes\types\Game2d.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\config\AppConfig.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\scenes\SceneTypes.java
+c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\engine\dim\Dim1d.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\logic\GameState.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\Closeable.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\clocks\Clock.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\scenes\types\Game4d.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\logic\GameLogic.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\logging\LOG.java
+c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\elements\specific\Image.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\config\YAMLPrint.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\Utils.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\client\Window.java
@@ -39,7 +40,7 @@ c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\config\UpdateConfig.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\engine\Box.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\engine\dim\Dim.java
-c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\scenes\LoadScene.java
+c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\actions\Actions.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\scenes\SceneFactory.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\logic\controls\events\KeyPress.java
 c:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\GameLoop.java

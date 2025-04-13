@@ -17,12 +17,15 @@ import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
 
 import cz.cvut.fel.pjv.bukovja4.engine.elements.specific.*;
 // import cz.cvut.fel.pjv.bukovja4.engine.elements.*;
+import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
+import cz.cvut.fel.pjv.bukovja4.engine.scenes.SceneFactory;
+import cz.cvut.fel.pjv.bukovja4.engine.scenes.SceneTypes;
 
 import static cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory.*;
 import static cz.cvut.fel.pjv.bukovja4.engine.elements.ElementTypes.*;
 
 public final class TestingThings {
-    public static void Test() throws Throwable {
+    public static void TestElements() throws Throwable {
         ElementFactory<Dim2d> testFactory = new ElementFactory<Dim2d>();
 
         Button<Dim3d> testButton1 = Factory3d.create(BUTTON, new Pos<Dim3d>(1, 2, 3), new Pos<Dim3d>(4, 5, 6));
@@ -34,11 +37,16 @@ public final class TestingThings {
         Label<Dim3d> testLabel1 = Factory3d.create(LABEL, new Pos<Dim3d>(1, 2,
                 3), new Pos<Dim3d>(4, 5, 6));
         LOG.info(testLabel1.bounds.getCorners3d().toString());
+    }
 
+    public static void TestAudio() throws InterruptedException {
         Playback playback = Audio.play("background.wav");
         Thread.sleep(1500);
         Audio.play("background.mp3");
         Thread.sleep(3000);
         playback.stop();
+    }
+
+    public static void Test() throws Throwable {
     }
 }

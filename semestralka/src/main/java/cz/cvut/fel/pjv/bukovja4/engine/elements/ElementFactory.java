@@ -11,6 +11,17 @@ public class ElementFactory<D extends Dim> {
     public ElementFactory() {
     }
 
+    @SuppressWarnings("rawtypes")
+    public static ElementFactory getFactory(int dim) throws IllegalArgumentException{
+        return switch(dim) {
+            case 1 -> new ElementFactory<Dim1d>();
+            case 2 -> new ElementFactory<Dim2d>();
+            case 3 -> new ElementFactory<Dim3d>();
+            case 4 -> new ElementFactory<Dim4d>();
+            default -> throw new IllegalArgumentException("Invalid dimension: " + dim);
+        };
+    }
+
     @SuppressWarnings("unchecked")
     public <E extends BaseElement<D>> E create(ElementTypes elementType, Box<D> box)
             throws Throwable {

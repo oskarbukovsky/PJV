@@ -9,6 +9,10 @@ import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
 public final class Audio {
     public static Playback play(String fileName) {
+        return play(fileName, false);
+    }
+    
+    public static Playback play(String fileName, boolean loop) {
         Playback playback = new Playback(new Thread() {
             public void run() {
                 LOG.debug("Playing audio file: " + fileName);
@@ -19,6 +23,11 @@ public final class Audio {
                         try (Clip clip = AudioSystem.getClip()) {
                             clip.addLineListener(listener);
                             clip.open(audioInputStream);
+                            if (loop) {
+                                clip.loop(Clip.LOOP_CONTINUOUSLY);
+                            } else {
+                                clip.loop(0);
+                            }
                             clip.start();
                             listener.waitUntilDone();
                         }

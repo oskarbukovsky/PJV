@@ -9,8 +9,13 @@ public class Pos<D extends Dim> {
     public float special = 0;
     public int dimension = 0;
 
-    public Pos(float x, float y) {
+    public Pos(float x) {
         this.x = x;
+        this.dimension = 1;
+    }
+    
+    public Pos(float x, float y) {
+        this(x);
         this.y = y;
         this.dimension = 2;
     }

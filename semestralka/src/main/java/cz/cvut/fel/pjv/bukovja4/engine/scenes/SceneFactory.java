@@ -8,7 +8,7 @@ public class SceneFactory {
         try {
             return (S) sceneType.getSceneClass().getConstructor(String.class).newInstance(name);
         } catch (Exception ex) {
-            LOG.error("Error creating scene " + sceneType.name(), ex);
+            LOG.error("Error creating scene " + sceneType.name() + "@" + name, ex);
         }
         return null;
     }

@@ -1,0 +1,34 @@
+dimension: 2
+elements:
+  [
+    {
+      type: "button",
+      align: "center",
+      position: [[-50, -50],[50, -30]],
+      text: "Play",
+      action: "start_game",
+    },
+    {
+      type: "button",
+      align: "center",
+      position: [[-50, -20], [50, 10]],
+      text: "Settings",
+      action: "open_settings",
+    },
+    {
+      type: "button",
+      align: "center",
+      position: [[-50, 20], [50, 50]],
+      text: "Exit",
+      action: "exit_game",
+    },
+    {
+      type: "image",
+      align: "center",
+      position: [[screen.minX, screen.minY], [screen.maxX, screen.maxY]],
+      src: "menus/main/background.png",
+    },
+  ]
+audio:
+  src: "audio/background.wav"
+  loop: true

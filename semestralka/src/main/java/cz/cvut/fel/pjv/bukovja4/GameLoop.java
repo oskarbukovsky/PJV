@@ -46,6 +46,9 @@ public final class GameLoop extends Thread {
             this.config.getConfig().window.width = newWidth;
             this.config.getConfig().window.height = newHeight;
 
+            Window.setWidth(newWidth);
+            Window.setHeight(newHeight);
+
             try {
                 this.config.Update(this.config.getConfig());
             } catch (Throwable e) {
@@ -97,7 +100,7 @@ public final class GameLoop extends Thread {
                 LOG.warn("Scroll fired");
                 return null;
             });
-            gameState.setScene(SceneFactory.create(SceneTypes.MENU, "main.yml"));
+            gameState.setScene(SceneFactory.create(SceneTypes.MENU, "main/main_menu.yml"));
         } catch (Throwable e) {
             LOG.error("Error while creating game state", (RuntimeException) e);
         }
@@ -109,12 +112,13 @@ public final class GameLoop extends Thread {
 
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+            gameState.getScene().Tick();
             window.Render();
 
             glfwSwapBuffers(window.getHandle());
             glfwPollEvents();
         }
-        
+
         gameState.getScene().Unload();
         glfwDestroyWindow(window.getHandle());
         glfwTerminate();
