@@ -5,7 +5,7 @@
 <!-- [![ProgrammerDoc](https://img.shields.io/badge/Program%C3%A1torsk%C3%A1%20dokumentace-018EF5?logo=docusaurus&logoColor=fff)](https://docs.google.com/document/d/1zWkUXEwLYwHTZ9wihU7MgW25zl75uhZzPNAGlLQvo90/edit?usp=sharing) -->
 
 ![Commits](https://img.shields.io/github/commit-activity/t/oskarbukovsky/PJV?label=Po%C4%8Det%20commit%C5%AF)
-![Čas na projektu](https://img.shields.io/badge/%C4%8Cas%20na%20projektu-45h-green?style=flat)
+![Čas na projektu](https://img.shields.io/endpoint?url=https://wakaapi.666777123.xyz/api/compat/shields/v1/Admin/interval:last_6_months/project:PJV&label=%C4%8Cas%20str%C3%A1ven%C3%BD%20na%20jav%C4%9B&color=green?style=flat)
 
 <!-- ![Calendar](https://ghchart.rshah.org/oskarbukovsky) -->
 
