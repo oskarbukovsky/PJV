@@ -38,4 +38,4 @@ Essentially, take this and learn from it! Create addons that depend on it! If yo
 
 Don't be a jerk.
 
-Copyright (c) 2024 Jan Oskar Bukovský
+Copyright (c) 2025 Jan Oskar Bukovský
