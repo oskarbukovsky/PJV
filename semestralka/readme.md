@@ -1,0 +1,30 @@
+# B242_B0B36PJV - bukovja4
+
+<!-- [![JSDoc](https://img.shields.io/badge/JSDoc%20Documentace-018EF5?logo=readthedocs&logoColor=fff)](https://zwa-7a9ac6.pages.fel.cvut.cz/docs/) -->
+<!-- [![ProductDoc](https://img.shields.io/badge/Produktov%C3%A1%20dokumentace-018EF5?logo=readme&logoColor=fff)](https://docs.google.com/document/d/1yJdy4dGE5AY-9TR-9sllnFhSlZ5Z06zQ297EhUsJG4k/edit?usp=sharing) -->
+<!-- [![ProgrammerDoc](https://img.shields.io/badge/Program%C3%A1torsk%C3%A1%20dokumentace-018EF5?logo=docusaurus&logoColor=fff)](https://docs.google.com/document/d/1zWkUXEwLYwHTZ9wihU7MgW25zl75uhZzPNAGlLQvo90/edit?usp=sharing) -->
+
+![Commits](https://img.shields.io/github/commit-activity/t/oskarbukovsky/PJV?label=Po%C4%8Det%20commit%C5%AF)
+![Čas na projektu](https://img.shields.io/badge/%C4%8Cas%20na%20projektu-45h-green?style=flat)
+
+<!-- ![Calendar](https://ghchart.rshah.org/oskarbukovsky) -->
+
+## Použité
+
+[![Java](https://img.shields.io/badge/-Java-fff?&logo=Java)](https://www.java.com/)
+[![Visual Studio Code](https://custom-icon-badges.demolab.com/badge/Visual%20Studio%20Code-0078d7.svg?logo=vsc&logoColor=white)](https://code.visualstudio.com/)
+[![Windows](https://custom-icon-badges.demolab.com/badge/Windows-0078D6?logo=windows11&logoColor=white)](https://www.microsoft.com/windows)
+
+## Kód
+
+Language|files|blank|comment|code
+:-------|-------:|-------:|-------:|-------:
+Java|54|479|1710|1990
+--------|--------|--------|--------|--------
+SUM:|54|479|1710|1990
+
+> [cloc](https://github.com/AlDanial/cloc) výsledek
+
+## Licence
+
+Tento projekt je pod licencí [Don't Be a Jerk License](https://gitlab.fel.cvut.cz/B242_B0B36PJV/bukovja4/-/blob/main/semestralka/LICENSE.md)
