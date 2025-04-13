@@ -17,9 +17,9 @@ import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
 
 import cz.cvut.fel.pjv.bukovja4.engine.elements.specific.*;
 // import cz.cvut.fel.pjv.bukovja4.engine.elements.*;
-import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
-import cz.cvut.fel.pjv.bukovja4.engine.scenes.SceneFactory;
-import cz.cvut.fel.pjv.bukovja4.engine.scenes.SceneTypes;
+// import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
+// import cz.cvut.fel.pjv.bukovja4.engine.scenes.SceneFactory;
+// import cz.cvut.fel.pjv.bukovja4.engine.scenes.SceneTypes;
 
 import static cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory.*;
 import static cz.cvut.fel.pjv.bukovja4.engine.elements.ElementTypes.*;

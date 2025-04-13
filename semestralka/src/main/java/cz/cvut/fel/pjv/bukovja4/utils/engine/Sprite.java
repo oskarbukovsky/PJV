@@ -5,25 +5,51 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.stb.STBImage;
 
 import static org.lwjgl.opengl.GL11.*;
 
+/**
+ * Represents a 2D texture loaded from an image file for rendering with OpenGL.
+ * Handles texture loading, storage and drawing operations.
+ * 
+ * @see org.lwjgl.stb.STBImage For the underlying image loading implementation
+ * @see org.lwjgl.opengl.GL11 For texture rendering functions
+ */
 public class Sprite {
+    /** OpenGL texture identifier */
     private int textureID;
+    /** Buffer containing the sprite width in pixels */
     private IntBuffer width;
+    /** Buffer containing the sprite height in pixels */
     private IntBuffer height;
+    /** Buffer containing the number of color channels */
     private IntBuffer channels;
 
+    /**
+     * Gets the width of the sprite in pixels.
+     * 
+     * @return The sprite width
+     */
     public int getWidth() {
         return width.get(0);
     }
 
+    /**
+     * Gets the height of the sprite in pixels.
+     * 
+     * @return The sprite height
+     */
     public int getHeight() {
         return height.get(0);
     }
 
+    /**
+     * Creates a new sprite by loading an image from the specified resource path.
+     * Converts the image data into an OpenGL texture with RGBA format.
+     * 
+     * @param resourcePath Path to the image resource
+     */
     public Sprite(String resourcePath) {
         String path = null;
         width = BufferUtils.createIntBuffer(1);
@@ -48,21 +74,31 @@ public class Sprite {
         STBImage.stbi_image_free(bb);
     }
 
+    /**
+     * Draws the sprite at the specified position with scaling.
+     * Uses OpenGL quad rendering with texture coordinates.
+     * 
+     * @param x X coordinate for the top-left corner
+     * @param y Y coordinate for the top-left corner
+     * @param scale Scaling factor for the sprite dimensions
+     * @see org.lwjgl.opengl.GL11#glBegin(int) For starting the rendering
+     * @see org.lwjgl.opengl.GL11#glTexCoord2f(float, float) For texture mapping
+     */
     public void draw(int x, int y, float scale) {
-        GL11.glEnable(GL11.GL_TEXTURE_2D);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, textureID);
+        glEnable(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, textureID);
 
-        GL11.glBegin(GL11.GL_QUADS);
-        GL11.glTexCoord2f(0, 0);
-        GL11.glVertex2f(x, y);
-        GL11.glTexCoord2f(1, 0);
-        GL11.glVertex2f(x + getWidth() * scale, y);
-        GL11.glTexCoord2f(1, 1);
-        GL11.glVertex2f(x + getWidth() * scale, y + getHeight() * scale);
-        GL11.glTexCoord2f(0, 1);
-        GL11.glVertex2f(x, y + getHeight() * scale);
-        GL11.glEnd();
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 0);
+        glVertex2f(x, y);
+        glTexCoord2f(1, 0);
+        glVertex2f(x + getWidth() * scale, y);
+        glTexCoord2f(1, 1);
+        glVertex2f(x + getWidth() * scale, y + getHeight() * scale);
+        glTexCoord2f(0, 1);
+        glVertex2f(x, y + getHeight() * scale);
+        glEnd();
 
-        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        glDisable(GL_TEXTURE_2D);
     }
 }

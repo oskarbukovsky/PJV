@@ -11,7 +11,19 @@ import org.yaml.snakeyaml.Yaml;
 
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
+/**
+ * Utility class for updating application configuration files.
+ * Serializes AppConfig objects to YAML format and saves them to disk.
+ */
 final class UpdateConfig {
+    /**
+     * Updates the configuration file with the provided AppConfig object.
+     * Serializes the object to YAML and writes it to the config file.
+     * 
+     * @param config The configuration object to save
+     * @throws Throwable if an error occurs during the update process
+     * @see {@link LoadConfig#Load()} For loading configuration
+     */
     static void Update(AppConfig config) throws Throwable {
         try {
             DumperOptions options = new DumperOptions();
@@ -32,6 +44,14 @@ final class UpdateConfig {
         }
     }
 
+    /**
+     * Prepares a configuration object for YAML serialization.
+     * Converts the AppConfig object to a Map structure.
+     * 
+     * @param config The configuration object to prepare
+     * @return A Map representation of the configuration
+     * @throws Throwable if an error occurs during conversion
+     */
     private static Map<String, Object> PrepareYaml(AppConfig config) throws Throwable {
         Map<String, Object> configMap = new HashMap<>();
 
@@ -42,6 +62,14 @@ final class UpdateConfig {
         return configMap;
     }
 
+    /**
+     * Recursively converts an object to a Map using reflection.
+     * Handles nested objects by recursively converting them to maps.
+     * 
+     * @param obj The object to convert to a Map
+     * @return A Map representation of the object
+     * @throws Throwable if an error occurs during conversion
+     */
     private static Map<String, Object> objectToMap(Object obj) throws Throwable {
         Map<String, Object> map = new HashMap<>();
 
@@ -69,6 +97,13 @@ final class UpdateConfig {
         return map;
     }
 
+    /**
+     * Checks if an object is a primitive or primitive wrapper type.
+     * Used to determine if an object should be serialized directly or recursively.
+     * 
+     * @param obj The object to check
+     * @return true if the object is a primitive type, false otherwise
+     */
     private static boolean isPrimitive(Object obj) {
         return obj instanceof String ||
                 obj instanceof Number ||

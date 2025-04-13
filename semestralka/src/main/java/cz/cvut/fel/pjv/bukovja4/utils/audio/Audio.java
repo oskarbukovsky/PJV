@@ -7,11 +7,31 @@ import java.io.IOException;
 import cz.cvut.fel.pjv.bukovja4.Main;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
+/**
+ * Utility class for playing audio files.
+ * Audio files are stored in the "/audio/" resource folder.
+ * Supported formats include WAV and other formats supported by the Java Sound
+ * API.
+ */
 public final class Audio {
+    /**
+     * Plays an audio file once.
+     * 
+     * @param fileName Name of the audio file in the "/audio/" resource folder
+     * @return A Playback object to control the audio playback
+     * @see #play(String, boolean)
+     */
     public static Playback play(String fileName) {
         return play(fileName, false);
     }
-    
+
+    /**
+     * Plays an audio file, with option to loop continuously.
+     * 
+     * @param fileName Name of the audio file in the "/audio/" resource folder
+     * @param loop     If true, the audio will loop continuously until stopped
+     * @return A Playback object to control the audio playback
+     */
     public static Playback play(String fileName, boolean loop) {
         Playback playback = new Playback(new Thread() {
             public void run() {

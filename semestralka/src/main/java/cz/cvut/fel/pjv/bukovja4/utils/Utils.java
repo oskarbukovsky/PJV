@@ -11,7 +11,16 @@ import org.lwjgl.glfw.GLFW;
 import cz.cvut.fel.pjv.bukovja4.Main;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
+/**
+ * Utility class providing common functionality used throughout the application.
+ * Contains methods for application shutdown, resource management, and input handling.
+ */
 public final class Utils {
+    /**
+     * Gracefully closes the game application.
+     * Interrupts all non-main threads and logs the shutdown process.
+     * 
+     */
     public static void CloseGame() {
         LOG.debug("Game is closing...");
         Thread[] threads = new Thread[Thread.activeCount()];
@@ -24,6 +33,16 @@ public final class Utils {
         }
     }
 
+    /**
+     * Copies a resource file from the JAR to the filesystem.
+     * Used for extracting configuration files and other resources.
+     * 
+     * @param targetPathString Destination path on the filesystem
+     * @param sourcePathString Source path within the resources folder
+     * @throws Throwable if resource cannot be found or copied
+     * @see Files#copy(InputStream, Path, java.nio.file.CopyOption...)
+     * @see Main#class For the ClassLoader used to locate resources
+     */
     public static void copyFromResources(String targetPathString, String sourcePathString) throws Throwable {
         Path targetPath = Paths.get(targetPathString);
 
@@ -37,6 +56,15 @@ public final class Utils {
         }
     }
 
+    /**
+     * Converts GLFW key codes to their character representation.
+     * Handles modifier keys like Shift to return appropriate characters.
+     * 
+     * @param key The GLFW key code
+     * @param mods Bit field describing modifier keys (Shift, Alt, etc.)
+     * @return The character corresponding to the key press, or null if not a printable character
+     * @see org.lwjgl.glfw.GLFW For key code definitions
+     */
     public static Character getCharacter(int key, int mods) {
         boolean shift = (mods & GLFW.GLFW_MOD_SHIFT) != 0;
 

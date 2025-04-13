@@ -12,7 +12,21 @@ import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.error.YAMLException;
 
+/**
+ * Utility class for loading application configuration from YAML files.
+ * Creates config folder and default config if none exists.
+ * 
+ * @see UpdateConfig For saving configuration back to disk
+ */
 final class LoadConfig {
+    /**
+     * Loads the application configuration from the config file.
+     * Creates default configuration if the file doesn't exist.
+     * 
+     * @return The loaded AppConfig object
+     * @throws Throwable if configuration loading fails critically
+     * @see UpdateConfig#Update(AppConfig) For saving configuration
+     */
     static AppConfig Load() throws Throwable {
         File configFolder = null;
         try {

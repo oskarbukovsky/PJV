@@ -7,31 +7,57 @@ import org.lwjgl.glfw.GLFWMouseButtonCallbackI;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.BaseEvent;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
+/**
+ * Handles mouse button click events.
+ * Extends {@link BaseEvent} to provide mouse click-specific functionality.
+ */
 public class Click extends BaseEvent implements GLFWMouseButtonCallbackI {
+    /**
+     * Creates a mouse click event handler for the specified window
+     * 
+     * @param windowHandle The GLFW window handle to capture mouse events from
+     */
     public Click(long windowHandle) {
         this.windowHandle = windowHandle;
     }
 
+    /**
+     * Registers this mouse click handler with the window
+     * {@inheritDoc}
+     */
     @Override
     public void register() {
         glfwSetMouseButtonCallback(windowHandle, this);
     }
 
+    /**
+     * Unregisters this mouse click handler from the window
+     * {@inheritDoc}
+     */
     @Override
     public void unRegister() {
         glfwSetMouseButtonCallback(windowHandle, null);
     }
 
+    /**
+     * Handles mouse button events
+     * 
+     * @param window    Window that received the event
+     * @param button    Mouse button that was pressed
+     * @param action    Action performed (press/release)
+     * @param modifiers Bit field describing modifier keys held
+     */
     @Override
-    public void invoke(long window, int button, int action, int mods){
-        LOG.info("Mouse button: " + button + ", Action: " + action + ", Modifiers: " + mods);
+    public void invoke(long window, int button, int action, int modifiers) {
+        LOG.info("Click: Button= " + button + ", Action= " + action + ", Modifiers= " + modifiers);
+
         if (this.callback != null) {
             try {
-                this.callback.apply(new Object[] { button, action, mods });
+                this.callback.apply(new Object[] { button, action, modifiers });
             } catch (Throwable e) {
                 try {
                     LOG.error("Error in click callback", e);
-                } catch (Throwable ignore) {
+                } catch (final Throwable ignore) {
                 }
             }
         }
