@@ -65,7 +65,7 @@ public final class Audio {
                 }
             }
         });
-        playback.playback.setName("AudioPlaybackThread");
+        playback.playback.setName("AudioThread");
         playback.playback.start();
         return playback;
     }

@@ -1,11 +1,23 @@
 # Logs
+logs
 logs/
+logs/*
+logs/**
+logs/**/*
 
 # Project Management
 project.md
 
 # Build output
+logs
 target/
+target/*
+target/**
+target/**/*
 
 # Testing
+TESTING!!!
 TESTING!!!/
+TESTING!!!/*
+TESTING!!!/**
+TESTING!!!/**/*

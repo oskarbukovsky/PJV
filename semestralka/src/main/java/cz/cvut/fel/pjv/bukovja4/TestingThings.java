@@ -40,9 +40,9 @@ public final class TestingThings {
     }
 
     public static void TestAudio() throws InterruptedException {
-        Playback playback = Audio.play("background.wav");
+        Playback playback = Audio.play("menus/main/background.wav", true);
         Thread.sleep(1500);
-        Audio.play("background.mp3");
+        Audio.play("menus/main/background.wav");
         Thread.sleep(3000);
         playback.stop();
     }
