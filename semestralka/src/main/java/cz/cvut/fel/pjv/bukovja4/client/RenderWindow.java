@@ -16,5 +16,8 @@ public class RenderWindow {
      */
     public static final void Render() {
         glClearColor(0.8f, 0f, 0.7f, 0f);
+        Window.gameState.getScene().getElements().forEach(element -> {
+            element.render();
+        });
     }
 }

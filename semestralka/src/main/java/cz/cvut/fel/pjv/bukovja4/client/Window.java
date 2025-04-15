@@ -6,6 +6,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import cz.cvut.fel.pjv.bukovja4.Main;
+import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
 import cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
 import cz.cvut.fel.pjv.bukovja4.utils.constants.Const;
@@ -34,6 +35,8 @@ public class Window {
     private long handle;
     /** Application configuration */
     private final AppConfig config;
+    /** Game state for input and scene management */
+    protected static GameState gameState;
 
     /**
      * Gets current window width
@@ -78,6 +81,16 @@ public class Window {
      */
     public long getHandle() {
         return handle;
+    }
+
+    /**
+     * Sets GameState for the app
+     * 
+     * @param gameState GameState object
+     * @see GameState
+     */
+    public void setGameState(GameState gameState) {
+        Window.gameState = gameState;
     }
 
     /**

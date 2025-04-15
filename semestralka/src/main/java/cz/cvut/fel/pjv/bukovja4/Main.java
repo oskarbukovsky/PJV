@@ -39,7 +39,7 @@ public final class Main {
             game.start();
 
         } catch (ConfigException e) {
-            LOG.error("Failed to load configuration", e, true);
+            LOG.error(e, true);
         } catch (SceneException e) {
             LOG.error(e, true);
         } catch (GameException e) {

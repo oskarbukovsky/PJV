@@ -1,7 +1,10 @@
 package cz.cvut.fel.pjv.bukovja4.engine.elements.specific;
 
+import static org.lwjgl.opengl.GL11.*;
+
 import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
+import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
 
 /**
@@ -18,7 +21,30 @@ public class Button<D extends Dim> extends BaseElement<D> {
      */
     @Override
     public void render() {
-        // Rendering implementation
+        // Example: Draw a simple filled rectangle as the button background
+        // You can customize the color and add border/text as needed
+
+        // Set color (RGBA) for the button background
+        glColor4f(0.2f, 1f, 0.2f, 1.0f); // ~Lime
+
+        // Draw filled rectangle using OpenGL immediate mode
+        glBegin(GL_QUADS);
+        glVertex2f(bounds.x1, bounds.y1);
+        glVertex2f(bounds.x2, bounds.y1);
+        glVertex2f(bounds.x2, bounds.y2);
+        glVertex2f(bounds.x1, bounds.y2);
+        glEnd();
+
+        // Optional: Draw border
+        // glColor4f(1f, 1f, 1f, 1f); // White border
+        // glLineWidth(2f);
+        // glBegin(GL_LINE_LOOP);
+        // glVertex2f(bounds.x1, bounds.y1);
+        // glVertex2f(bounds.x2, bounds.y1);
+        // glVertex2f(bounds.x2, bounds.y2);
+        // glVertex2f(bounds.x1, bounds.y2);
+        // glEnd();
+        LOG.debug("Button rendered at: " + bounds.toString());
     }
 
     /**

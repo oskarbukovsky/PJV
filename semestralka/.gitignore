@@ -9,7 +9,7 @@ logs/**/*
 project.md
 
 # Build output
-logs
+target
 target/
 target/*
 target/**

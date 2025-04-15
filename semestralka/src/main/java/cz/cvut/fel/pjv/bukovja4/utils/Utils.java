@@ -52,7 +52,7 @@ public final class Utils {
             Files.copy(sourceStream, targetPath);
             LOG.info("Config file was successfully copied to " + targetPath);
         } else {
-            LOG.error("Resource not found", new IOException(sourcePathString));
+            throw new IOException("Resource not found", new IOException(sourcePathString));
         }
     }
 

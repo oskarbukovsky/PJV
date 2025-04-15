@@ -225,4 +225,10 @@ public class Box<D extends Dim> {
         this.height = Math.abs(y2 - y1);
         this.depth = Math.abs(z2 - z1);
     }
+
+    @Override
+    public String toString() {
+        return "Box [x1=" + x1 + ", y1=" + y1 + ", x2=" + x2 + ", y2=" + y2 + ", z1=" + z1 + ", z2=" + z2
+                + ", special=" + special + "]";
+    }
 }

@@ -6,6 +6,7 @@ import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
 import cz.cvut.fel.pjv.bukovja4.utils.Exceptions.GameException;
 import cz.cvut.fel.pjv.bukovja4.utils.Exceptions.SceneException;
 import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
+import cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
 
 import cz.cvut.fel.pjv.bukovja4.engine.scenes.*;
@@ -28,11 +29,21 @@ import static org.lwjgl.glfw.GLFW.*;
 public final class GameLoop extends Thread {
 
     /** Application configuration with window settings, FPS limits, etc. */
-    private Config config;
+    private static Config config;
+
+    /**
+     * Gets the current application configuration.
+     * 
+     * @return The current AppConfig instance
+     */
+    public static AppConfig getConfig() {
+        return config.getConfig();
+    }
 
     /** Clock for fixed-timestep update cycle */
     private Clock clock;
 
+    /** Initial scene to be loaded when the game starts */
     private BaseScene initScene;
 
     /**
@@ -42,7 +53,7 @@ public final class GameLoop extends Thread {
      * @param config Application configuration
      */
     public GameLoop(Config config) {
-        this.config = config;
+        GameLoop.config = config;
         this.clock = new Clock(config.getConfig().window.fpsLock, "ClockThread");
         this.clock.start();
     }
@@ -65,7 +76,7 @@ public final class GameLoop extends Thread {
      * @see Thread#start() For thread management
      */
     @Override
-    public void start() throws GameException{
+    public void start() throws GameException {
         if (this.initScene == null) {
             throw new GameException("Initial scene not set");
         }
@@ -89,7 +100,7 @@ public final class GameLoop extends Thread {
 
         Window window;
         try {
-            window = new Window(this.config);
+            window = new Window(GameLoop.config);
             window.init();
         } catch (Throwable e) {
             return;
@@ -103,14 +114,14 @@ public final class GameLoop extends Thread {
         glfwSetWindowSizeCallback(window.getHandle(), (windowHandle, newWidth, newHeight) -> {
             LOG.debug("Window resized to: " + newWidth + "x" + newHeight);
 
-            this.config.getConfig().window.width = newWidth;
-            this.config.getConfig().window.height = newHeight;
+            GameLoop.config.getConfig().window.width = newWidth;
+            GameLoop.config.getConfig().window.height = newHeight;
 
             Window.setWidth(newWidth);
             Window.setHeight(newHeight);
 
             try {
-                this.config.Update(this.config.getConfig());
+                GameLoop.config.Update(GameLoop.config.getConfig());
             } catch (Throwable e) {
                 // Silent failure for config update errors
             }
@@ -167,6 +178,7 @@ public final class GameLoop extends Thread {
         } catch (Throwable e) {
             LOG.error("Error while creating game state", (RuntimeException) e);
         }
+        window.setGameState(gameState);
 
         /**
          * Main game loop counter for debug purposes.

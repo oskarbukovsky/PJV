@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
 
+import cz.cvut.fel.pjv.bukovja4.GameLoop;
 import cz.cvut.fel.pjv.bukovja4.Main;
-import cz.cvut.fel.pjv.bukovja4.client.Window;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementTypes;
@@ -26,6 +26,15 @@ public abstract class BaseScene {
 
     // List of all elements contained within the scene
     protected static ArrayList<BaseElement<?>> elements = new ArrayList<>();
+
+    /**
+     * Gets elements of the scene.
+     * 
+     * @return List of elements in the scene
+     */
+    public ArrayList<BaseElement<?>> getElements() {
+        return BaseScene.elements;
+    }
 
     /**
      * Loads a scene from a YAML file.
@@ -64,16 +73,16 @@ public abstract class BaseScene {
                     switch (item.toString()) {
                         case "screen.minX" -> newPos.add(0f);
                         case "screen.minY" -> newPos.add(0f);
-                        case "screen.maxX" -> newPos.add((float) Window.getWidth());
-                        case "screen.maxY" -> newPos.add((float) Window.getHeight());
+                        case "screen.maxX" -> newPos.add((float) GameLoop.getConfig().window.width);
+                        case "screen.maxY" -> newPos.add((float) GameLoop.getConfig().window.height);
                         default -> newPos.add(item);
                     }
                 }
 
                 // Apply alignment transform if specified
                 if (align != null) {
-                    float screenWidth = (float) Window.getWidth();
-                    float screenHeight = (float) Window.getHeight();
+                    float screenWidth = (float) GameLoop.getConfig().window.width;
+                    float screenHeight = (float) GameLoop.getConfig().window.height;
                     float screenCenterX = screenWidth / 2.0f;
                     float screenCenterY = screenHeight / 2.0f;
 
@@ -84,7 +93,6 @@ public abstract class BaseScene {
                             if (newPos.size() >= 2) {
                                 alignedPos.add(screenCenterX + ((Number) newPos.get(0)).floatValue());
                                 alignedPos.add(screenCenterY + ((Number) newPos.get(1)).floatValue());
-
                                 for (int j = 2; j < newPos.size(); j++) {
                                     alignedPos.add(newPos.get(j));
                                 }

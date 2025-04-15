@@ -55,7 +55,6 @@ cz\cvut\fel\pjv\bukovja4\utils\audio\Playback.class
 cz\cvut\fel\pjv\bukovja4\utils\audio\Audio$1.class
 cz\cvut\fel\pjv\bukovja4\utils\engine\Sprite.class
 cz\cvut\fel\pjv\bukovja4\utils\audio\Audio.class
-cz\cvut\fel\pjv\bukovja4\engine\logic\GameLogic.class
 cz\cvut\fel\pjv\bukovja4\utils\constants\Const.class
 cz\cvut\fel\pjv\bukovja4\utils\engine\dim\Dim3d.class
 cz\cvut\fel\pjv\bukovja4\utils\Closeable.class
