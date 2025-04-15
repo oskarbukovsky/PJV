@@ -173,7 +173,7 @@ public class Window {
             STBImage.stbi_image_free(image);
             icons.free();
 
-            LOG.info("Window icon set successfully");
+            LOG.debug("Window icon set successfully");
         } catch (IOException e) {
             LOG.error("Failed to set window icon", e);
         }
