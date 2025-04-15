@@ -1,0 +1,474 @@
+@startuml
+class cz.cvut.fel.pjv.bukovja4.client.player.Camera {
++ {static} Player<?> player
+- {static} float zoom
++ {static} Player<?> getPlayer()
++ {static} float getZoom()
++ {static} void setZoom(float)
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.engine.scenes.types.Dialog {
++ void Tick()
+}
+
+abstract class cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement {
++ Box<D> bounds
++ {abstract}void render()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.utils.audio.AudioListener {
+- boolean done
++ void update(LineEvent)
++ void waitUntilDone()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.engine.elements.specific.Label {
++ void render()
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.config.LoadConfig {
+~ {static} AppConfig Load()
+}
+
+class cz.cvut.fel.pjv.bukovja4.engine.scenes.types.Menu {
++ void Tick()
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.config.Config {
+- AppConfig config
++ AppConfig getConfig()
++ void Load()
++ void Update(AppConfig)
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.engine.elements.specific.Button {
++ void render()
+}
+
+class cz.cvut.fel.pjv.bukovja4.engine.scenes.types.Game2d {
++ void Tick()
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig {
++ Window window
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig$Window {
++ float fov
++ boolean fullscreen
++ int fpsLock
++ int width
++ int height
+}
+
+enum cz.cvut.fel.pjv.bukovja4.engine.scenes.SceneTypes {
++  MENU
++  DIALOG
++  GAME1D
++  GAME2D
++  GAME3D
++  GAME4D
+- Class<? extends BaseScene> sceneClass
++ Class<? extends BaseScene> getSceneClass()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim1d {
++ int getDimensionCount()
+}
+
+class cz.cvut.fel.pjv.bukovja4.engine.logic.GameState {
++ boolean isMousePressed
++ int mouseX
++ int mouseY
++ int mouseXDelta
++ int mouseYDelta
++ {static} long windowHandle
++ {static} Controls controls
++ boolean isKeyPressed
++ int keyPressed
+- BaseScene loadedScene
++ void setScene(BaseScene)
++ BaseScene getScene()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.utils.Closeable {
++ void close()
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock {
+- double TICK_TIME
+- long last
+- double deltaTick
+- Object tickLock
+- boolean tickOccurred
+- String threadName
+~ long lastAwait
++ void run()
+- void signalTick()
++ void awaitTick()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.engine.scenes.types.Game4d {
++ void Tick()
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.logging.LOG {
++ {static} java.util.logging.Logger Logger
++ {static} void setLevel(LogLevel)
+- {static} String getStackTrace(Throwable)
++ {static} void debug(String)
++ {static} void info(String)
++ {static} void warn(String)
++ {static} void error(String)
++ {static} void error(String,Throwable)
++ {static} void error(String,RuntimeException)
++ {static} void error(String,IllegalArgumentException)
++ {static} void error(String,IOException)
++ {static} void error(Throwable)
++ {static} void trace(Throwable)
+- {static} String formatLog(LogRecord,SimpleDateFormat,boolean)
+- {static} Path getNextAvailableFilePath(Path,String,String)
+}
+
+
+enum cz.cvut.fel.pjv.bukovja4.utils.logging.LogLevel {
++  TRACE
++  DEBUG
++  INFO
++  WARN
++  ERROR
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.logging.LOG$ColorAttribute {
++ int r
++ int g
++ int b
+}
+
+class cz.cvut.fel.pjv.bukovja4.engine.elements.specific.Image {
++ void render()
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.config.YAMLPrint {
++ String toString()
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.Utils {
++ {static} void CloseGame()
++ {static} void copyFromResources(String,String)
++ {static} Character getCharacter(int,int)
+}
+
+class cz.cvut.fel.pjv.bukovja4.engine.scenes.types.Game1d {
++ void Tick()
+}
+
+class cz.cvut.fel.pjv.bukovja4.client.Window {
+- {static} int width
+- {static} int height
+- long handle
+- AppConfig config
++ {static} int getWidth()
++ {static} int getHeight()
++ {static} void setWidth(int)
++ {static} void setHeight(int)
++ long getHandle()
++ void Render()
++ void init()
+- void setIcon()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.utils.engine.Color {
++ {static} Color TRANSPARENT
++ {static} Color WHITE
++ {static} Color YELLOW
++ {static} Color RED
++ {static} Color BLUE
++ {static} Color GREEN
++ {static} Color BLACK
++ {static} Color GRAY
++ {static} Color CYAN
++ {static} Color DARK_GRAY
++ {static} Color LIGHT_GRAY
++ {static} Color PINK
++ {static} Color ORANGE
++ {static} Color MAGENTA
++ float r
++ float g
++ float b
++ float a
+}
+
+class cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory {
++ {static} ElementFactory<Dim2d> Factory2d
++ {static} ElementFactory<Dim3d> Factory3d
++ {static} ElementFactory getFactory(int)
++ E create(ElementTypes,Box<D>)
++ E create(ElementTypes,Pos<D>,Pos<D>)
++ E create(ElementTypes,float,float,float,float)
++ E create(ElementTypes,float,float,float,float,float,float)
++ E create(ElementTypes,float,float,float,float,float,float,float)
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.utils.engine.Pos {
++ float x
++ float y
++ float z
++ float special
++ int dimension
++ float distance(float,float)
++ float distance(float,float,float)
++ float distance(float,float,float,float)
++ float distance2d(Pos<Dim2d>)
++ float distance3d(Pos<Dim3d>)
++ float distance4d(Pos<Dim4d>)
++ Pos<Dim2d> toPos2d()
++ Pos<Dim3d> toPos3d()
++ Pos<Dim4d> toPos4d()
++ String toString()
+}
+
+
+enum cz.cvut.fel.pjv.bukovja4.engine.elements.ElementTypes {
++  BUTTON
++  IMAGE
++  LABEL
+- Class<? extends BaseElement<?>> elementClass
++ Class<? extends BaseElement<D>> getElementClass()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim2d {
++ int getDimensionCount()
+}
+
+class cz.cvut.fel.pjv.bukovja4.client.RenderWindow {
++ {static} void Render()
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim3d {
++ int getDimensionCount()
+}
+
+class cz.cvut.fel.pjv.bukovja4.client.player.Player {
++ Pos<D> position
++ Vector<D> viewAngle
++ float fov
+}
+
+class cz.cvut.fel.pjv.bukovja4.TestingThings {
++ {static} void TestElements()
++ {static} void TestAudio()
++ {static} void Test()
+}
+
+abstract class cz.cvut.fel.pjv.bukovja4.engine.logic.controls.BaseEvent {
++ Function<Object[],?> callback
++ long windowHandle
++ Callback handler
++ {abstract}void register()
++ {abstract}void unRegister()
++ void init(Function<Object[],?>)
++ void clearCallback()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events.Click {
++ void register()
++ void unRegister()
++ void invoke(long,int,int,int)
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.engine.Sprite {
+- int textureID
+- IntBuffer width
+- IntBuffer height
+- IntBuffer channels
++ int getWidth()
++ int getHeight()
++ void draw(int,int,float)
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.utils.constants.Const {
++ {static} int MAX_COMPRESSED_LOGS_PER_DAY
++ {static} int DESIRED_TPS
++ {static} String APP_TITLE
+}
+
+abstract class cz.cvut.fel.pjv.bukovja4.engine.scenes.BaseScene {
+- {static} String file
+# {static} ArrayList<BaseElement<?>> elements
++ {static} void Load(String)
++ void Unload()
++ {abstract}void Tick()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.Main {
++ {static} void main(String[])
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.config.UpdateConfig {
+~ {static} void Update(AppConfig)
+- {static} Map<String,Object> PrepareYaml(AppConfig)
+- {static} Map<String,Object> objectToMap(Object)
+- {static} boolean isPrimitive(Object)
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.engine.Box {
++ float x1
++ float y1
++ float x2
++ float y2
++ float z1
++ float z2
++ float special
+- float width
+- float height
+- float depth
++ float getWidth()
++ float getHeight()
++ float getDepth()
++ ArrayList<Pos<Dim4d>> getCorners4d()
++ ArrayList<Pos<Dim3d>> getCorners3d()
++ ArrayList<Pos<Dim2d>> getCorners2d()
+}
+
+
+interface cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim {
+~ int getDimensionCount()
+}
+
+class cz.cvut.fel.pjv.bukovja4.engine.actions.Actions {
++ {static} void start_game()
++ {static} void exit_game()
++ {static} void open_settings()
+}
+
+class cz.cvut.fel.pjv.bukovja4.engine.scenes.SceneFactory {
++ {static} S create(SceneTypes,String)
+}
+
+class cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events.KeyPress {
++ void register()
++ void unRegister()
++ void invoke(long,int,int,int,int)
+}
+
+class cz.cvut.fel.pjv.bukovja4.GameLoop {
+~ Config config
+~ Clock clock
++ void run()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.utils.audio.Playback {
+~ Thread playback
++ void stop()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim4d {
++ int getDimensionCount()
+}
+
+enum cz.cvut.fel.pjv.bukovja4.engine.logic.controls.ControlTypes {
++  KEY_PRESS
++  CLICK
++  MOUSE_MOVE
++  SCROLL
+- Class<? extends BaseEvent> eventClass
++ Class<? extends BaseEvent> getEventClass()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.utils.audio.Audio {
++ {static} Playback play(String)
++ {static} Playback play(String,boolean)
+}
+
+class cz.cvut.fel.pjv.bukovja4.utils.engine.Vector {
++ float[] components
+- int dimensionCount
++ float getComponents(int)
++ void set(int,float)
++ int getDimensionCount()
++ Vector<D> add(Vector<D>)
++ Vector<D> subtract(Vector<D>)
++ Vector<D> scale(float)
++ float dot(Vector<D>)
++ float magnitude()
++ Vector<D> normalize()
++ Vector<D> cross(Vector<D>)
++ float angle(Vector<D>)
++ String toString()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.engine.scenes.types.Game3d {
++ void Tick()
+}
+
+class cz.cvut.fel.pjv.bukovja4.engine.logic.controls.Controls {
+- {static} long windowHandle
+- {static} Map<ControlTypes,BaseEvent> events
++ E register(ControlTypes,Function)
++ void unRegister(ControlTypes)
++ void unRegisterAll()
+}
+
+
+class cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events.Scroll {
++ void register()
++ void unRegister()
++ void invoke(long,double,double)
+}
+
+class cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events.MouseMove {
++ void register()
++ void unRegister()
++ void invoke(long,double,double)
+}
+
+
+
+cz.cvut.fel.pjv.bukovja4.engine.scenes.BaseScene <|-- cz.cvut.fel.pjv.bukovja4.engine.scenes.types.Dialog
+javax.sound.sampled.LineListener <|.. cz.cvut.fel.pjv.bukovja4.utils.audio.AudioListener
+cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement <|-- cz.cvut.fel.pjv.bukovja4.engine.elements.specific.Label
+cz.cvut.fel.pjv.bukovja4.engine.scenes.BaseScene <|-- cz.cvut.fel.pjv.bukovja4.engine.scenes.types.Menu
+cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement <|-- cz.cvut.fel.pjv.bukovja4.engine.elements.specific.Button
+cz.cvut.fel.pjv.bukovja4.engine.scenes.BaseScene <|-- cz.cvut.fel.pjv.bukovja4.engine.scenes.types.Game2d
+cz.cvut.fel.pjv.bukovja4.utils.config.YAMLPrint <|-- cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig
+cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig +.. cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig$Window
+cz.cvut.fel.pjv.bukovja4.utils.config.YAMLPrint <|-- cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig$Window
+cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim <|.. cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim1d
+cz.cvut.fel.pjv.bukovja4.utils.AutoCloseable <|.. cz.cvut.fel.pjv.bukovja4.utils.Closeable
+cz.cvut.fel.pjv.bukovja4.utils.clocks.Thread <|-- cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock
+cz.cvut.fel.pjv.bukovja4.engine.scenes.BaseScene <|-- cz.cvut.fel.pjv.bukovja4.engine.scenes.types.Game4d
+cz.cvut.fel.pjv.bukovja4.utils.logging.LOG +.. cz.cvut.fel.pjv.bukovja4.utils.logging.LOG$ColorAttribute
+cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement <|-- cz.cvut.fel.pjv.bukovja4.engine.elements.specific.Image
+cz.cvut.fel.pjv.bukovja4.engine.scenes.BaseScene <|-- cz.cvut.fel.pjv.bukovja4.engine.scenes.types.Game1d
+cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim <|.. cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim2d
+cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim <|.. cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim3d
+org.lwjgl.glfw.GLFWMouseButtonCallbackI <|.. cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events.Click
+cz.cvut.fel.pjv.bukovja4.engine.logic.controls.BaseEvent <|-- cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events.Click
+org.lwjgl.glfw.GLFWKeyCallbackI <|.. cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events.KeyPress
+cz.cvut.fel.pjv.bukovja4.engine.logic.controls.BaseEvent <|-- cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events.KeyPress
+cz.cvut.fel.pjv.bukovja4.Thread <|-- cz.cvut.fel.pjv.bukovja4.GameLoop
+cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim <|.. cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim4d
+cz.cvut.fel.pjv.bukovja4.engine.scenes.BaseScene <|-- cz.cvut.fel.pjv.bukovja4.engine.scenes.types.Game3d
+org.lwjgl.glfw.GLFWScrollCallbackI <|.. cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events.Scroll
+cz.cvut.fel.pjv.bukovja4.engine.logic.controls.BaseEvent <|-- cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events.Scroll
+org.lwjgl.glfw.GLFWCursorPosCallbackI <|.. cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events.MouseMove
+cz.cvut.fel.pjv.bukovja4.engine.logic.controls.BaseEvent <|-- cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events.MouseMove
+@enduml
