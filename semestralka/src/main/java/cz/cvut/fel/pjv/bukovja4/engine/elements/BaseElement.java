@@ -78,4 +78,10 @@ public abstract class BaseElement<D extends Dim> {
      * Must be implemented by subclasses
      */
     public abstract void render();
+
+    /**
+     * Updates the element's state for the current frame
+     * Must be implemented by subclasses
+     */
+    public abstract void tick();
 }

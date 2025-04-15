@@ -205,6 +205,18 @@ public abstract class BaseScene {
     /**
      * Updates the scene state for the current frame.
      * This method must be implemented by any concrete scene class.
+     * After executing this method, the scene elements will be updated automatically.
      */
     public abstract void Tick();
+
+    /**
+     * Updates the scene state for the current frame.
+     * This method must be called in Tick() to ensure proper scene updates.
+     */
+    public final void tick() {
+        this.Tick();
+        for (BaseElement<?> element : elements) {
+            element.tick();
+        }
+    }
 }

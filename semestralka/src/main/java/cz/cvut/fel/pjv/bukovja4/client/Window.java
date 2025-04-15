@@ -94,7 +94,7 @@ public class Window {
     /**
      * Renders window content
      */
-    public void Render() {
+    public void render() {
         RenderWindow.Render();
     }
 

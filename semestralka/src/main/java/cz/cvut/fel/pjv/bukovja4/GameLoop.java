@@ -158,8 +158,8 @@ public final class GameLoop extends Thread {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
             // Update game state and render the frame
-            gameState.getScene().Tick();
-            window.Render();
+            gameState.getScene().tick();
+            window.render();
 
             // Display the rendered frame and check for window events
             glfwSwapBuffers(window.getHandle());

@@ -22,6 +22,14 @@ public class Button<D extends Dim> extends BaseElement<D> {
     }
 
     /**
+     * Updates the label state for the current frame
+     */
+    @Override
+    public void tick() {
+
+    }
+
+    /**
      * Creates a button with specified bounding box.
      * 
      * @param bounds The predefined bounding box

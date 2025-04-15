@@ -21,6 +21,14 @@ public class Image<D extends Dim> extends BaseElement<D> {
     }
 
     /**
+     * Updates the label state for the current frame
+     */
+    @Override
+    public void tick() {
+
+    }
+
+    /**
      * Creates an image with specified bounding box
      * 
      * @param bounds The predefined bounding box
