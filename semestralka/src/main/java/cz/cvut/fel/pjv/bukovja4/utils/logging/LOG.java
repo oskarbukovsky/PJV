@@ -129,7 +129,7 @@ public final class LOG {
     }
 
     /**
-     * Logs an error message.
+     * Logs an error message. (Does not throw)
      * For serious issues that need attention.
      * 
      * @param message The error message to log
@@ -139,73 +139,70 @@ public final class LOG {
     }
 
     /**
-     * Logs an error message with exception details and rethrows.
+     * Logs and rethrows an exception.
      * 
      * @param message   The error message to log
      * @param exception The exception to log and rethrow
-     * @throws Throwable The original exception is rethrown
+     * @throws E The original exception is rethrown
      */
-    public static void error(String message, Throwable exception) throws Throwable {
-        Logger.severe(message + ": " + getStackTrace(exception));
+    public static <E extends Throwable> void error(String message, E exception) throws E {
+        LOG.error(message, exception, true);
         throw exception;
     }
 
     /**
-     * Logs an error message with runtime exception details and rethrows.
+     * Logs an exception. (Does not rethrow)
      * 
      * @param message   The error message to log
      * @param exception The exception to log and rethrow
-     * @throws RuntimeException The original exception is rethrown
+     * @param notThrow  Not used, but required for method signature. Anything passed
+     *                  here make log not throw.
      */
-    public static void error(String message, RuntimeException exception) throws RuntimeException {
+    public static <E extends Throwable> void error(String message, E exception, Object notThrow) {
         Logger.severe(message + ": " + getStackTrace(exception));
-        throw exception;
-    }
-
-    /**
-     * Logs an error message with illegal argument exception details and rethrows.
-     * 
-     * @param message   The error message to log
-     * @param exception The exception to log and rethrow
-     * @throws IllegalArgumentException The original exception is rethrown
-     */
-    public static void error(String message, IllegalArgumentException exception) throws IllegalArgumentException {
-        Logger.severe(message + ": " + getStackTrace(exception));
-        throw exception;
-    }
-
-    /**
-     * Logs an error message with IO exception details and rethrows.
-     * 
-     * @param message   The error message to log
-     * @param exception The exception to log and rethrow
-     * @throws IOException The original exception is rethrown
-     */
-    public static void error(String message, IOException exception) throws IOException {
-        Logger.severe(message + ": " + getStackTrace(exception));
-        throw exception;
     }
 
     /**
      * Logs and rethrows an exception.
      * 
      * @param exception The exception to log and rethrow
-     * @throws Throwable The original exception is rethrown
+     * @throws E The original exception is rethrown
      */
-    public static void error(Throwable exception) throws Throwable {
-        Logger.severe(getStackTrace(exception));
+    public static <E extends Throwable> void error(E exception) throws E {
+        LOG.error(exception, true);
         throw exception;
+    }
+
+    /**
+     * Logs an exception. (Does not rethrow)
+     * 
+     * @param exception The exception to log and rethrow
+     * @param notThrow  Not used, but required for method signature. Anything passed
+     *                  here make log not throw.
+     */
+    public static <E extends Throwable> void error(E exception, Object notThrow) {
+        Logger.severe(getStackTrace(exception));
     }
 
     /**
      * Logs trace information for an exception and rethrows.
      * 
      * @param exception The exception to log and rethrow
-     * @throws Throwable The original exception is rethrown
+     * @throws E The original exception is rethrown
      */
-    public static void trace(Throwable exception) throws Throwable {
-        Logger.finer(getStackTrace(exception));
+    public static <E extends Throwable> void trace(E exception) throws E {
+        LOG.trace(exception, true);
         throw exception;
+    }
+
+    /**
+     * Logs trace information for an exception. (Does not rethrow)
+     * 
+     * @param exception The exception to log and rethrow
+     * @throws E The original exception is rethrown
+     */
+    public static <E extends Throwable> void trace(E exception, Object notThrow) {
+        Logger.finer(getStackTrace(exception));
     }
 
     /**
@@ -372,10 +369,7 @@ public final class LOG {
             });
             Logger.addHandler(logHandler);
         } catch (IOException e) {
-            try {
-                error("Error while logging", e);
-            } catch (final Throwable ignored) {
-            }
+            error("Error while logging", e, true);
         }
     }
 }

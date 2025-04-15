@@ -55,10 +55,7 @@ public class Click extends BaseEvent implements GLFWMouseButtonCallbackI {
             try {
                 this.callback.apply(new Object[] { button, action, modifiers });
             } catch (Throwable e) {
-                try {
-                    LOG.error("Error in click callback", e);
-                } catch (final Throwable ignore) {
-                }
+                LOG.error("Error in click callback", e, true);
             }
         }
     }

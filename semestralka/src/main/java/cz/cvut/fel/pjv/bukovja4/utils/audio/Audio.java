@@ -37,31 +37,27 @@ public final class Audio {
             public void run() {
                 LOG.debug("Playing audio file: " + fileName);
                 AudioListener listener = new AudioListener();
-                try {
-                    try (AudioInputStream audioInputStream = AudioSystem
-                            .getAudioInputStream(Main.class.getResourceAsStream("/audio/" + fileName))) {
-                        try (Clip clip = AudioSystem.getClip()) {
-                            clip.addLineListener(listener);
-                            clip.open(audioInputStream);
-                            if (loop) {
-                                clip.loop(Clip.LOOP_CONTINUOUSLY);
-                            } else {
-                                clip.loop(0);
-                            }
-                            clip.start();
-                            listener.waitUntilDone();
+                try (AudioInputStream audioInputStream = AudioSystem
+                        .getAudioInputStream(Main.class.getResourceAsStream("/audio/" + fileName))) {
+                    try (Clip clip = AudioSystem.getClip()) {
+                        clip.addLineListener(listener);
+                        clip.open(audioInputStream);
+                        if (loop) {
+                            clip.loop(Clip.LOOP_CONTINUOUSLY);
+                        } else {
+                            clip.loop(0);
                         }
-                    } catch (UnsupportedAudioFileException e) {
-                        LOG.error("Unsupported audio file: " + fileName, e);
-                    } catch (LineUnavailableException e) {
-                        LOG.error("Line unavailable for audio file: " + fileName, e);
-                    } catch (IOException e) {
-                        LOG.error("I/O error while playing audio file: " + fileName, e);
-                    } catch (final InterruptedException ignored) {
-                    } catch (Throwable e) {
-                        LOG.error("Error while playing audio file: " + fileName, e);
+                        clip.start();
+                        listener.waitUntilDone();
                     }
-                } catch (final Throwable ignored) {
+                } catch (UnsupportedAudioFileException e) {
+                    LOG.error("Unsupported audio file: " + fileName, e, true);
+                } catch (LineUnavailableException e) {
+                    LOG.error("Line unavailable for audio file: " + fileName, e, true);
+                } catch (IOException e) {
+                    LOG.error("I/O error while playing audio file: " + fileName, e, true);
+                } catch (Throwable e) {
+                    LOG.error("Error while playing audio file: " + fileName, e, true);
                 }
             }
         });

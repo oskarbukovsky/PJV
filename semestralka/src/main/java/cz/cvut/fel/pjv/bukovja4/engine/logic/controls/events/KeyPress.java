@@ -70,10 +70,7 @@ public class KeyPress extends BaseEvent implements GLFWKeyCallbackI {
             try {
                 this.callback.apply(new Object[] { key, scanCode, action, modifiers });
             } catch (Throwable e) {
-                try {
-                    LOG.error("Error in scroll callback", e);
-                } catch (final Throwable ignore) {
-                }
+                LOG.error("Error in scroll callback", e, true);
             }
         }
     }

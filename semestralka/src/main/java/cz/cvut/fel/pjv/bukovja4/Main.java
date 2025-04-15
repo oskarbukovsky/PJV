@@ -34,11 +34,6 @@ public final class Main {
             GameLoop game = new GameLoop(config);
             game.start();
 
-            try {
-                game.join();
-            } catch (InterruptedException e) {
-                LOG.error("Game interrupted", e);
-            }
         } catch (Throwable e) {
             // e.printStackTrace();
         } finally {

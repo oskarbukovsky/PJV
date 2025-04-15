@@ -56,10 +56,7 @@ public class Scroll extends BaseEvent implements GLFWScrollCallbackI {
             try {
                 this.callback.apply(new Object[] { dx, dy });
             } catch (Throwable e) {
-                try {
-                    LOG.error("Error in scroll callback", e);
-                } catch (final Throwable ignore) {
-                }
+                LOG.error("Error in scroll callback", e, true);
             }
         }
     }

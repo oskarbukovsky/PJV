@@ -16,7 +16,7 @@ import static org.lwjgl.glfw.GLFW.*;
 /**
  * Core game engine class that implements the main game loop.
  * Uses fixed-timestep pattern: wait for clock tick, clear screen, update state,
- * render elements, swap buffers, poll events. A dedicated Clock maintains 
+ * render elements, swap buffers, poll events. A dedicated Clock maintains
  * consistent update rate defined in the configuration.
  * 
  * @see Clock For the timing mechanism
@@ -27,7 +27,7 @@ public final class GameLoop extends Thread {
 
     /** Application configuration with window settings, FPS limits, etc. */
     Config config;
-    
+
     /** Clock for fixed-timestep update cycle */
     Clock clock;
 
@@ -41,6 +41,22 @@ public final class GameLoop extends Thread {
         this.config = config;
         this.clock = new Clock(config.getConfig().window.fpsLock, "ClockThread");
         this.clock.start();
+    }
+
+    /**
+     * Starts the game loop thread.
+     * Calls the run method to initiate the main game loop.
+     * 
+     * @see Thread#start() For thread management
+     */
+    @Override
+    public void start() {
+        super.start();
+        try {
+            this.join();
+        } catch (InterruptedException e) {
+            LOG.error("Game interrupted", e, true);
+        }
     }
 
     /**
@@ -80,7 +96,7 @@ public final class GameLoop extends Thread {
             } catch (Throwable e) {
                 // Silent failure for config update errors
             }
-            
+
             // Update OpenGL viewport and projection matrix for the new dimensions
             glViewport(0, 0, newWidth, newHeight);
             glMatrixMode(GL_PROJECTION);
@@ -97,7 +113,7 @@ public final class GameLoop extends Thread {
         // LOG.warn("Scroll fired");
         // return null;
         // });
-        
+
         // controls.register(CLICK, (event) -> {
         // LOG.warn("Click fired");
         // return null;
@@ -127,7 +143,7 @@ public final class GameLoop extends Thread {
                 LOG.warn("Scroll fired");
                 return null;
             });
-            
+
             // Load the initial scene (main menu)
             gameState.setScene(SceneFactory.create(SceneTypes.MENU, "main/main_menu.yml"));
         } catch (Throwable e) {
@@ -139,7 +155,7 @@ public final class GameLoop extends Thread {
          * Tracks how many ticks have occurred since the game started.
          */
         long counter = 0;
-        
+
         /**
          * Core game loop that runs until the window is closed.
          * Each iteration represents a single frame of the game.
@@ -171,7 +187,7 @@ public final class GameLoop extends Thread {
         glfwDestroyWindow(window.getHandle());
         glfwTerminate();
         LOG.info("GameLoop finished");
-        
+
         // Stop the clock thread and the game thread
         this.clock.interrupt();
         Thread.currentThread().interrupt();

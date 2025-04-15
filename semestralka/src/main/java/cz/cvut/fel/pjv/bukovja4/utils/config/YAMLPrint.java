@@ -31,10 +31,7 @@ public class YAMLPrint {
                     result.append(", ");
                 }
             } catch (IllegalAccessException e) {
-                try {
-                    LOG.trace(e);
-                } catch (final Throwable ignore) {
-                }
+                LOG.trace(e,true);
             }
         }
         result.append("}");

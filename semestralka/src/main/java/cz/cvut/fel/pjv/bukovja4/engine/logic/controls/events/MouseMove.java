@@ -55,10 +55,7 @@ public class MouseMove extends BaseEvent implements GLFWCursorPosCallbackI {
             try {
                 this.callback.apply(new Object[] { posX, posY });
             } catch (Throwable e) {
-                try {
-                    LOG.error("Error in scroll callback", e);
-                } catch (final Throwable ignore) {
-                }
+                LOG.error("Error in scroll callback", e, true);
             }
         }
     }
