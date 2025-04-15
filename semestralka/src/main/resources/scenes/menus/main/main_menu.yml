@@ -29,5 +29,5 @@ elements:
     },
   ]
 audio:
-  src: "audio/background.wav"
-  loop: true
+  src: "background.wav"
+  # loop: true

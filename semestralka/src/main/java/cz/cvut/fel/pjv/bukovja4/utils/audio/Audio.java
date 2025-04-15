@@ -48,7 +48,12 @@ public final class Audio {
                             clip.loop(0);
                         }
                         clip.start();
-                        listener.waitUntilDone();
+                        try {
+                            listener.waitUntilDone();
+                        } catch (InterruptedException e) {
+                            // TODO: check if this is the right way to handle this
+                            // LOG.error("Audio playback interrupted: " + fileName, e, true);
+                        }
                     }
                 } catch (UnsupportedAudioFileException e) {
                     LOG.error("Unsupported audio file: " + fileName, e, true);

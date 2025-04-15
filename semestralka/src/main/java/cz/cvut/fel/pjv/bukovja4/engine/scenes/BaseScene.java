@@ -1,6 +1,7 @@
 package cz.cvut.fel.pjv.bukovja4.engine.scenes;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
@@ -11,6 +12,7 @@ import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementTypes;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
+import cz.cvut.fel.pjv.bukovja4.utils.audio.Audio;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.Box;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.Pos;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
@@ -196,6 +198,21 @@ public abstract class BaseScene {
             element = factory.create(ElementTypes.valueOf(type), bounds);
             BaseScene.elements.add(element);
         }
+
+        // Audio
+        LinkedHashMap<String,LinkedHashMap<?,?>> audioData = (LinkedHashMap<String,LinkedHashMap<?,?>>) data.get("audio");
+        if (audioData != null) {
+            String audioSrc = (String)(Object) audioData.get("src");
+            if (audioSrc != null) {
+                Boolean audioLoop = (Boolean)(Object) audioData.get("loop");
+                if (audioLoop == null) {
+                    audioLoop = false;
+                }
+                Audio.play(sceneName.substring(0, sceneName.lastIndexOf("/")) + "/" + audioSrc, audioLoop);
+            }
+        }
+
+
         // Object test = BaseScene.elements;
         LOG.info("Loaded scene: " + sceneName);
     }
