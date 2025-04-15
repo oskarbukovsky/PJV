@@ -295,7 +295,7 @@ public final class LOG {
                 try {
                     Files.delete(oldPath);
                 } catch (IOException e) {
-                    error("Error while deleting old log file", e);
+                    error("Error while deleting old log file", e, true);
                 }
             }
         }

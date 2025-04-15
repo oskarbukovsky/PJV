@@ -1,7 +1,10 @@
 package cz.cvut.fel.pjv.bukovja4;
 
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
+
 import cz.cvut.fel.pjv.bukovja4.utils.Utils;
+import cz.cvut.fel.pjv.bukovja4.engine.scenes.*;
+import cz.cvut.fel.pjv.bukovja4.utils.Exceptions.*;
 import cz.cvut.fel.pjv.bukovja4.utils.config.*;
 
 /**
@@ -9,7 +12,7 @@ import cz.cvut.fel.pjv.bukovja4.utils.config.*;
  * Handles initialization, configuration loading, and game loop startup.
  */
 public final class Main {
-/**
+    /**
      * Application entry point that initializes and starts the game.
      * Sets up the main thread, loads configuration, starts game loop,
      * and ensures proper cleanup on exit.
@@ -32,10 +35,17 @@ public final class Main {
             config.Load();
 
             GameLoop game = new GameLoop(config);
+            game.setInitScene(SceneFactory.create(SceneTypes.MENU, "main/main_menu.yml"));
             game.start();
 
+        } catch (ConfigException e) {
+            LOG.error("Failed to load configuration", e, true);
+        } catch (SceneException e) {
+            LOG.error(e, true);
+        } catch (GameException e) {
+            LOG.error(e, true);
         } catch (Throwable e) {
-            // e.printStackTrace();
+            LOG.error("Unexpected error", e, true);
         } finally {
             Utils.CloseGame();
             LOG.info("Game exited");

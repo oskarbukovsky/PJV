@@ -43,7 +43,7 @@ public final class Utils {
      * @see Files#copy(InputStream, Path, java.nio.file.CopyOption...)
      * @see Main#class For the ClassLoader used to locate resources
      */
-    public static void copyFromResources(String targetPathString, String sourcePathString) throws Throwable {
+    public static void copyFromResources(String targetPathString, String sourcePathString) throws IOException {
         Path targetPath = Paths.get(targetPathString);
 
         InputStream sourceStream = Main.class.getResourceAsStream("/" + sourcePathString);

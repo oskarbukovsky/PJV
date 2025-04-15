@@ -68,9 +68,9 @@ final class UpdateConfig {
      * 
      * @param obj The object to convert to a Map
      * @return A Map representation of the object
-     * @throws Throwable if an error occurs during conversion
+     * @throws IllegalAccessException if an error occurs during conversion
      */
-    private static Map<String, Object> objectToMap(Object obj) throws Throwable {
+    private static Map<String, Object> objectToMap(Object obj) throws IllegalAccessException {
         Map<String, Object> map = new HashMap<>();
 
         Field[] fields = obj.getClass().getDeclaredFields();

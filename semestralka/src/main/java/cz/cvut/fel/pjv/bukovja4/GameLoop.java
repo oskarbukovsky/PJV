@@ -3,6 +3,8 @@ package cz.cvut.fel.pjv.bukovja4;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import cz.cvut.fel.pjv.bukovja4.client.Window;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
+import cz.cvut.fel.pjv.bukovja4.utils.Exceptions.GameException;
+import cz.cvut.fel.pjv.bukovja4.utils.Exceptions.SceneException;
 import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
 
@@ -26,10 +28,12 @@ import static org.lwjgl.glfw.GLFW.*;
 public final class GameLoop extends Thread {
 
     /** Application configuration with window settings, FPS limits, etc. */
-    Config config;
+    private Config config;
 
     /** Clock for fixed-timestep update cycle */
-    Clock clock;
+    private Clock clock;
+
+    private BaseScene initScene;
 
     /**
      * Creates a game loop with the specified configuration.
@@ -44,13 +48,27 @@ public final class GameLoop extends Thread {
     }
 
     /**
+     * Sets the initial scene for the game loop.
+     * This scene will be loaded and displayed when the game starts.
+     * 
+     * @param scene The initial scene to set
+     */
+    public void setInitScene(BaseScene scene) {
+        this.initScene = scene;
+    }
+
+    /**
      * Starts the game loop thread.
      * Calls the run method to initiate the main game loop.
      * 
+     * @throws GameException if the initial scene is not set
      * @see Thread#start() For thread management
      */
     @Override
-    public void start() {
+    public void start() throws GameException{
+        if (this.initScene == null) {
+            throw new GameException("Initial scene not set");
+        }
         super.start();
         try {
             this.join();
@@ -65,7 +83,7 @@ public final class GameLoop extends Thread {
      * Runs fixed-timestep loop until window closes, then cleans up resources.
      */
     @Override
-    public void run() {
+    public void run() throws SceneException {
         Thread.currentThread().setName("Game");
         LOG.info("GameLoop started");
 
@@ -144,8 +162,8 @@ public final class GameLoop extends Thread {
                 return null;
             });
 
-            // Load the initial scene (main menu)
-            gameState.setScene(SceneFactory.create(SceneTypes.MENU, "main/main_menu.yml"));
+            // Load the initial scene
+            gameState.setScene(this.initScene);
         } catch (Throwable e) {
             LOG.error("Error while creating game state", (RuntimeException) e);
         }
@@ -156,15 +174,6 @@ public final class GameLoop extends Thread {
          */
         long counter = 0;
 
-        /**
-         * Core game loop that runs until the window is closed.
-         * Each iteration represents a single frame of the game.
-         * The loop is synchronized to the clock's tick rate.
-         * 
-         * @see Clock#awaitTick() For the timing mechanism
-         * @see GameState#getScene() For accessing the active scene
-         * @see Window#Render() For rendering the frame
-         */
         while (!glfwWindowShouldClose(window.getHandle())) {
             // Wait for the next tick to maintain consistent update rate
             clock.awaitTick();

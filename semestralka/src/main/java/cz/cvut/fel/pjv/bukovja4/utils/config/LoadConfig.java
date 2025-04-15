@@ -27,7 +27,7 @@ final class LoadConfig {
      * @throws Throwable if configuration loading fails critically
      * @see UpdateConfig#Update(AppConfig) For saving configuration
      */
-    static AppConfig Load() throws Throwable {
+    static AppConfig Load() throws IOException {
         File configFolder = null;
         try {
             configFolder = new File(System.getProperty("user.dir") + "\\config");
