@@ -1,9 +1,8 @@
 package cz.cvut.fel.pjv.bukovja4.engine.logic.controls;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
-
-import org.lwjgl.system.Callback;
-// import org.lwjgl.system.CallbackI;
 
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
@@ -12,10 +11,14 @@ import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
  * Provides common functionality for registering and handling input events.
  */
 public abstract class BaseEvent {
-    /** Event callback function */
-    public Function<Object[], ?> callback;
+
     /** Window handle to register events with */
     public long windowHandle;
+
+    /** Type for invoking in specific types */
+    protected ControlTypes eventType;
+
+    public static Map<Selector, Function<Object[], ?>> events = new HashMap<>();
 
     /**
      * Registers this event handler with the window.
@@ -23,25 +26,18 @@ public abstract class BaseEvent {
      */
     public abstract void register();
 
-    //TODO: only last one works :/
-
     /**
      * Unregisters this event handler from the window.
      * Must be implemented by subclasses to clean up specific event types.
      */
     public abstract void unRegister();
 
-    /** LWJGL callback handler */
-    public Callback handler;
-
-    /**
-     * Initializes the event handler with a callback function
-     * 
-     * @param callback Function to call when the event occurs
-     */
-    public void init(Function<Object[], ?> callback) {
-        this.callback = callback;
-        LOG.debug("Registering event: " + this.getClass().getSimpleName());
+    public void init(Selector selector, Function<Object[], ?> callback) {
+        BaseEvent.events.put(selector, callback);
+        this.eventType = selector.eventType;
+        LOG.debug(
+                "Registering event: " + this.getClass().getSimpleName() + " Type: " + selector.eventType + " Element: "
+                        + selector.element.getClass().getSimpleName());
     }
 
     /**
@@ -49,12 +45,7 @@ public abstract class BaseEvent {
      */
     public void clearCallback() {
         unRegister();
-
-        if (this.handler != null) {
-            this.handler.free();
-            this.handler = null;
-        }
-        this.callback = null;
+        BaseEvent.events.clear();
         LOG.debug("Unregistering event: " + this.getClass().getSimpleName());
     }
 }

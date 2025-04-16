@@ -11,8 +11,6 @@ import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
 
 import cz.cvut.fel.pjv.bukovja4.engine.scenes.*;
 
-import static cz.cvut.fel.pjv.bukovja4.engine.logic.controls.ControlTypes.*;
-
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -174,10 +172,6 @@ public final class GameLoop extends Thread {
         GameState gameState = null;
         try {
             gameState = new GameState(window.getHandle());
-            GameState.controls.register(SCROLL, (event) -> {
-                LOG.warn("Scroll fired");
-                return null;
-            });
 
             // Load the initial scene
             gameState.setScene(SceneFactory.create(this.initSceneType, this.initSceneName));

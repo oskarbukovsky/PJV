@@ -29,25 +29,25 @@ public class Controls {
     /**
      * Registers a new event handler for the specified control type
      * 
-     * @param <E>         The type of event to register
-     * @param controlType The control type to register
-     * @param callback    The function to call when the event occurs
+     * @param <E>      The type of event to register
+     * @param selector The selector for the control type to register
+     * @param callback The function to call when the event occurs
      * @return The created event handler instance
      * @throws Throwable if event registration fails
      * @see BaseEvent
      */
     @SuppressWarnings("unchecked")
-    public <E extends BaseEvent> E register(ControlTypes controlType, @SuppressWarnings("rawtypes") Function callback)
+    public <E extends BaseEvent> E register(Selector selector, @SuppressWarnings("rawtypes") Function callback)
             throws Throwable {
         try {
-            E event = (E) controlType.getEventClass().getDeclaredConstructor(long.class)
+            E event = (E) selector.eventType.getEventClass().getDeclaredConstructor(long.class)
                     .newInstance(Controls.windowHandle);
-            event.init(callback);
+            event.init(selector, callback);
             event.register();
             events.add(event);
             return event;
         } catch (Exception e) {
-            LOG.error("Error creating control " + controlType.getEventClass().getSimpleName(), e);
+            LOG.error("Error creating control " + selector.eventType.getEventClass().getSimpleName(), e);
         }
         return null;
     }
@@ -59,19 +59,13 @@ public class Controls {
      */
     public void unRegister(ControlTypes controlType) {
         LOG.info("Unregistering control: " + controlType);
-        // TODO: add type in constructor and add getControlType to base
-        // for (BaseEvent event : events) {
-        //     if (event.getControlType() == controlType) {
-        //         event.clearCallback();
-        //         events.remove(event);
-        //         return;
-        //     }
-        // }
-        // BaseEvent event = events.get(controlType);
-        // if (event != null) {
-        //     event.clearCallback();
-        //     events.remove(controlType);
-        // }
+        for (BaseEvent event : events) {
+            if (event.eventType == controlType) {
+                event.clearCallback();
+                events.remove(event);
+                break;
+            }
+        }
     }
 
     /**

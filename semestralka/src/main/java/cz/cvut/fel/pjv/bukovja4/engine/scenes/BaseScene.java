@@ -70,28 +70,6 @@ public abstract class BaseScene {
             ArrayList<ArrayList<Object>> position = (ArrayList<ArrayList<Object>>) dataEntry.get("position");
             String align = (String) dataEntry.get("align");
 
-            ArrayList<LinkedHashMap<String, String>> actions = (ArrayList<LinkedHashMap<String, String>>) dataEntry
-                    .get("actions");
-            if (actions != null) {
-                for (LinkedHashMap<String, String> action : actions) {
-                    for (Map.Entry<String, String> entry : action.entrySet()) {
-                        LOG.warn(entry.getKey() + "=" + entry.getValue());
-
-                        ControlTypes controlType = ControlTypes.valueOf(entry.getKey().toUpperCase());
-                        Method callbackMethod = Actions.class.getMethod(entry.getValue());
-
-                        GameState.controls.register(controlType, (args) -> {
-                            try {
-                                callbackMethod.invoke(null);
-                            } catch (final Exception e) {
-                                LOG.error("Error invoking action: " + entry.getValue(), e, true);
-                            }
-                            return null;
-                        });
-                    }
-                }
-            }
-
             for (int i = 0; i < position.size(); i++) {
                 ArrayList<Object> pos = position.get(i);
                 ArrayList<Object> newPos = new ArrayList<>(pos.size());
@@ -223,6 +201,26 @@ public abstract class BaseScene {
 
             element = factory.create(ElementTypes.valueOf(type), bounds);
             BaseScene.elements.add(element);
+
+            ArrayList<LinkedHashMap<String, String>> actions = (ArrayList<LinkedHashMap<String, String>>) dataEntry
+                    .get("actions");
+            if (actions != null) {
+                for (LinkedHashMap<String, String> action : actions) {
+                    for (Map.Entry<String, String> entry : action.entrySet()) {
+                        ControlTypes controlType = ControlTypes.valueOf(entry.getKey().toUpperCase());
+                        Method callbackMethod = Actions.class.getMethod(entry.getValue());
+
+                        GameState.controls.register(new Selector(element, controlType), (args) -> {
+                            try {
+                                callbackMethod.invoke(null);
+                            } catch (final Exception e) {
+                                LOG.error("Error invoking action: " + entry.getValue(), e, true);
+                            }
+                            return null;
+                        });
+                    }
+                }
+            }
         }
 
         // Audio
