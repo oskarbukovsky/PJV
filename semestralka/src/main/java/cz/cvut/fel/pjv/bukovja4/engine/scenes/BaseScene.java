@@ -1,13 +1,16 @@
 package cz.cvut.fel.pjv.bukovja4.engine.scenes;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
+// import java.util.function.Function;
 
 import org.yaml.snakeyaml.Yaml;
 
 import cz.cvut.fel.pjv.bukovja4.GameLoop;
 import cz.cvut.fel.pjv.bukovja4.Main;
+import cz.cvut.fel.pjv.bukovja4.engine.actions.Actions;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementTypes;
@@ -16,6 +19,7 @@ import cz.cvut.fel.pjv.bukovja4.utils.audio.Audio;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.Box;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.Pos;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
+import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.*;
 
 /**
  * Abstract base class for all game scenes.
@@ -45,7 +49,7 @@ public abstract class BaseScene {
      * @throws Throwable If any error occurs during scene loading
      */
     @SuppressWarnings("unchecked")
-    public static void Load(String sceneName) throws Throwable {
+    public static void Load(String sceneName) throws Throwable, Exception {
         file = sceneName;
         LOG.info("Loading scene: " + sceneName);
 
@@ -65,6 +69,28 @@ public abstract class BaseScene {
             String type = ((String) dataEntry.get("type")).toUpperCase();
             ArrayList<ArrayList<Object>> position = (ArrayList<ArrayList<Object>>) dataEntry.get("position");
             String align = (String) dataEntry.get("align");
+
+            ArrayList<LinkedHashMap<String, String>> actions = (ArrayList<LinkedHashMap<String, String>>) dataEntry
+                    .get("actions");
+            if (actions != null) {
+                for (LinkedHashMap<String, String> action : actions) {
+                    for (Map.Entry<String, String> entry : action.entrySet()) {
+                        LOG.warn(entry.getKey() + "=" + entry.getValue());
+
+                        ControlTypes controlType = ControlTypes.valueOf(entry.getKey().toUpperCase());
+                        Method callbackMethod = Actions.class.getMethod(entry.getValue());
+
+                        GameState.controls.register(controlType, (args) -> {
+                            try {
+                                callbackMethod.invoke(null);
+                            } catch (final Exception e) {
+                                LOG.error("Error invoking action: " + entry.getValue(), e, true);
+                            }
+                            return null;
+                        });
+                    }
+                }
+            }
 
             for (int i = 0; i < position.size(); i++) {
                 ArrayList<Object> pos = position.get(i);
@@ -200,18 +226,18 @@ public abstract class BaseScene {
         }
 
         // Audio
-        LinkedHashMap<String,LinkedHashMap<?,?>> audioData = (LinkedHashMap<String,LinkedHashMap<?,?>>) data.get("audio");
+        LinkedHashMap<String, LinkedHashMap<String, ?>> audioData = (LinkedHashMap<String, LinkedHashMap<String, ?>>) data
+                .get("audio");
         if (audioData != null) {
-            String audioSrc = (String)(Object) audioData.get("src");
+            String audioSrc = (String) (Object) audioData.get("src");
             if (audioSrc != null) {
-                Boolean audioLoop = (Boolean)(Object) audioData.get("loop");
+                Boolean audioLoop = (Boolean) (Object) audioData.get("loop");
                 if (audioLoop == null) {
                     audioLoop = false;
                 }
                 Audio.play(sceneName.substring(0, sceneName.lastIndexOf("/")) + "/" + audioSrc, audioLoop);
             }
         }
-
 
         // Object test = BaseScene.elements;
         LOG.info("Loaded scene: " + sceneName);
@@ -230,7 +256,8 @@ public abstract class BaseScene {
     /**
      * Updates the scene state for the current frame.
      * This method must be implemented by any concrete scene class.
-     * After executing this method, the scene elements will be updated automatically.
+     * After executing this method, the scene elements will be updated
+     * automatically.
      */
     public abstract void Tick();
 

@@ -1,7 +1,7 @@
 package cz.cvut.fel.pjv.bukovja4.engine.logic.controls;
 
-import java.util.Map;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
@@ -15,7 +15,7 @@ public class Controls {
     private static long windowHandle;
 
     /** Map of registered event handlers by control type */
-    private static Map<ControlTypes, BaseEvent> events = new HashMap<>();
+    private static List<BaseEvent> events = new ArrayList<>();
 
     /**
      * Creates a new controls manager for the specified window
@@ -44,7 +44,7 @@ public class Controls {
                     .newInstance(Controls.windowHandle);
             event.init(callback);
             event.register();
-            events.put(controlType, event);
+            events.add(event);
             return event;
         } catch (Exception e) {
             LOG.error("Error creating control " + controlType.getEventClass().getSimpleName(), e);
@@ -59,11 +59,19 @@ public class Controls {
      */
     public void unRegister(ControlTypes controlType) {
         LOG.info("Unregistering control: " + controlType);
-        BaseEvent event = events.get(controlType);
-        if (event != null) {
-            event.clearCallback();
-            events.remove(controlType);
-        }
+        // TODO: add type in constructor and add getControlType to base
+        // for (BaseEvent event : events) {
+        //     if (event.getControlType() == controlType) {
+        //         event.clearCallback();
+        //         events.remove(event);
+        //         return;
+        //     }
+        // }
+        // BaseEvent event = events.get(controlType);
+        // if (event != null) {
+        //     event.clearCallback();
+        //     events.remove(controlType);
+        // }
     }
 
     /**
@@ -71,7 +79,7 @@ public class Controls {
      */
     public void unRegisterAll() {
         LOG.info("Unregistering all controls");
-        for (BaseEvent event : events.values()) {
+        for (BaseEvent event : events) {
             event.clearCallback();
         }
         events.clear();

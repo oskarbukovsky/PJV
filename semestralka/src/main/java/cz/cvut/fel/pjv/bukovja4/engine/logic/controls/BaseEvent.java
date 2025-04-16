@@ -23,6 +23,8 @@ public abstract class BaseEvent {
      */
     public abstract void register();
 
+    //TODO: only last one works :/
+
     /**
      * Unregisters this event handler from the window.
      * Must be implemented by subclasses to clean up specific event types.

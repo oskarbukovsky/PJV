@@ -35,7 +35,7 @@ public final class Main {
             config.Load();
 
             GameLoop game = new GameLoop(config);
-            game.setInitScene(SceneFactory.create(SceneTypes.MENU, "main/main_menu.yml"));
+            game.setInitScene(SceneTypes.MENU, "main/main_menu.yml");
             game.start();
 
         } catch (ConfigException e) {

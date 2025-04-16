@@ -44,7 +44,10 @@ public final class GameLoop extends Thread {
     private Clock clock;
 
     /** Initial scene to be loaded when the game starts */
-    private BaseScene initScene;
+    private SceneTypes initSceneType;
+
+    /** Name of the initial scene file */
+    private String initSceneName;
 
     /**
      * Creates a game loop with the specified configuration.
@@ -62,10 +65,13 @@ public final class GameLoop extends Thread {
      * Sets the initial scene for the game loop.
      * This scene will be loaded and displayed when the game starts.
      * 
-     * @param scene The initial scene to set
+     * @param sceneType The type of scene to create
+     * @param name      The name of the scene file
      */
-    public void setInitScene(BaseScene scene) {
-        this.initScene = scene;
+    public void setInitScene(SceneTypes sceneType, String name) {
+        this.initSceneType = sceneType;
+        this.initSceneName = name;
+
     }
 
     /**
@@ -77,7 +83,7 @@ public final class GameLoop extends Thread {
      */
     @Override
     public void start() throws GameException {
-        if (this.initScene == null) {
+        if (this.initSceneName == null) {
             throw new GameException("Initial scene not set");
         }
         super.start();
@@ -174,7 +180,7 @@ public final class GameLoop extends Thread {
             });
 
             // Load the initial scene
-            gameState.setScene(this.initScene);
+            gameState.setScene(SceneFactory.create(this.initSceneType, this.initSceneName));
         } catch (Throwable e) {
             LOG.error("Error while creating game state", (RuntimeException) e);
         }

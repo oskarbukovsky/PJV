@@ -1,5 +1,6 @@
 package cz.cvut.fel.pjv.bukovja4.engine.logic.controls.events;
 
+import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.glfwSetMouseButtonCallback;
 
 import org.lwjgl.glfw.GLFWMouseButtonCallbackI;
@@ -49,9 +50,9 @@ public class Click extends BaseEvent implements GLFWMouseButtonCallbackI {
      */
     @Override
     public void invoke(long window, int button, int action, int modifiers) {
-        LOG.info("Click: Button= " + button + ", Action= " + action + ", Modifiers= " + modifiers);
 
-        if (this.callback != null) {
+        if (this.callback != null && action == GLFW_PRESS) { // Only call on press
+            LOG.info("Click: Button= " + button + ", Action= " + action + ", Modifiers= " + modifiers);
             try {
                 this.callback.apply(new Object[] { button, action, modifiers });
             } catch (Throwable e) {

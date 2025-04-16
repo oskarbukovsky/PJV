@@ -44,7 +44,7 @@ public class Button<D extends Dim> extends BaseElement<D> {
         // glVertex2f(bounds.x2, bounds.y2);
         // glVertex2f(bounds.x1, bounds.y2);
         // glEnd();
-        LOG.debug("Button rendered at: " + bounds.toString());
+        // LOG.debug("Button rendered at: " + bounds.toString());
     }
 
     /**

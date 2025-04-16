@@ -30,4 +30,4 @@ elements:
   ]
 audio:
   src: "background.wav"
-  # loop: true
+  loop: true
