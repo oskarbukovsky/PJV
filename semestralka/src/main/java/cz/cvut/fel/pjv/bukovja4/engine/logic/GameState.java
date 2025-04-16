@@ -11,13 +11,13 @@ public final class GameState {
     /** Flag indicating if mouse button is currently pressed */
     public boolean isMousePressed = false;
     /** Current mouse X coordinate */
-    public int mouseX = 0;
+    public static int mouseX = 0;
     /** Current mouse Y coordinate */
-    public int mouseY = 0;
+    public static int mouseY = 0;
     /** Change in mouse X position since last update */
-    public int mouseXDelta = 0;
+    public static int mouseXDelta = 0;
     /** Change in mouse Y position since last update */
-    public int mouseYDelta = 0;
+    public static int mouseYDelta = 0;
 
     /** Handle to the window this game state is associated with */
     public static long windowHandle;
@@ -25,9 +25,9 @@ public final class GameState {
     public static Controls controls;
 
     /** Flag indicating if any keyboard key is currently pressed */
-    public boolean isKeyPressed = false;
+    public static boolean isKeyPressed = false;
     /** Keycode of the currently pressed key */
-    public int keyPressed = 0;
+    public static int keyPressed = 0;
 
     /** Currently loaded and active game scene */
     private BaseScene loadedScene = null;

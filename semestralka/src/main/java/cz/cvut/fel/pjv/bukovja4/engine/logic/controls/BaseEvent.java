@@ -37,7 +37,7 @@ public abstract class BaseEvent {
         this.eventType = selector.eventType;
         LOG.debug(
                 "Registering event: " + this.getClass().getSimpleName() + " Type: " + selector.eventType + " Element: "
-                        + selector.element.getClass().getSimpleName());
+                        + (selector.element != null ? selector.element.getClass().getSimpleName() : "null"));
     }
 
     /**

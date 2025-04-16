@@ -5,6 +5,7 @@ import static org.lwjgl.glfw.GLFW.glfwSetMouseButtonCallback;
 
 import org.lwjgl.glfw.GLFWMouseButtonCallbackI;
 
+import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.BaseEvent;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.ControlTypes;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.Selector;
@@ -55,6 +56,7 @@ public class Click extends BaseEvent implements GLFWMouseButtonCallbackI {
 
         if (action == GLFW_PRESS) { // Only call on press
             LOG.info("Click: Button= " + button + ", Action= " + action + ", Modifiers= " + modifiers);
+            LOG.info("Mouse X: " + GameState.mouseX + ", Mouse Y: " + GameState.mouseY);
             try {
                 for (Selector selector : BaseEvent.events.keySet()) {
                     if (selector.eventType == ControlTypes.CLICK) {

@@ -5,6 +5,7 @@ import static org.lwjgl.glfw.GLFW.glfwSetCursorPosCallback;
 import org.lwjgl.glfw.GLFWCursorPosCallbackI;
 
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.BaseEvent;
+import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.ControlTypes;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.Selector;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
@@ -54,7 +55,9 @@ public class MouseMove extends BaseEvent implements GLFWCursorPosCallbackI {
 
         try {
             for (Selector selector : BaseEvent.events.keySet()) {
-                BaseEvent.events.get(selector).apply(new Object[] { posX, posY });
+                if (selector.eventType == ControlTypes.MOUSE_MOVE) {
+                    BaseEvent.events.get(selector).apply(new Object[] { posX, posY });
+                }
             }
         } catch (Throwable e) {
             LOG.error("Error in scroll callback", e, true);

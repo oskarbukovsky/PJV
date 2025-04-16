@@ -7,6 +7,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWKeyCallbackI;
 
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.BaseEvent;
+import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.ControlTypes;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.Selector;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
@@ -69,7 +70,9 @@ public class KeyPress extends BaseEvent implements GLFWKeyCallbackI {
 
         try {
             for (Selector selector : BaseEvent.events.keySet()) {
-                BaseEvent.events.get(selector).apply(new Object[] { key, scanCode, action, modifiers });
+                if (selector.eventType == ControlTypes.KEY_PRESS) {
+                    BaseEvent.events.get(selector).apply(new Object[] { key, scanCode, action, modifiers });
+                }
             }
         } catch (Throwable e) {
             LOG.error("Error in scroll callback", e, true);

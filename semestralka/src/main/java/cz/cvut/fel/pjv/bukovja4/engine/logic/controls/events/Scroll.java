@@ -7,6 +7,7 @@ import org.lwjgl.glfw.GLFWScrollCallbackI;
 
 import cz.cvut.fel.pjv.bukovja4.client.player.Camera;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.BaseEvent;
+import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.ControlTypes;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.Selector;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
@@ -55,7 +56,9 @@ public class Scroll extends BaseEvent implements GLFWScrollCallbackI {
         Camera.setZoom((float) (Camera.getZoom() + dy * 0.1f));
         try {
             for (Selector selector : BaseEvent.events.keySet()) {
-                BaseEvent.events.get(selector).apply(new Object[] { dx, dy });
+                if (selector.eventType == ControlTypes.SCROLL) {
+                    BaseEvent.events.get(selector).apply(new Object[] { dx, dy });
+                }
             }
         } catch (Throwable e) {
             LOG.error("Error in scroll callback", e, true);
