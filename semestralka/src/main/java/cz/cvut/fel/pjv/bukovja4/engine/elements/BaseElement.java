@@ -12,6 +12,19 @@ import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
 public abstract class BaseElement<D extends Dim> {
     /** Bounding box representing the element's boundaries in space */
     public Box<D> bounds;
+    /** Type of the element */
+    protected ElementTypes type;
+
+    /**
+     * Gets the type of the element
+     * 
+     * @return The type of the element
+     */
+    public ElementTypes getType() {
+        return this.type;
+    }
+
+    //TODO: remake constructors to use previous and add type to base constructor
 
     /**
      * Creates an element with specified bounding box

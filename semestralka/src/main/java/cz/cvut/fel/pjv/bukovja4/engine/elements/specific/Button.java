@@ -4,7 +4,6 @@ import static org.lwjgl.opengl.GL11.*;
 
 import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
-import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
 
 /**
@@ -25,7 +24,7 @@ public class Button<D extends Dim> extends BaseElement<D> {
         // You can customize the color and add border/text as needed
 
         // Set color (RGBA) for the button background
-        glColor4f(0.2f, 1f, 0.2f, 1.0f); // ~Lime
+        glColor4f(0.2f, 1f, 0.2f, this.alpha); // ~Lime
 
         // Draw filled rectangle using OpenGL immediate mode
         glBegin(GL_QUADS);
@@ -47,12 +46,14 @@ public class Button<D extends Dim> extends BaseElement<D> {
         // LOG.debug("Button rendered at: " + bounds.toString());
     }
 
+    float alpha = 1f; 
+
     /**
      * Updates the label state for the current frame
      */
     @Override
     public void tick() {
-
+        this.alpha = this.alpha + 0.1f > 1f ? 0f : this.alpha + 0.1f;
     }
 
     /**
