@@ -97,4 +97,12 @@ public abstract class BaseElement<D extends Dim> {
      * Must be implemented by subclasses
      */
     public abstract void tick();
+
+    /**
+     * Initializes the element with specified arguments
+     * Must be implemented by subclasses
+     * 
+     * @param args Initialization arguments
+     */
+    public abstract void init(Object... args);
 }

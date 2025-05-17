@@ -13,6 +13,19 @@ import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
 public class Label<D extends Dim> extends BaseElement<D> {
 
     /**
+     * Renders the label to the screen.
+     * Initialize label with text
+     */
+    @Override
+    public void init(Object... args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Label requires at least one argument: the text to display.");
+        }
+        String text = (String) args[0];
+    }
+
+
+    /**
      * Renders the label to the screen
      */
     @Override

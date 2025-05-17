@@ -2,7 +2,7 @@ dimension: 2
 elements:
   [
     {
-      type: "button",
+      type: "label",
       align: "center",
       position: [[-50, -50], [50, -30]],
       text: "Play",
@@ -25,7 +25,7 @@ elements:
     {
       type: "image",
       position: [[screen.minX, screen.minY], [screen.maxX, screen.maxY]],
-      src: "menus/main/background.png",
+      src: "scenes/menus/main/background.png",
     },
   ]
 audio:

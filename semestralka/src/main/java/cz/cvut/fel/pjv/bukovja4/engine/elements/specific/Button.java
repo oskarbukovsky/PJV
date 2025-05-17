@@ -15,6 +15,18 @@ import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
 public class Button<D extends Dim> extends BaseElement<D> {
 
     /**
+     * Initializes the button with specified properties.
+     * Implementation of the abstract method from {@link BaseElement}.
+     */
+    @Override
+    public void init(Object... args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Button requires at least one argument: the texture to display.");
+        }
+        String texture = (String) args[0];
+    }
+
+    /**
      * Renders the button to the screen.
      * Implementation of the abstract method from {@link BaseElement}.
      */

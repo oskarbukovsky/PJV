@@ -1,7 +1,10 @@
 package cz.cvut.fel.pjv.bukovja4.engine.elements.specific;
 
+import java.net.URISyntaxException;
+
 import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
+import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
 
 /**
@@ -12,11 +15,34 @@ import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
  */
 public class Image<D extends Dim> extends BaseElement<D> {
 
+    private Sprite sprite;
+
+    /**
+     * Renders the image to the screen.
+     * Initialize image with texture
+     */
+    @Override
+    public void init(Object... args){
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Image requires at least one argument: the texture to display.");
+        }
+        String texture = (String) args[0];
+        LOG.warn("Loading image: " + texture);
+        try {
+            sprite = SpriteManager.loadSprite(texture);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException("Failed to load image texture: " + texture, e);
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Failed to load image texture: " + texture, e);
+        }
+    }
+
     /**
      * Renders the image to the screen
      */
     @Override
     public void render() {
+        sprite.draw(bounds.x1, bounds.y1, 1);
 
     }
 

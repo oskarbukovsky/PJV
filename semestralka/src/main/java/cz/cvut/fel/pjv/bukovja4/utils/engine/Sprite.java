@@ -1,11 +1,14 @@
 package cz.cvut.fel.pjv.bukovja4.utils.engine;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;
+
+import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -50,7 +53,8 @@ public class Sprite {
      * 
      * @param resourcePath Path to the image resource
      */
-    public Sprite(String resourcePath) {
+    public Sprite(String resourcePath) throws URISyntaxException {
+        // String path = Main.class.getResource(resourcePath).getPath();
         String path = null;
         width = BufferUtils.createIntBuffer(1);
         height = BufferUtils.createIntBuffer(1);
@@ -58,7 +62,9 @@ public class Sprite {
 
         try {
             path = new File(getClass().getResource(resourcePath).toURI()).getPath();
-        } catch (final Exception ignored) {
+            LOG.debug(("Loading sprite: " + path));
+        } catch (URISyntaxException exception) {
+            LOG.error("Failed to load sprite: " + resourcePath, exception);
         }
 
         ByteBuffer bb = STBImage.stbi_load(path, width, height, channels, 4);
@@ -100,5 +106,29 @@ public class Sprite {
         glEnd();
 
         glDisable(GL_TEXTURE_2D);
+    }
+
+    /**
+     * Draws the sprite at the specified position with scaling.
+     * Uses OpenGL quad rendering with texture coordinates.
+     * 
+     * @param x X coordinate for the top-left corner
+     * @param y Y coordinate for the top-left corner
+     * @param scale Scaling factor for the sprite dimensions
+     */
+    public void draw(float x, float y, float scale) {
+        draw((int) x, (int) y, scale);
+    }
+
+    /**
+     * Draws the sprite at the specified position with scaling.
+     * Uses OpenGL quad rendering with texture coordinates.
+     * 
+     * @param x X coordinate for the top-left corner
+     * @param y Y coordinate for the top-left corner
+     * @param scale Scaling factor for the sprite dimensions
+     */
+    public void draw(float x, float y, int scale) {
+        draw((int) x, (int) y, (float) scale);
     }
 }

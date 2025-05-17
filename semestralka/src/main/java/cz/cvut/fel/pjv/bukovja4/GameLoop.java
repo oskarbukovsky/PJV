@@ -8,10 +8,13 @@ import cz.cvut.fel.pjv.bukovja4.utils.Exceptions.SceneException;
 import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
 import cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
-
+import cz.cvut.fel.pjv.bukovja4.utils.engine.SpriteManager;
 import cz.cvut.fel.pjv.bukovja4.engine.scenes.*;
 
 import static org.lwjgl.opengl.GL11.*;
+
+import java.net.URISyntaxException;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 /**
@@ -179,6 +182,13 @@ public final class GameLoop extends Thread {
             LOG.error("Error while creating game state", (RuntimeException) e);
         }
         window.setGameState(gameState);
+
+        try {
+            SpriteManager.loadSprite("imgs/font.png");
+            LOG.debug("Default font loaded");
+        } catch (URISyntaxException e) {
+            LOG.error("Failed to load default font", e, true);
+        }
 
         /**
          * Main game loop counter for debug purposes.

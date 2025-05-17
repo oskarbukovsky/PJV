@@ -67,6 +67,7 @@ public abstract class BaseScene {
             BaseElement<?> element = null;
 
             String type = ((String) dataEntry.get("type")).toUpperCase();
+            LOG.warn(type);
             ArrayList<ArrayList<Object>> position = (ArrayList<ArrayList<Object>>) dataEntry.get("position");
             String align = (String) dataEntry.get("align");
 
@@ -200,6 +201,14 @@ public abstract class BaseScene {
             }
 
             element = factory.create(ElementTypes.valueOf(type), bounds);
+            
+            switch (ElementTypes.valueOf(type)) {
+                case ElementTypes.LABEL -> element.init((String) dataEntry.get("text"));
+                case ElementTypes.IMAGE -> element.init((String) dataEntry.get("src"));
+                case ElementTypes.BUTTON -> element.init((String) dataEntry.get("texture"));
+                default -> throw new IllegalArgumentException("Invalid element type: " + type);
+            }
+
             BaseScene.elements.add(element);
 
             ArrayList<LinkedHashMap<String, String>> actions = (ArrayList<LinkedHashMap<String, String>>) dataEntry
