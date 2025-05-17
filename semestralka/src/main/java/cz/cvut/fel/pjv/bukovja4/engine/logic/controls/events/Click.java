@@ -52,15 +52,21 @@ public class Click extends BaseEvent implements GLFWMouseButtonCallbackI {
      * @param modifiers Bit field describing modifier keys held
      */
     @Override
-    public void invoke(long window, int button, int action, int modifiers) {
+    synchronized public void invoke(long window, int button, int action, int modifiers) {
 
         if (action == GLFW_PRESS) { // Only call on press
-            LOG.info("Click: Button= " + button + ", Action= " + action + ", Modifiers= " + modifiers);
-            LOG.info("Mouse X: " + GameState.mouseX + ", Mouse Y: " + GameState.mouseY);
             try {
                 for (Selector selector : BaseEvent.events.keySet()) {
                     if (selector.eventType == ControlTypes.CLICK) {
-                        BaseEvent.events.get(selector).apply(new Object[] { button, action, modifiers });
+                        if (selector.element.bounds.x1 <= GameState.mouseX
+                                && selector.element.bounds.x2 >= GameState.mouseX
+                                && selector.element.bounds.y1 <= GameState.mouseY
+                                && selector.element.bounds.y2 >= GameState.mouseY) {
+                            LOG.info("Click: Button=" + button + ", Action=" + action + ", Modifiers=" + modifiers);
+                            // Call the callback function with the event data on right element
+                            BaseEvent.events.get(selector).apply(new Object[] { button, action, modifiers });
+                            break;
+                        }
                     }
                 }
             } catch (Throwable e) {

@@ -21,10 +21,22 @@ public class SpriteManager {
      * @return The loaded sprite
      */
     public static Sprite loadSprite(String path) throws URISyntaxException {
+        return loadSprite(path, false);
+    }
+
+    /**
+     * Loads a sprite from the specified file path.
+     * If the sprite is already loaded, it retrieves it from the map.
+     * 
+     * @param path         The file path of the sprite
+     * @param blackAsAlpha If true, black pixels are treated as transparent
+     * @return The loaded sprite
+     */
+    public static Sprite loadSprite(String path, boolean blackAsAlpha) throws URISyntaxException {
         if (sprites.containsKey(path)) {
             return sprites.get(path);
         } else {
-            Sprite sprite = new Sprite("/" + path);
+            Sprite sprite = new Sprite("/" + path, blackAsAlpha);
             sprites.put(path, sprite);
             return sprite;
         }

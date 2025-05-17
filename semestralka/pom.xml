@@ -30,7 +30,7 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>false</filtering>
-                <!-- <targetPath>.</targetPath> -->
+                <targetPath>.</targetPath>
                 <!-- <targetPath>cz/cvut/fel/pjv/resources</targetPath> -->
                 <!-- <targetPath>cz/cvut/fel/pjv/bukovja4/resources</targetPath> -->
                 <!-- <targetPath>classes</targetPath> -->

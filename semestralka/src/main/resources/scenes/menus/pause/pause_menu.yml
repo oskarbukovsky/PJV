@@ -1,0 +1,28 @@
+dimension: 2
+elements:
+  [
+    {
+      type: "image",
+      position: [[screen.minX, screen.minY], [screen.maxX, screen.maxY]],
+      src: "background.png",
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-40, -40]],
+      text: "Pokracovat",
+      actions: [{ click: resume_game }],
+      scale: 3,
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-50, 20]],
+      text: "Do hlavniho menu",
+      actions: [{ click: to_main_menu }],
+      scale: 3,
+    },
+  ]
+# audio:
+#   src: "background.wav"
+#   loop: true

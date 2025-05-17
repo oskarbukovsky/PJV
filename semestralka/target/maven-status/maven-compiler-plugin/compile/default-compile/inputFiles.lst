@@ -13,6 +13,7 @@ C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut
 C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\engine\dim\Dim1d.java
 C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\logic\GameState.java
 C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\Closeable.java
+C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\engine\SpriteManager.java
 C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\clocks\Clock.java
 C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\Exceptions.java
 C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\scenes\types\Game4d.java
@@ -49,6 +50,7 @@ C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut
 C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\logic\controls\ControlTypes.java
 C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\audio\Audio.java
 C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\engine\Vector.java
+C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\utils\engine\TextUtils.java
 C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\logic\controls\Selector.java
 C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\scenes\types\Game3d.java
 C:\Users\Oskar\OneDrive\Dokumenty\CVUT\S02\PJV\semestralka\src\main\java\cz\cvut\fel\pjv\bukovja4\engine\logic\controls\Controls.java

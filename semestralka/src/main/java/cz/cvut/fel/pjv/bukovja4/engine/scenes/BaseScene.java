@@ -16,8 +16,10 @@ import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementTypes;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
 import cz.cvut.fel.pjv.bukovja4.utils.audio.Audio;
+import cz.cvut.fel.pjv.bukovja4.utils.audio.Playback;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.Box;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.Pos;
+import cz.cvut.fel.pjv.bukovja4.utils.engine.TextUtils;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.*;
 
@@ -29,6 +31,9 @@ import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.*;
 public abstract class BaseScene {
     // Name of the scene file being used
     private static String file;
+
+    // Audio playback instance for the scene
+    private static Playback audioPlayback;
 
     // List of all elements contained within the scene
     protected static ArrayList<BaseElement<?>> elements = new ArrayList<>();
@@ -67,7 +72,8 @@ public abstract class BaseScene {
             BaseElement<?> element = null;
 
             String type = ((String) dataEntry.get("type")).toUpperCase();
-            LOG.warn(type);
+            // LOG.warn(type);
+
             ArrayList<ArrayList<Object>> position = (ArrayList<ArrayList<Object>>) dataEntry.get("position");
             String align = (String) dataEntry.get("align");
 
@@ -158,53 +164,102 @@ public abstract class BaseScene {
 
             @SuppressWarnings("rawtypes")
             Box bounds;
-            switch (dim) {
-                case 1 -> {
-                    bounds = new Box<>(
-                            new Pos<>(((Number) position.get(0).get(0)).floatValue()),
-                            new Pos<>(((Number) position.get(1).get(0)).floatValue()));
+            if (type.equals("LABEL")) {
+                switch (dim) {
+                    case 1 -> {
+                        bounds = new Box<>(
+                                new Pos<>(((Number) position.get(0).get(0)).floatValue()),
+                                new Pos<>(
+                                        ((Number) position.get(0).get(0)).floatValue()
+                                                + ((String) dataEntry.get("text")).length() * TextUtils.FONT_WIDTH
+                                                        * (dataEntry.get("scale") != null
+                                                                ? ((Number) dataEntry.get("scale")).floatValue()
+                                                                : 1.0f)));
+                    }
+                    case 2 -> {
+                        bounds = new Box<>(
+                                new Pos<>(
+                                        ((Number) position.get(0).get(0)).floatValue(),
+                                        ((Number) position.get(0).get(1)).floatValue()),
+                                new Pos<>(
+                                        ((Number) position.get(0).get(0)).floatValue()
+                                                + ((String) dataEntry.get("text")).length() * TextUtils.FONT_WIDTH
+                                                        * (dataEntry.get("scale") != null
+                                                                ? ((Number) dataEntry.get("scale")).floatValue()
+                                                                : 1.0f),
+                                        ((Number) position.get(0).get(1)).floatValue() + TextUtils.FONT_HEIGHT
+                                                * (dataEntry.get("scale") != null
+                                                        ? ((Number) dataEntry.get("scale")).floatValue()
+                                                        : 1.0f)));
+                    }
+                    default -> throw new IllegalArgumentException("Invalid dimension: " + dim);
                 }
-                case 2 -> {
-                    bounds = new Box<>(
-                            new Pos<>(
-                                    ((Number) position.get(0).get(0)).floatValue(),
-                                    ((Number) position.get(0).get(1)).floatValue()),
-                            new Pos<>(
-                                    ((Number) position.get(1).get(0)).floatValue(),
-                                    ((Number) position.get(1).get(1)).floatValue()));
+            } else {
+                switch (dim) {
+                    case 1 -> {
+                        bounds = new Box<>(
+                                new Pos<>(((Number) position.get(0).get(0)).floatValue()),
+                                new Pos<>(((Number) position.get(1).get(0)).floatValue()));
+                    }
+                    case 2 -> {
+                        bounds = new Box<>(
+                                new Pos<>(
+                                        ((Number) position.get(0).get(0)).floatValue(),
+                                        ((Number) position.get(0).get(1)).floatValue()),
+                                new Pos<>(
+                                        ((Number) position.get(1).get(0)).floatValue(),
+                                        ((Number) position.get(1).get(1)).floatValue()));
+                    }
+                    case 3 -> {
+                        bounds = new Box<>(
+                                new Pos<>(
+                                        ((Number) position.get(0).get(0)).floatValue(),
+                                        ((Number) position.get(0).get(1)).floatValue(),
+                                        ((Number) position.get(0).get(2)).floatValue()),
+                                new Pos<>(
+                                        ((Number) position.get(1).get(0)).floatValue(),
+                                        ((Number) position.get(1).get(1)).floatValue(),
+                                        ((Number) position.get(1).get(2)).floatValue()));
+                    }
+                    case 4 -> {
+                        bounds = new Box<>(
+                                new Pos<>(
+                                        ((Number) position.get(0).get(0)).floatValue(),
+                                        ((Number) position.get(0).get(1)).floatValue(),
+                                        ((Number) position.get(0).get(2)).floatValue(),
+                                        ((Number) position.get(0).get(3)).floatValue()),
+                                new Pos<>(
+                                        ((Number) position.get(1).get(0)).floatValue(),
+                                        ((Number) position.get(1).get(1)).floatValue(),
+                                        ((Number) position.get(1).get(2)).floatValue(),
+                                        ((Number) position.get(1).get(3)).floatValue()));
+                    }
+                    default -> throw new IllegalArgumentException("Invalid dimension: " + dim);
                 }
-                case 3 -> {
-                    bounds = new Box<>(
-                            new Pos<>(
-                                    ((Number) position.get(0).get(0)).floatValue(),
-                                    ((Number) position.get(0).get(1)).floatValue(),
-                                    ((Number) position.get(0).get(2)).floatValue()),
-                            new Pos<>(
-                                    ((Number) position.get(1).get(0)).floatValue(),
-                                    ((Number) position.get(1).get(1)).floatValue(),
-                                    ((Number) position.get(1).get(2)).floatValue()));
-                }
-                case 4 -> {
-                    bounds = new Box<>(
-                            new Pos<>(
-                                    ((Number) position.get(0).get(0)).floatValue(),
-                                    ((Number) position.get(0).get(1)).floatValue(),
-                                    ((Number) position.get(0).get(2)).floatValue(),
-                                    ((Number) position.get(0).get(3)).floatValue()),
-                            new Pos<>(
-                                    ((Number) position.get(1).get(0)).floatValue(),
-                                    ((Number) position.get(1).get(1)).floatValue(),
-                                    ((Number) position.get(1).get(2)).floatValue(),
-                                    ((Number) position.get(1).get(3)).floatValue()));
-                }
-                default -> throw new IllegalArgumentException("Invalid dimension: " + dim);
             }
 
             element = factory.create(ElementTypes.valueOf(type), bounds);
-            
+
             switch (ElementTypes.valueOf(type)) {
-                case ElementTypes.LABEL -> element.init((String) dataEntry.get("text"));
-                case ElementTypes.IMAGE -> element.init((String) dataEntry.get("src"));
+                case ElementTypes.LABEL -> {
+                    if (dataEntry.get("scale") != null) {
+                        element.init((String) dataEntry.get("text"), ((Number) dataEntry.get("scale")).floatValue());
+                    } else {
+                        element.init((String) dataEntry.get("text"));
+                    }
+                }
+                case ElementTypes.IMAGE -> {
+                    if (dataEntry.get("scale") != null) {
+                        LOG.warn("Scale: " + ((Number) dataEntry.get("scale")).floatValue());
+                        element.init(
+                                "scenes/" + sceneName.substring(0, sceneName.lastIndexOf("/")) + "/"
+                                        + (String) dataEntry.get("src"),
+                                ((Number) dataEntry.get("scale")).floatValue());
+                    } else {
+                        element.init("scenes/" + sceneName.substring(0, sceneName.lastIndexOf("/")) + "/"
+                                + (String) dataEntry.get("src"));
+                    }
+                }
                 case ElementTypes.BUTTON -> element.init((String) dataEntry.get("texture"));
                 default -> throw new IllegalArgumentException("Invalid element type: " + type);
             }
@@ -242,11 +297,11 @@ public abstract class BaseScene {
                 if (audioLoop == null) {
                     audioLoop = false;
                 }
-                Audio.play(sceneName.substring(0, sceneName.lastIndexOf("/")) + "/" + audioSrc, audioLoop);
+                audioPlayback = Audio.play(sceneName.substring(0, sceneName.lastIndexOf("/")) + "/" + audioSrc,
+                        audioLoop);
             }
         }
 
-        // Object test = BaseScene.elements;
         LOG.info("Loaded scene: " + sceneName);
     }
 
@@ -257,6 +312,7 @@ public abstract class BaseScene {
     public void Unload() {
         GameState.controls.unRegisterAll();
         BaseScene.elements.clear();
+        audioPlayback.stop();
         LOG.info("Unloaded scene: " + file);
     }
 

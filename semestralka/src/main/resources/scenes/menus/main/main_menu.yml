@@ -2,11 +2,17 @@ dimension: 2
 elements:
   [
     {
+      type: "image",
+      position: [[screen.minX, screen.minY], [screen.maxX, screen.maxY]],
+      src: "background.png",
+    },
+    {
       type: "label",
       align: "center",
       position: [[-50, -50], [50, -30]],
-      text: "Play",
+      text: "Hrat hru",
       actions: [{ click: start_game }],
+      scale: 3,
     },
     {
       type: "button",
@@ -16,16 +22,12 @@ elements:
       actions: [{ click: open_settings }],
     },
     {
-      type: "button",
+      type: "label",
       align: "center",
       position: [[-50, 20], [50, 50]],
-      text: "Exit",
+      text: "Ukoncit",
       actions: [{ click: exit_game }],
-    },
-    {
-      type: "image",
-      position: [[screen.minX, screen.minY], [screen.maxX, screen.maxY]],
-      src: "scenes/menus/main/background.png",
+      scale: 3,
     },
   ]
 audio:

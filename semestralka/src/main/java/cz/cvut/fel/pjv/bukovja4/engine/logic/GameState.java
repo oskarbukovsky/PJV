@@ -30,7 +30,7 @@ public final class GameState {
     public static int keyPressed = 0;
 
     /** Currently loaded and active game scene */
-    private BaseScene loadedScene = null;
+    private static BaseScene loadedScene = null;
 
     /**
      * Sets the current active scene.
@@ -38,11 +38,8 @@ public final class GameState {
      * 
      * @param scene The new scene to activate
      */
-    public void setScene(BaseScene scene) {
-        if (loadedScene != null) {
-            this.loadedScene.Unload();
-        }
-        this.loadedScene = scene;
+    public static void setScene(BaseScene scene) {
+        loadedScene = scene;
     }
 
     /**
@@ -50,8 +47,8 @@ public final class GameState {
      * 
      * @return The currently loaded scene, or null if no scene is loaded
      */
-    public BaseScene getScene() {
-        return this.loadedScene;
+    public static BaseScene getScene() {
+        return loadedScene;
     }
 
     /**

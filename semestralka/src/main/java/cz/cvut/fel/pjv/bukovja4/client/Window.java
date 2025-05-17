@@ -124,6 +124,7 @@ public class Window {
         }
 
         glfwDefaultWindowHints();
+        //Turn this off before submit
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
         Window.width = this.config.window.width;
