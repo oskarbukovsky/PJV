@@ -5,6 +5,7 @@ import cz.cvut.fel.pjv.bukovja4.client.Window;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
 import cz.cvut.fel.pjv.bukovja4.utils.Exceptions.GameException;
 import cz.cvut.fel.pjv.bukovja4.utils.Exceptions.SceneException;
+import cz.cvut.fel.pjv.bukovja4.utils.audio.Audio;
 import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
 import cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
@@ -172,25 +173,25 @@ public final class GameLoop extends Thread {
         // } catch (Throwable e) {
         // LOG.error("Error while registering handlers", (RuntimeException) e);
         // }
-
+        
         GameState gameState = null;
         try {
             gameState = new GameState(window.getHandle());
-
+            
             // Load the initial scene
             GameState.setScene(SceneFactory.create(this.initSceneType, this.initSceneName));
         } catch (Throwable e) {
             LOG.error("Error while creating game state", (RuntimeException) e);
         }
         window.setGameState(gameState);
-
+        
         try {
             SpriteManager.loadSprite(Const.DEFAULT_FONT, true);
             LOG.debug("Default font loaded");
         } catch (URISyntaxException e) {
             LOG.error("Failed to load default font", e, true);
         }
-
+        
         /**
          * Main game loop counter for debug purposes.
          * Tracks how many ticks have occurred since the game started.

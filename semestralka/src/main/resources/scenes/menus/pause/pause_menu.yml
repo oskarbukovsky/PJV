@@ -9,7 +9,7 @@ elements:
     {
       type: "label",
       align: "center",
-      position: [[-40, -40]],
+      position: [[-120, -120]],
       text: "Pokracovat",
       actions: [{ click: resume_game }],
       scale: 3,
@@ -17,12 +17,12 @@ elements:
     {
       type: "label",
       align: "center",
-      position: [[-50, 20]],
+      position: [[-180, 110]],
       text: "Do hlavniho menu",
       actions: [{ click: to_main_menu }],
       scale: 3,
     },
   ]
-# audio:
-#   src: "background.wav"
-#   loop: true
+audio:
+  src: "music.wav"
+  loop: true

@@ -164,6 +164,7 @@ public abstract class BaseScene {
 
             @SuppressWarnings("rawtypes")
             Box bounds;
+            LOG.warn(type);
             if (type.equals("LABEL")) {
                 switch (dim) {
                     case 1 -> {
