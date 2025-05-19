@@ -1,5 +1,5 @@
 @echo off
-call cloc ./src --exclude-dir=docs --include-lang=Java
-call cloc ./src --exclude-dir=docs --include-lang=Java --md
+call cloc ./src --exclude-dir=docs --include-lang=Java,Yaml
+call cloc ./src --exclude-dir=docs --include-lang=Java,Yaml --md
 pause
 exit

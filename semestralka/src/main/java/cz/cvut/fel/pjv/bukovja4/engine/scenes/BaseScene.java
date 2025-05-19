@@ -262,11 +262,11 @@ public abstract class BaseScene {
                     if (dataEntry.get("scale") != null) {
                         LOG.warn("Scale: " + ((Number) dataEntry.get("scale")).floatValue());
                         element.init(
-                                "scenes/" + sceneName.substring(0, sceneName.lastIndexOf("/")) + "/"
+                                "imgs/" + sceneName.substring(0, sceneName.lastIndexOf("/")) + "/"
                                         + (String) dataEntry.get("src"),
                                 ((Number) dataEntry.get("scale")).floatValue());
                     } else {
-                        element.init("scenes/" + sceneName.substring(0, sceneName.lastIndexOf("/")) + "/"
+                        element.init("imgs/" + sceneName.substring(0, sceneName.lastIndexOf("/")) + "/"
                                 + (String) dataEntry.get("src"));
                     }
                 }
