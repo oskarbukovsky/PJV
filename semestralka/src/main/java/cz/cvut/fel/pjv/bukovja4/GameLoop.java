@@ -5,7 +5,6 @@ import cz.cvut.fel.pjv.bukovja4.client.Window;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
 import cz.cvut.fel.pjv.bukovja4.utils.Exceptions.GameException;
 import cz.cvut.fel.pjv.bukovja4.utils.Exceptions.SceneException;
-import cz.cvut.fel.pjv.bukovja4.utils.audio.Audio;
 import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
 import cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
@@ -32,7 +31,7 @@ import static org.lwjgl.glfw.GLFW.*;
 public final class GameLoop extends Thread {
 
     /** Application configuration with window settings, FPS limits, etc. */
-    private static Config config;
+    public static Config config;
 
     /**
      * Gets the current application configuration.

@@ -1,0 +1,7 @@
+dimension: 2
+seed: 123
+elements:
+  [
+    { type: "start", position: [[1, 1]] },
+    { type: "goal", position: [[8, 8]], actions: [{ next_level: menus\win\menu.yml }] },
+  ]

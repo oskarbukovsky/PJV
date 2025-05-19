@@ -1,26 +1,7 @@
 dimension: 2
+seed: 123
 elements:
   [
-    {
-      type: "image",
-      position: [[screen.minX, screen.minY], [screen.maxX, screen.maxY]],
-      src: "scenes/levels/1/background.png",
-    },
-    {
-      type: "label",
-      align: "center",
-      position: [[-40, -40], [40, -20]],
-      text: "Pokracovat",
-      actions: [{ click: resume_game }],
-    },
-    {
-      type: "label",
-      align: "center",
-      position: [[-50, 20], [50, 50]],
-      text: "Do hlavniho menu",
-      actions: [{ click: to_main_menu }],
-    },
+    { type: "start", position: [[1, 1]] },
+    { type: "goal", position: [[8, 8]], actions: [{ next_level: levels\1\1_1.yml }] },
   ]
-# audio:
-#   src: "background.wav"
-#   loop: true

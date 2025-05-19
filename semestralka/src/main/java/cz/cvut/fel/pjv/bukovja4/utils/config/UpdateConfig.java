@@ -57,6 +57,7 @@ final class UpdateConfig {
 
         if (config.window != null) {
             configMap.put("window", objectToMap(config.window));
+            configMap.put("gameState", objectToMap(config.gameState));
         }
 
         return configMap;

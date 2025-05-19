@@ -4,3 +4,5 @@ window:
   width: 800
   fov: 70.0
   height: 600
+gameState:
+  level: '1_0'

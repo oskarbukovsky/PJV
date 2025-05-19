@@ -10,6 +10,7 @@ import org.yaml.snakeyaml.Yaml;
 
 import cz.cvut.fel.pjv.bukovja4.GameLoop;
 import cz.cvut.fel.pjv.bukovja4.Main;
+import cz.cvut.fel.pjv.bukovja4.client.Window;
 import cz.cvut.fel.pjv.bukovja4.engine.actions.Actions;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory;
@@ -54,7 +55,7 @@ public abstract class BaseScene {
      * @throws Throwable If any error occurs during scene loading
      */
     @SuppressWarnings("unchecked")
-    public static void Load(String sceneName) throws Throwable, Exception {
+    public static int Load(String sceneName) throws Throwable, Exception {
         file = sceneName;
         LOG.info("Loading scene: " + sceneName);
 
@@ -63,6 +64,14 @@ public abstract class BaseScene {
         LOG.debug("Scene: " + data.toString());
 
         int dim = (int) data.get("dimension");
+
+        String subtitle = (String) data.get("title");
+
+        if (subtitle != null){
+            Window.setSubtitle(subtitle);
+        } else {
+            Window.setSubtitle("");
+        }
 
         @SuppressWarnings("rawtypes")
         ElementFactory factory = ElementFactory.getFactory(dim);
@@ -164,7 +173,7 @@ public abstract class BaseScene {
 
             @SuppressWarnings("rawtypes")
             Box bounds;
-            LOG.warn(type);
+            // LOG.warn(type);
             if (type.equals("LABEL")) {
                 switch (dim) {
                     case 1 -> {
@@ -304,6 +313,15 @@ public abstract class BaseScene {
         }
 
         LOG.info("Loaded scene: " + sceneName);
+
+        
+        Number seed = ((Number) data.get("seed"));
+
+        if (seed != null) {
+            return seed.intValue();
+        }
+
+        return 0;
     }
 
     /**

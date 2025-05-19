@@ -1,0 +1,29 @@
+dimension: 2
+title: "Výhra"
+elements:
+  [
+    {
+      type: "image",
+      position: [[screen.minX, screen.minY], [screen.maxX, screen.maxY]],
+      src: "background.png",
+    },
+    {
+      type: "label",
+      align: "bottom",
+      position: [[-120, 125]],
+      text: "Zacit znovu",
+      actions: [{ click: restart_game }],
+      scale: 3,
+    },
+    {
+      type: "label",
+      align: "bottom",
+      position: [[-180, 70]],
+      text: "Do hlavniho menu",
+      actions: [{ click: to_main_menu }],
+      scale: 3,
+    },
+  ]
+audio:
+  src: "music.wav"
+  loop: true

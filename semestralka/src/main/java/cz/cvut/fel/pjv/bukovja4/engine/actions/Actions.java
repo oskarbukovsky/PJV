@@ -2,6 +2,7 @@ package cz.cvut.fel.pjv.bukovja4.engine.actions;
 
 import static org.lwjgl.glfw.GLFW.glfwSetWindowShouldClose;
 
+import cz.cvut.fel.pjv.bukovja4.GameLoop;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
 import cz.cvut.fel.pjv.bukovja4.engine.scenes.SceneFactory;
 import cz.cvut.fel.pjv.bukovja4.engine.scenes.SceneTypes;
@@ -20,9 +21,11 @@ public class Actions {
     public static void start_game() {
         LOG.warn("start_game()");
         GameState.getScene().Unload();
-        GameState.setScene(SceneFactory.create(SceneTypes.MENU, "pause/pause_menu.yml"));
+        // GameState.setScene(SceneFactory.create(SceneTypes.MENU,
+        // "pause/pause_menu.yml"));
+        GameState.setScene(SceneFactory.create(SceneTypes.MENU, "win/win_menu.yml"));
     }
-    
+
     /**
      * Exits the game application.
      * Called when the player chooses to quit the game.
@@ -36,8 +39,10 @@ public class Actions {
      * Opens the game settings menu.
      * Called when the player wants to view or modify game settings.
      */
-    public static void open_settings() {
-        LOG.warn("open_settings() is not implemented yet");
+    public static void open_help() {
+        LOG.warn("open_help()");
+        GameState.getScene().Unload();
+        GameState.setScene(SceneFactory.create(SceneTypes.MENU, "help/help_menu.yml"));
     }
 
     /**
@@ -64,6 +69,34 @@ public class Actions {
      */
     public static void to_main_menu() {
         LOG.warn("to_main_menu()");
+        GameState.getScene().Unload();
+        GameState.setScene(SceneFactory.create(SceneTypes.MENU, "main/main_menu.yml"));
+    }
+
+    /**
+     * Proceeds to the next level in the game.
+     * Called when the player completes the current level.
+     *
+     * @param scene The name of the next level scene file
+     */
+    public static void next_level(String scene) {
+        LOG.warn("next_level()");
+        GameState.getScene().Unload();
+        GameState.setScene(SceneFactory.create(SceneTypes.MENU, scene));
+    }
+
+    /**
+     * Restarts the current game session.
+     * Called when the player wants to start the game over.
+     */
+    public static void restart_game() {
+        LOG.warn("restart_game()");
+        try {
+            GameLoop.config.getConfig().gameState.level = "1_0";
+            GameLoop.config.Update(GameLoop.getConfig());
+        } catch (Throwable e) {
+            LOG.error("Failed to restart game", e, true);
+        }
         GameState.getScene().Unload();
         GameState.setScene(SceneFactory.create(SceneTypes.MENU, "main/main_menu.yml"));
     }

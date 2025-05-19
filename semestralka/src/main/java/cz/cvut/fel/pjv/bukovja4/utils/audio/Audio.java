@@ -50,9 +50,7 @@ public final class Audio {
                         clip.start();
                         try {
                             listener.waitUntilDone();
-                        } catch (InterruptedException e) {
-                            // TODO: check if this is the right way to handle this
-                            // LOG.error("Audio playback interrupted: " + fileName, e, true);
+                        } catch (final InterruptedException ignored) {
                         }
                     }
                 } catch (UnsupportedAudioFileException e) {
@@ -61,6 +59,8 @@ public final class Audio {
                     LOG.error("Line unavailable for audio file: " + fileName, e, true);
                 } catch (IOException e) {
                     LOG.error("I/O error while playing audio file: " + fileName, e, true);
+                } catch (NullPointerException e) {
+                    LOG.error("Audio file not found: " + fileName, e, true);
                 } catch (Throwable e) {
                     LOG.error("Error while playing audio file: " + fileName, e, true);
                 }

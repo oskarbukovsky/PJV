@@ -1,4 +1,5 @@
 dimension: 2
+title: "Hlavni menu"
 elements:
   [
     {
@@ -19,7 +20,7 @@ elements:
       align: "center",
       position: [[-90, 0]],
       text: "Navod",
-      actions: [{ click: open_settings }],
+      actions: [{ click: open_help }],
       scale: 4,
     },
     {

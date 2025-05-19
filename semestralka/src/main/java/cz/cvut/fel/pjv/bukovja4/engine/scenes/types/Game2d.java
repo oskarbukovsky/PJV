@@ -18,7 +18,7 @@ public class Game2d extends BaseScene {
      * @see BaseScene#Load(String)
      */
     public Game2d(String name) throws Throwable {
-        super.Load("levels/" + name);
+        int seed = super.Load("levels/" + name);
         GameState.controls.register(new Selector(null, ControlTypes.MOUSE_MOVE), (event) -> {
             Object[] data = (Object[]) event;
             double x = ((Number) data[0]).doubleValue();

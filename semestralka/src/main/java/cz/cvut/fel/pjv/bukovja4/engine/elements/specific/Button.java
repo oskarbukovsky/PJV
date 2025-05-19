@@ -23,7 +23,7 @@ public class Button<D extends Dim> extends BaseElement<D> {
         if (args.length == 0) {
             throw new IllegalArgumentException("Button requires at least one argument: the texture to display.");
         }
-        String texture = (String) args[0];
+        // String texture = (String) args[0];
     }
 
     /**

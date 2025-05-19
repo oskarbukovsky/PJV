@@ -1,0 +1,7 @@
+dimension: 2
+seed: 1234
+elements:
+  [
+    { type: "start", position: [[1, 1]] },
+    { type: "goal", position: [[8, 8]], actions: [{ next_level: levels\1\1_2.yml }] },
+  ]

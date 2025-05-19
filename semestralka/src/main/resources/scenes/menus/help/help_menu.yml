@@ -1,0 +1,70 @@
+dimension: 2
+title: "Napoveda"
+elements:
+  [
+    {
+      type: "image",
+      position: [[screen.minX, screen.minY], [screen.maxX, screen.maxY]],
+      src: "background.png",
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-100, -170]],
+      text: "Napoveda",
+      scale: 3,
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-295, -105]],
+      text: "Hra se ovlada pomoci klavesnice.",
+      scale: 2.5,
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-300, -40]],
+      text: "Sipka nahoru - Hrac se posune nahoru",
+      scale: 2,
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-300, -15]],
+      text: "Sipka dolu   - Hrac se posune dolu",
+      scale: 2,
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-300, 10]],
+      text: "Sipka vlevo  - Hrac se posune vlevo",
+      scale: 2,
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-300, 35]],
+      text: "Sipka vpravo - Hrac se posune vpravo",
+      scale: 2,
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-300, 60]],
+      text: "Esc          - Pozastavi hru",
+      scale: 2,
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-180, 150]],
+      text: "Do hlavniho menu",
+      actions: [{ click: to_main_menu }],
+      scale: 3,
+    },
+  ]
+audio:
+  src: "music.wav"
+  loop: true

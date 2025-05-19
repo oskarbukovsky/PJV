@@ -31,10 +31,27 @@ public class AppConfig extends YAMLPrint {
          */
         public Window() {
         }
+
+    }
+
+    public static class GameState extends YAMLPrint {
+        /** Player current level */
+        public String level;
+
+        /**
+         * Creates a new game state configuration with default values
+         */
+        public GameState() {
+        }
     }
 
     /** Window configuration settings */
     public Window window;
+
+    /**
+     * Game state save
+     */
+    public GameState gameState;
 
     /**
      * Creates a new application configuration with default values
