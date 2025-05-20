@@ -15,6 +15,7 @@ import cz.cvut.fel.pjv.bukovja4.engine.actions.Actions;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementTypes;
+import cz.cvut.fel.pjv.bukovja4.engine.elements.specific.*;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
 import cz.cvut.fel.pjv.bukovja4.utils.audio.Audio;
 import cz.cvut.fel.pjv.bukovja4.utils.audio.Playback;
@@ -67,7 +68,7 @@ public abstract class BaseScene {
 
         String subtitle = (String) data.get("title");
 
-        if (subtitle != null){
+        if (subtitle != null) {
             Window.setSubtitle(subtitle);
         } else {
             Window.setSubtitle("");
@@ -78,7 +79,7 @@ public abstract class BaseScene {
 
         for (Map<String, Object> dataEntry : (ArrayList<Map<String, Object>>) data.get("elements")) {
 
-            BaseElement<?> element = null;
+            BaseElement<? extends BaseElement<?>> element = null;
 
             String type = ((String) dataEntry.get("type")).toUpperCase();
             // LOG.warn(type);
@@ -174,35 +175,53 @@ public abstract class BaseScene {
             @SuppressWarnings("rawtypes")
             Box bounds;
             // LOG.warn(type);
-            if (type.equals("LABEL")) {
-                switch (dim) {
-                    case 1 -> {
-                        bounds = new Box<>(
-                                new Pos<>(((Number) position.get(0).get(0)).floatValue()),
-                                new Pos<>(
-                                        ((Number) position.get(0).get(0)).floatValue()
-                                                + ((String) dataEntry.get("text")).length() * TextUtils.FONT_WIDTH
-                                                        * (dataEntry.get("scale") != null
-                                                                ? ((Number) dataEntry.get("scale")).floatValue()
-                                                                : 1.0f)));
+            if (type.equals("LABEL") || type.equals("GOAL") || type.equals("PLAYER")) {
+                if (type.equals("GOAL") || type.equals("PLAYER")) {
+                    bounds = new Box<>(
+                            new Pos<>(
+                                    ((Number) position.get(0).get(0)).floatValue() * (dataEntry.get("scale") != null
+                                            ? ((Number) dataEntry.get("scale")).floatValue()
+                                            : 1.0f) * 20,
+                                    ((Number) position.get(0).get(1)).floatValue() * (dataEntry.get("scale") != null
+                                            ? ((Number) dataEntry.get("scale")).floatValue()
+                                            : 1.0f) * 20),
+                            new Pos<>(
+                                    (((Number) position.get(0).get(0)).floatValue()+1) * (dataEntry.get("scale") != null
+                                            ? ((Number) dataEntry.get("scale")).floatValue()
+                                            : 1.0f) * 20,
+                                    (((Number) position.get(0).get(1)).floatValue()+1) * (dataEntry.get("scale") != null
+                                            ? ((Number) dataEntry.get("scale")).floatValue()
+                                            : 1.0f) * 20));
+                } else {
+                    switch (dim) {
+                        case 1 -> {
+                            bounds = new Box<>(
+                                    new Pos<>(((Number) position.get(0).get(0)).floatValue()),
+                                    new Pos<>(
+                                            ((Number) position.get(0).get(0)).floatValue()
+                                                    + ((String) dataEntry.get("text")).length() * TextUtils.FONT_WIDTH
+                                                            * (dataEntry.get("scale") != null
+                                                                    ? ((Number) dataEntry.get("scale")).floatValue()
+                                                                    : 1.0f)));
+                        }
+                        case 2 -> {
+                            bounds = new Box<>(
+                                    new Pos<>(
+                                            ((Number) position.get(0).get(0)).floatValue(),
+                                            ((Number) position.get(0).get(1)).floatValue()),
+                                    new Pos<>(
+                                            ((Number) position.get(0).get(0)).floatValue()
+                                                    + ((String) dataEntry.get("text")).length() * TextUtils.FONT_WIDTH
+                                                            * (dataEntry.get("scale") != null
+                                                                    ? ((Number) dataEntry.get("scale")).floatValue()
+                                                                    : 1.0f),
+                                            ((Number) position.get(0).get(1)).floatValue() + TextUtils.FONT_HEIGHT
+                                                    * (dataEntry.get("scale") != null
+                                                            ? ((Number) dataEntry.get("scale")).floatValue()
+                                                            : 1.0f)));
+                        }
+                        default -> throw new IllegalArgumentException("Invalid dimension: " + dim);
                     }
-                    case 2 -> {
-                        bounds = new Box<>(
-                                new Pos<>(
-                                        ((Number) position.get(0).get(0)).floatValue(),
-                                        ((Number) position.get(0).get(1)).floatValue()),
-                                new Pos<>(
-                                        ((Number) position.get(0).get(0)).floatValue()
-                                                + ((String) dataEntry.get("text")).length() * TextUtils.FONT_WIDTH
-                                                        * (dataEntry.get("scale") != null
-                                                                ? ((Number) dataEntry.get("scale")).floatValue()
-                                                                : 1.0f),
-                                        ((Number) position.get(0).get(1)).floatValue() + TextUtils.FONT_HEIGHT
-                                                * (dataEntry.get("scale") != null
-                                                        ? ((Number) dataEntry.get("scale")).floatValue()
-                                                        : 1.0f)));
-                    }
-                    default -> throw new IllegalArgumentException("Invalid dimension: " + dim);
                 }
             } else {
                 switch (dim) {
@@ -270,6 +289,27 @@ public abstract class BaseScene {
                                 + (String) dataEntry.get("src"));
                     }
                 }
+                case ElementTypes.WALL -> {
+                    ((Wall<?>) element).dispatchInit((dataEntry.get("scale") != null
+                            ? ((Number) dataEntry.get("scale")).floatValue()
+                            : 1.0f));
+                }
+                case ElementTypes.GROUND -> {
+                    ((Ground<?>) element).dispatchInit((dataEntry.get("scale") != null
+                            ? ((Number) dataEntry.get("scale")).floatValue()
+                            : 1.0f));
+                }
+                case ElementTypes.PLAYER -> {
+                    LOG.warn(element.getClass().getName());
+                    ((Player<?>) element).dispatchInit((dataEntry.get("scale") != null
+                            ? ((Number) dataEntry.get("scale")).floatValue()
+                            : 1.0f));
+                }
+                case ElementTypes.GOAL -> {
+                    ((Goal<?>) element).dispatchInit((dataEntry.get("scale") != null
+                            ? ((Number) dataEntry.get("scale")).floatValue()
+                            : 1.0f));
+                }
                 case ElementTypes.BUTTON -> element.init((String) dataEntry.get("texture"));
                 default -> throw new IllegalArgumentException("Invalid element type: " + type);
             }
@@ -314,7 +354,6 @@ public abstract class BaseScene {
 
         LOG.info("Loaded scene: " + sceneName);
 
-        
         Number seed = ((Number) data.get("seed"));
 
         if (seed != null) {

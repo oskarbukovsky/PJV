@@ -4,6 +4,7 @@ import java.net.URISyntaxException;
 
 import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
+import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
 
 /**
@@ -23,6 +24,7 @@ public class Image<D extends Dim> extends BaseElement<D> {
      */
     @Override
     public void init(Object... args){
+        LOG.warn("Image.init()");
         if (args.length == 0) {
             throw new IllegalArgumentException("Image requires at least one argument: the texture to display.");
         }

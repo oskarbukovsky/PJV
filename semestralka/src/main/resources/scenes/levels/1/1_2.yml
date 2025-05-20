@@ -1,7 +1,11 @@
 dimension: 2
-seed: 123
+seed: 12345
 elements:
   [
-    { type: "start", position: [[1, 1]] },
-    { type: "goal", position: [[8, 8]], actions: [{ next_level: menus\win\menu.yml }] },
+    { type: "player", position: [[1, 1]] },
+    {
+      type: "goal",
+      position: [[8, 8]],
+      actions: [{ next_level: "menus/win/win_menu.yml" }],
+    },
   ]

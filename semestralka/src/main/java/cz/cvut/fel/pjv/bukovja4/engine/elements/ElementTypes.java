@@ -13,7 +13,17 @@ public enum ElementTypes {
     /** Image UI element */
     IMAGE(Image.class),
     /** Text label UI element */
-    LABEL(Label.class);
+    LABEL(Label.class),
+    /** Gif image UI element */
+    GIF(Gif.class),
+    /** Goal element */
+    GOAL(Goal.class),
+    /** Player element */
+    PLAYER(Player.class),
+    /** Wall element */
+    WALL(Wall.class),
+    /** Ground element */
+    GROUND(Ground.class);
 
     /** The class associated with this element type */
     private final Class<? extends BaseElement<?>> elementClass;

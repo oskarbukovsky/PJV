@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
 /**
@@ -53,9 +54,9 @@ public class Controls {
     }
 
     /**
-     * Unregisters a specific control type event handler
+     * Unregisters a specific control type event handler from all elements
      * 
-     * @param controlType The control type to unregister
+     * @param controlType The control type to unregister from all elements
      */
     public void unRegister(ControlTypes controlType) {
         LOG.info("Unregistering control: " + controlType);
@@ -63,7 +64,21 @@ public class Controls {
             if (event.eventType == controlType) {
                 event.clearCallback();
                 events.remove(event);
-                break;
+            }
+        }
+    }
+
+    /**
+     * Unregisters all event handlers associated with a specific element
+     * 
+     * @param element The element to unregister events from
+     */
+    public void UnRegister(BaseElement<?> element) {
+        LOG.info("Unregistering controls from: " + element.getClass().getSimpleName());
+        for (BaseEvent event : events) {
+            if (event.element == element) {
+                event.clearCallback();
+                events.remove(event);
             }
         }
     }

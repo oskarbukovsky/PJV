@@ -21,9 +21,10 @@ public class Actions {
     public static void start_game() {
         LOG.warn("start_game()");
         GameState.getScene().Unload();
-        // GameState.setScene(SceneFactory.create(SceneTypes.MENU,
-        // "pause/pause_menu.yml"));
-        GameState.setScene(SceneFactory.create(SceneTypes.MENU, "win/win_menu.yml"));
+        GameState.setScene(SceneFactory.create(SceneTypes.MENU, "pause/pause_menu.yml"));
+        // GameState.setScene(SceneFactory.create(SceneTypes.MENU, "win/win_menu.yml"));
+        // GameState.setScene(SceneFactory.create(SceneTypes.GAME2D,
+        // GameLoop.config.getConfig().gameState.level + ".yml"));
     }
 
     /**
@@ -60,7 +61,10 @@ public class Actions {
      * Called when the player wants to continue playing after pausing.
      */
     public static void resume_game() {
-        LOG.warn("resume_game() is not implemented yet");
+        LOG.warn("resume_game()");
+        GameState.getScene().Unload();
+        GameState.setScene(SceneFactory.create(SceneTypes.GAME2D,
+                GameLoop.config.getConfig().gameState.level + ".yml"));
     }
 
     /**
