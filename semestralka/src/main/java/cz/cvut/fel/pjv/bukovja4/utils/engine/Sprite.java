@@ -133,7 +133,7 @@ public class Sprite {
      * @see org.lwjgl.opengl.GL11#glBegin(int) For starting the rendering
      * @see org.lwjgl.opengl.GL11#glTexCoord2f(float, float) For texture mapping
      */
-    public void draw(int x, int y, float scale) {
+    public void draw(int x, int y, float scale) throws NullPointerException {
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureID);
 
@@ -159,7 +159,7 @@ public class Sprite {
      * @param y     Y coordinate for the top-left corner
      * @param scale Scaling factor for the sprite dimensions
      */
-    public void draw(float x, float y, float scale) {
+    public void draw(float x, float y, float scale) throws NullPointerException {
         draw((int) x, (int) y, scale);
     }
 
@@ -171,7 +171,7 @@ public class Sprite {
      * @param y     Y coordinate for the top-left corner
      * @param scale Scaling factor for the sprite dimensions
      */
-    public void draw(float x, float y, int scale) {
+    public void draw(float x, float y, int scale) throws NullPointerException {
         draw((int) x, (int) y, (float) scale);
     }
 }

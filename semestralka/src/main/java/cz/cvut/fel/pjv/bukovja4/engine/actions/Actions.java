@@ -20,11 +20,9 @@ public class Actions {
      */
     public static void start_game() {
         LOG.warn("start_game()");
-        GameState.getScene().Unload();
-        GameState.setScene(SceneFactory.create(SceneTypes.MENU, "pause/pause_menu.yml"));
-        // GameState.setScene(SceneFactory.create(SceneTypes.MENU, "win/win_menu.yml"));
-        // GameState.setScene(SceneFactory.create(SceneTypes.GAME2D,
-        // GameLoop.config.getConfig().gameState.level + ".yml"));
+        // GameState.getScene().Unload();
+        // GameState.setScene(SceneFactory.create(SceneTypes.MENU, "pause/pause_menu.yml"));
+        resume_game();
     }
 
     /**
@@ -63,8 +61,17 @@ public class Actions {
     public static void resume_game() {
         LOG.warn("resume_game()");
         GameState.getScene().Unload();
-        GameState.setScene(SceneFactory.create(SceneTypes.GAME2D,
-                GameLoop.config.getConfig().gameState.level + ".yml"));
+
+        if (GameState.next_level.contains("levels/") || GameLoop.config.getConfig().gameState.level.contains("1/")) {
+            // GameState.setScene(SceneFactory.create(SceneTypes.GAME2D,
+            // GameState.next_level.replace("levels/", "")));
+            GameState.setScene(SceneFactory.create(SceneTypes.GAME2D,
+                    GameLoop.config.getConfig().gameState.level + ".yml"));
+        } else {
+            // GameState.setScene(SceneFactory.create(SceneTypes.MENU, GameState.next_level));
+            GameState.setScene(SceneFactory.create(SceneTypes.MENU,
+                    GameLoop.config.getConfig().gameState.level + ".yml"));
+        }
     }
 
     /**
@@ -83,10 +90,21 @@ public class Actions {
      *
      * @param scene The name of the next level scene file
      */
-    public static void next_level(String scene) {
+    public static void next_level() {
         LOG.warn("next_level()");
+        try {
+            GameLoop.config.getConfig().gameState.level = GameState.next_level.replace("levels/", "").replace(".yml",
+                    "");
+            GameLoop.config.Update(GameLoop.getConfig());
+        } catch (Throwable e) {
+            LOG.error("Failed to save game progress", e, true);
+        }
         GameState.getScene().Unload();
-        GameState.setScene(SceneFactory.create(SceneTypes.MENU, scene));
+        if (GameState.next_level.contains("levels/")) {
+            GameState.setScene(SceneFactory.create(SceneTypes.GAME2D, GameState.next_level.replace("levels/", "")));
+        } else {
+            GameState.setScene(SceneFactory.create(SceneTypes.MENU, GameState.next_level));
+        }
     }
 
     /**
@@ -96,7 +114,7 @@ public class Actions {
     public static void restart_game() {
         LOG.warn("restart_game()");
         try {
-            GameLoop.config.getConfig().gameState.level = "1_0";
+            GameLoop.config.getConfig().gameState.level = "1/1_0";
             GameLoop.config.Update(GameLoop.getConfig());
         } catch (Throwable e) {
             LOG.error("Failed to restart game", e, true);

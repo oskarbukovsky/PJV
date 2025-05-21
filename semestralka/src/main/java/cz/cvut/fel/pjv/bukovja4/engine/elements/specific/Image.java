@@ -24,7 +24,7 @@ public class Image<D extends Dim> extends BaseElement<D> {
      */
     @Override
     public void init(Object... args){
-        LOG.warn("Image.init()");
+        // LOG.warn("Image.init()");
         if (args.length == 0) {
             throw new IllegalArgumentException("Image requires at least one argument: the texture to display.");
         }
@@ -47,7 +47,11 @@ public class Image<D extends Dim> extends BaseElement<D> {
      */
     @Override
     public void render() {
-        this.sprite.draw(bounds.x1, bounds.y1, this.scale);
+        try {
+            this.sprite.draw(bounds.x1, bounds.y1, this.scale);
+        } catch (NullPointerException e) {
+            LOG.error("Missing image texture", e);
+        }
     }
 
     /**

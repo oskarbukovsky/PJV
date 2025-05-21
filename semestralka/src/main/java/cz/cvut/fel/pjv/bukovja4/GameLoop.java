@@ -197,21 +197,24 @@ public final class GameLoop extends Thread {
          */
         long counter = 0;
 
-        while (!glfwWindowShouldClose(window.getHandle())) {
-            // Wait for the next tick to maintain consistent update rate
-            clock.awaitTick();
-            LOG.debug("Tick: " + counter++);
-
-            // Clear the screen for the next frame
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-            // Update game state and render the frame
-            GameState.getScene().tick();
-            window.render();
-
-            // Display the rendered frame and check for window events
-            glfwSwapBuffers(window.getHandle());
-            glfwPollEvents();
+        try{
+            while (!glfwWindowShouldClose(window.getHandle())) {
+                // Wait for the next tick to maintain consistent update rate
+                clock.awaitTick();
+                LOG.debug("Tick: " + counter++);
+                
+                // Clear the screen for the next frame
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                
+                // Update game state and render the frame
+                GameState.getScene().tick();
+                window.render();
+                
+                // Display the rendered frame and check for window events
+                glfwSwapBuffers(window.getHandle());
+                glfwPollEvents();
+            }
+        } catch (final Throwable ignored) {
         }
 
         // Cleanup resources when the game loop exits

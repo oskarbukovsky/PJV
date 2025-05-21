@@ -4,76 +4,104 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
+import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementTypes;
+import cz.cvut.fel.pjv.bukovja4.engine.elements.specific.*;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
+import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
+import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.Dim2d;
+import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
+
+import static cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory.Factory2d;
 
 public class Maze {
-    public static void generateMaze(int startX, int startY, int goalX, int goalY, int width, int height) {
+    private static int seed;
+    private static int width;
+    private static int height;
+    private static ArrayList<BaseElement<?>> elements;
 
-        GameState.maze = new CellTypes[height][width];
+    public static void prepareMaze(int seed, int width, int height) {
+        Maze.seed = seed;
+        Maze.width = width;
+        Maze.height = height;
+        GameState.maze = new MazeCell[width][height];
+        LOG.warn("Prepare maze with seed: " + seed);
+    }
 
-        // 1. Inicializace vše jako WALL
+    public static void generateMaze(ArrayList<BaseElement<?>> elements, int startX, int startY, int goalX, int goalY) {
+
+        Maze.elements = elements;
+
+        LOG.warn("Generating maze");
+
+        //  Všechno je podlaha
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                GameState.maze[x][y] = new MazeCell(CellTypes.GROUND, null);
+            }
+        }
+
+        // Ohraničení hranic walls
+        for (int x = 0; x < width; x++) {
+            GameState.maze[x][0] = new MazeCell(CellTypes.WALL, null);
+            GameState.maze[x][height - 1] = new MazeCell(CellTypes.WALL, null);
+        }
         for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                GameState.maze[y][x] = CellTypes.WALL;
-            }
+            GameState.maze[0][y] = new MazeCell(CellTypes.WALL, null);
+            GameState.maze[width - 1][y] = new MazeCell(CellTypes.WALL, null);
         }
 
-        // 2. Vygeneruj základní cestu od startu ke goal
-        List<int[]> path = generatePath(startX, startY, goalX, goalY);
-        for (int[] p : path) {
-            GameState.maze[p[1]][p[0]] = CellTypes.EMPTY;
-        }
 
-        // 3. Umísti hráče a cíl
-        GameState.maze[startY][startX] = CellTypes.PLAYER;
-        GameState.maze[goalY][goalX] = CellTypes.GOAL;
-
-        // 4. Náhodné otevření dalších buněk
-        // Random rand = new Random();
-        // for (int y = 0; y < height; y++) {
-        //     for (int x = 0; x < width; x++) {
-        //         if (GameState.maze[y][x] == CellTypes.WALL && rand.nextDouble() < 0.3) {
-        //             GameState.maze[y][x] = CellTypes.EMPTY;
-        //         }
-        //     }
-        // }
+        GameState.maze[startX][startY] = new MazeCell(CellTypes.PLAYER, null);
+        GameState.maze[goalX][goalY] = new MazeCell(CellTypes.GOAL, null);
     }
 
-    public static List<int[]> generatePath(int startX, int startY, int goalX, int goalY) {
-        List<int[]> path = new ArrayList<>();
-        int x = startX, y = startY;
-
-        Random rand = new Random();
-
-        while (x != goalX || y != goalY) {
-            path.add(new int[] { x, y });
-            boolean moveHorizontally = rand.nextBoolean();
-
-            if (moveHorizontally && x != goalX) {
-                x += (x < goalX) ? 1 : -1;
-            } else if (y != goalY) {
-                y += (y < goalY) ? 1 : -1;
-            } else if (x != goalX) {
-                x += (x < goalX) ? 1 : -1;
-            }
-        }
-
-        path.add(new int[] { goalX, goalY });
-        return path;
-    }
-
-    public static void printMaze() {
-        for (int y = 0; y < GameState.maze.length; y++) {
-            for (int x = 0; x < GameState.maze[0].length; x++) {
-                switch (GameState.maze[y][x]) {
-                    case WALL -> System.out.print("█");
-                    case EMPTY -> System.out.print(" ");
-                    case PLAYER -> System.out.print("P");
-                    case GOAL -> System.out.print("G");
+    public static void finishMaze(float scale) throws Throwable {
+        StringBuilder sb = new StringBuilder();
+        for (int x = 0; x < Maze.width; x++) {
+            for (int y = 0; y < Maze.height; y++) {
+                Box<Dim2d> bounds = new Box<>(
+                        new Pos<>(x * scale * 20, y * scale * 20),
+                        new Pos<>((x + 1) * scale * 20, (y + 1) * scale * 20));
+                switch (GameState.maze[x][y].getCellType()) {
+                    case WALL -> {
+                        Wall<?> element = (Wall<?>) Factory2d
+                                .create(ElementTypes.WALL, bounds);
+                        GameState.maze[x][y].setElement(element);
+                        element.dispatchInit(scale);
+                        Maze.elements.add(element);
+                        sb.append("█");
+                    }
+                    case GROUND -> {
+                        Ground<?> element = (Ground<?>) Factory2d
+                                .create(ElementTypes.GROUND, bounds);
+                        GameState.maze[x][y].setElement(element);
+                        element.dispatchInit(scale);
+                        Maze.elements.add(element);
+                        sb.append(" ");
+                    }
+                    case PLAYER -> {
+                        Player<?> element = (Player<?>) Factory2d
+                                .create(ElementTypes.PLAYER, bounds);
+                        GameState.maze[x][y].setElement(element);
+                        element.dispatchInit(scale);
+                        Maze.elements.add(element);
+                        GameState.playerPos[0] = x;
+                        GameState.playerPos[1] = y;
+                        sb.append("P");
+                    }
+                    case GOAL -> {
+                        Goal<?> element = (Goal<?>) Factory2d
+                                .create(ElementTypes.GOAL, bounds);
+                        GameState.maze[x][y].setElement(element);
+                        element.dispatchInit(scale);
+                        Maze.elements.add(element);
+                        sb.append("G");
+                    }
                 }
             }
-            System.out.println();
+            sb.append("\n");
         }
+        System.out.println(sb.toString());
     }
-
 }

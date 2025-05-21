@@ -1,7 +1,7 @@
 package cz.cvut.fel.pjv.bukovja4.engine.elements.specific;
 
 import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
-import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
+// import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
 
 /**
@@ -9,7 +9,7 @@ import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
  */
 public class Player<D extends Dim> extends Image<D> {
     public void dispatchInit(float scale) {
-        LOG.warn("Player.init()");
+        // LOG.warn("Player.init()");
         super.init("imgs/player.png", scale);
     }
 

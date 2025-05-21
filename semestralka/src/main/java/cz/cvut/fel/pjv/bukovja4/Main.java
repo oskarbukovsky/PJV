@@ -1,7 +1,6 @@
 package cz.cvut.fel.pjv.bukovja4;
 
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
-import cz.cvut.fel.pjv.bukovja4.utils.maze.Maze;
 import cz.cvut.fel.pjv.bukovja4.utils.Utils;
 import cz.cvut.fel.pjv.bukovja4.engine.scenes.*;
 import cz.cvut.fel.pjv.bukovja4.utils.Exceptions.*;
@@ -33,9 +32,6 @@ public final class Main {
 
             Config config = new Config();
             config.Load();
-
-            Maze.generateMaze(1, 1, 19, 19, 20, 20);
-            Maze.printMaze();
 
             GameLoop game = new GameLoop(config);
             game.setInitScene(SceneTypes.MENU, "main/main_menu.yml");

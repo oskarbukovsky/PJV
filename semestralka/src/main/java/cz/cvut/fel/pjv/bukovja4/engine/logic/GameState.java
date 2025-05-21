@@ -2,7 +2,7 @@ package cz.cvut.fel.pjv.bukovja4.engine.logic;
 
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.Controls;
 import cz.cvut.fel.pjv.bukovja4.engine.scenes.BaseScene;
-import cz.cvut.fel.pjv.bukovja4.utils.maze.CellTypes;
+import cz.cvut.fel.pjv.bukovja4.utils.maze.MazeCell;
 
 /**
  * Manages the current state of the game.
@@ -33,7 +33,11 @@ public final class GameState {
     /** Currently loaded and active game scene */
     private static BaseScene loadedScene = null;
 
-    public static CellTypes[][] maze = null;
+    public static int[] playerPos = new int[2];
+
+    public static MazeCell[][] maze = null;
+
+    public static String next_level = "";
 
     /**
      * Sets the current active scene.

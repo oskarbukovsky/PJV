@@ -4,6 +4,8 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
+// import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
+
 /**
  * Manages the loading and retrieval of sprites.
  * Provides functionality to load and access sprites by their file paths.
@@ -33,6 +35,7 @@ public class SpriteManager {
      * @return The loaded sprite
      */
     public static Sprite loadSprite(String path, boolean blackAsAlpha) throws URISyntaxException {
+        // LOG.debug("Loading sprite: " + path);
         if (sprites.containsKey(path)) {
             return sprites.get(path);
         } else {

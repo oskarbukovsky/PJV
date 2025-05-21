@@ -66,16 +66,16 @@ public class KeyPress extends BaseEvent implements GLFWKeyCallbackI {
             } else {
                 System.out.println("Pressed non-printable key: " + key);
             }
-        }
 
-        try {
-            for (Selector selector : BaseEvent.events.keySet()) {
-                if (selector.eventType == ControlTypes.KEY_PRESS) {
-                    BaseEvent.events.get(selector).apply(new Object[] { key, scanCode, action, modifiers });
+            try {
+                for (Selector selector : BaseEvent.events.keySet()) {
+                    if (selector.eventType == ControlTypes.KEY_PRESS) {
+                        BaseEvent.events.get(selector).apply(new Object[] { key, scanCode, action, modifiers });
+                    }
                 }
+            } catch (Throwable e) {
+                LOG.error("Error in keyPress callback", e, true);
             }
-        } catch (Throwable e) {
-            LOG.error("Error in scroll callback", e, true);
         }
     }
 }

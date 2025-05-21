@@ -1,11 +1,6 @@
-dimension: 2
 seed: 1234
-elements:
-  [
-    { type: "player", position: [[1, 1]] },
-    {
-      type: "goal",
-      position: [[8, 8]],
-      actions: [{ next_level: "levels/1/1_2.yml" }],
-    },
-  ]
+size: [27, 20]
+scale: 1.5
+mazeStart: [1, 1]
+mazeEnd: [20, 16]
+next_level: "levels/1/1_2.yml"
