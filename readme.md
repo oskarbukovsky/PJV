@@ -6,6 +6,7 @@
 
 ![Commits](https://img.shields.io/github/commit-activity/t/oskarbukovsky/PJV?label=Po%C4%8Det%20commit%C5%AF)
 ![Čas na projektu](https://img.shields.io/endpoint?url=https://wakaapi.666777123.xyz/api/compat/shields/v1/Admin/interval:last_6_months/project:PJV&label=%C4%8Cas%20str%C3%A1ven%C3%BD%20na%20jav%C4%9B&color=green?style=flat)
+[![JavaDoc](https://img.shields.io/badge/JavaDoc%20Documentace-018EF5?logo=readthedocs&logoColor=fff)](https://bukovja4-6e2d13.pages.fel.cvut.cz/)
 
 <!-- ![Calendar](https://ghchart.rshah.org/oskarbukovsky) -->
 
@@ -19,10 +20,10 @@
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-Java|60|604|1909|2545
-YAML|8|0|0|194
+Java|67|661|2061|3027
+YAML|8|0|0|187
 --------|--------|--------|--------|--------
-SUM:|68|604|1909|2739
+SUM:|75|661|2061|3214
 
 > [cloc](https://github.com/AlDanial/cloc) výsledek
 
