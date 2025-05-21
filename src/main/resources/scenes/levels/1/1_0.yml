@@ -1,6 +1,6 @@
-seed: 123
-size: [20, 15]
-scale: 2
-mazeStart: [3, 4]
+seed: 65748
+size: [23, 18]
+scale: 1.75
+mazeStart: [3, 5]
 mazeEnd: [18, 7]
 next_level: "levels/1/1_1.yml"
