@@ -29,4 +29,4 @@ SUM:|75|661|2061|3214
 
 ## Licence
 
-Tento projekt je pod licencí [Don't Be a Jerk License](https://gitlab.fel.cvut.cz/B242_B0B36PJV/bukovja4/-/blob/main/semestralka/LICENSE.md)
+Tento projekt je pod licencí [Don't Be a Jerk License](https://gitlab.fel.cvut.cz/B242_B0B36PJV/bukovja4/-/blob/main/LICENSE.md)
