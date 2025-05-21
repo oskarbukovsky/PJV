@@ -1,7 +1,7 @@
 window:
   fov: 70
   fullscreen: false
-  fpsLock: 3
+  fpsLock: 60
   width: 800
   height: 600
 gameState:

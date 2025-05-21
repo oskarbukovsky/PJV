@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
-import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
+// import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
 
 /**

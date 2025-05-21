@@ -19,6 +19,38 @@ public final class Main {
      * @param args Command line arguments
      */
     public static void main(String[] args) {
+        if (args.length > 0) {
+            switch (args[0]) {
+                case "-h":
+                case "--help":
+                case "help":
+                    System.out.println("Usage: java -jar game.jar [debug|info|warn|error]");
+                    System.out.println("  debug(--debug): Set log level to DEBUG(default)");
+                    System.out.println("  info(--info): Set log level to INFO");
+                    System.out.println("  warn(--warn): Set log level to WARN");
+                    System.out.println("  error(--error): Set log level to ERROR");
+                    return;
+                case "--debug":
+                case "debug":
+                    LOG.setLevel(LOG.LogLevel.DEBUG);
+                    break;
+                case "--info":
+                case "info":
+                    LOG.setLevel(LOG.LogLevel.INFO);
+                    break;
+                case "--warn":
+                case "warn":
+                    LOG.setLevel(LOG.LogLevel.WARN);
+                    break;
+                case "--error":
+                case "error":
+                    LOG.setLevel(LOG.LogLevel.ERROR);
+                    break;
+                default:
+                    LOG.setLevel(LOG.LogLevel.DEBUG);
+            }
+        }
+
         try {
             Thread.currentThread().setName("MainThread");
             // LOG.setLevel(LOG.LogLevel.ERROR);

@@ -1,8 +1,8 @@
 package cz.cvut.fel.pjv.bukovja4.utils.maze;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+// import java.util.List;
+// import java.util.Random;
 
 import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.engine.elements.ElementTypes;
@@ -15,6 +15,7 @@ import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 import static cz.cvut.fel.pjv.bukovja4.engine.elements.ElementFactory.Factory2d;
 
 public class Maze {
+    @SuppressWarnings("unused")
     private static int seed;
     private static int width;
     private static int height;
