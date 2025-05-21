@@ -21,3 +21,10 @@ TESTING!!!/
 TESTING!!!/*
 TESTING!!!/**
 TESTING!!!/**/*
+
+# Config
+config
+config/
+config/*
+config/**
+config/**/*
