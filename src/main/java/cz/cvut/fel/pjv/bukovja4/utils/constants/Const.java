@@ -14,6 +14,8 @@ public final class Const {
     /** Application title displayed in the window */
     public static final String APP_TITLE = "^nD Game";
 
+    public static final String DEFAULT_FONT = "imgs/font.png";
+
     /**
      * Private constructor to prevent instantiation.
      * This is a utility class that should not be instantiated.

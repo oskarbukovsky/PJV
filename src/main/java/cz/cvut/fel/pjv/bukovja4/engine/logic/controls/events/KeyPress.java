@@ -11,7 +11,7 @@ import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.ControlTypes;
 import cz.cvut.fel.pjv.bukovja4.engine.logic.controls.Selector;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
-import static cz.cvut.fel.pjv.bukovja4.utils.Utils.getCharacter;
+// import static cz.cvut.fel.pjv.bukovja4.utils.Utils.getCharacter;
 
 /**
  * Handles keyboard key press events.
@@ -59,23 +59,23 @@ public class KeyPress extends BaseEvent implements GLFWKeyCallbackI {
         LOG.info("Key: " + key + ", Action: " + action);
 
         if (action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT) {
-            Character character = getCharacter(key, modifiers);
+            // Character character = getCharacter(key, modifiers);
 
-            if (character != null) {
-                System.out.println("Pressed key: " + character);
-            } else {
-                System.out.println("Pressed non-printable key: " + key);
-            }
-        }
+            // if (character != null) {
+            //     System.out.println("Pressed key: " + character);
+            // } else {
+            //     System.out.println("Pressed non-printable key: " + key);
+            // }
 
-        try {
-            for (Selector selector : BaseEvent.events.keySet()) {
-                if (selector.eventType == ControlTypes.KEY_PRESS) {
-                    BaseEvent.events.get(selector).apply(new Object[] { key, scanCode, action, modifiers });
+            try {
+                for (Selector selector : BaseEvent.events.keySet()) {
+                    if (selector.eventType == ControlTypes.KEY_PRESS) {
+                        BaseEvent.events.get(selector).apply(new Object[] { key, scanCode, action, modifiers });
+                    }
                 }
+            } catch (Throwable e) {
+                LOG.error("Error in keyPress callback", e, true);
             }
-        } catch (Throwable e) {
-            LOG.error("Error in scroll callback", e, true);
         }
     }
 }

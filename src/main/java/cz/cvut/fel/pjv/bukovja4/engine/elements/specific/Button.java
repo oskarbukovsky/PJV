@@ -23,7 +23,7 @@ public class Button<D extends Dim> extends BaseElement<D> {
         if (args.length == 0) {
             throw new IllegalArgumentException("Button requires at least one argument: the texture to display.");
         }
-        String texture = (String) args[0];
+        // String texture = (String) args[0];
     }
 
     /**
@@ -44,18 +44,9 @@ public class Button<D extends Dim> extends BaseElement<D> {
         glVertex2f(bounds.x2, bounds.y1);
         glVertex2f(bounds.x2, bounds.y2);
         glVertex2f(bounds.x1, bounds.y2);
-        glEnd();
 
-        // Optional: Draw border
-        // glColor4f(1f, 1f, 1f, 1f); // White border
-        // glLineWidth(2f);
-        // glBegin(GL_LINE_LOOP);
-        // glVertex2f(bounds.x1, bounds.y1);
-        // glVertex2f(bounds.x2, bounds.y1);
-        // glVertex2f(bounds.x2, bounds.y2);
-        // glVertex2f(bounds.x1, bounds.y2);
-        // glEnd();
-        // LOG.debug("Button rendered at: " + bounds.toString());
+        glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+        glEnd();
     }
 
     float alpha = 1f; 
@@ -65,7 +56,7 @@ public class Button<D extends Dim> extends BaseElement<D> {
      */
     @Override
     public void tick() {
-        this.alpha = this.alpha + 0.1f > 1f ? 0f : this.alpha + 0.1f;
+        // this.alpha = this.alpha + 0.1f > 1f ? 0f : this.alpha + 0.1f;
     }
 
     /**

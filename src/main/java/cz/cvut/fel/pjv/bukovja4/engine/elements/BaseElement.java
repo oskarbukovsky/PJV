@@ -1,6 +1,7 @@
 package cz.cvut.fel.pjv.bukovja4.engine.elements;
 
 import cz.cvut.fel.pjv.bukovja4.utils.engine.dim.*;
+import cz.cvut.fel.pjv.bukovja4.engine.elements.specific.MoveEnum;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
 
 /**
@@ -24,7 +25,32 @@ public abstract class BaseElement<D extends Dim> {
         return this.type;
     }
 
-    //TODO: remake constructors to use previous and add type to base constructor
+    /**
+     * Move the element in a specified direction by a given distance
+     * 
+     * @param direction The direction to move the element
+     * @param distance  The distance to move the element
+     */
+    public void move(MoveEnum direction, float distance) {
+        switch (MoveEnum.valueOf(direction.name())) {
+            case UP -> {
+                this.bounds.y1 -= distance;
+                this.bounds.y2 -= distance;
+            }
+            case DOWN -> {
+                this.bounds.y1 += distance;
+                this.bounds.y2 += distance;
+            }
+            case LEFT -> {
+                this.bounds.x1 -= distance;
+                this.bounds.x2 -= distance;
+            }
+            case RIGHT -> {
+                this.bounds.x1 += distance;
+                this.bounds.x2 += distance;
+            }
+        }
+    }
 
     /**
      * Creates an element with specified bounding box

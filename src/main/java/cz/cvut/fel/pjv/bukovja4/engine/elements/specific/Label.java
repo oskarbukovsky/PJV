@@ -12,6 +12,10 @@ import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
  */
 public class Label<D extends Dim> extends BaseElement<D> {
 
+    private String text;
+
+    private float scale = 1f;
+
     /**
      * Renders the label to the screen.
      * Initialize label with text
@@ -21,16 +25,20 @@ public class Label<D extends Dim> extends BaseElement<D> {
         if (args.length == 0) {
             throw new IllegalArgumentException("Label requires at least one argument: the text to display.");
         }
-        String text = (String) args[0];
-    }
+        text = (String) args[0];
 
+        if (args.length > 1) {
+            this.scale = (float) args[1];
+        }
+    }
 
     /**
      * Renders the label to the screen
      */
     @Override
     public void render() {
-
+        // Draw the text at the specified position
+        TextUtils.drawText(text, (int) bounds.x1, (int) bounds.y1, this.scale, 0xFFFFFF, 0xff);
     }
 
     /**

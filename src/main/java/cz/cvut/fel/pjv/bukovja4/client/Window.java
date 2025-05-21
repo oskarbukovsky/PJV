@@ -124,7 +124,8 @@ public class Window {
         }
 
         glfwDefaultWindowHints();
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+        //Turn this off before submit
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
         Window.width = this.config.window.width;
         Window.height = this.config.window.height;
@@ -145,6 +146,20 @@ public class Window {
 
         glOrtho(0, this.config.window.width, this.config.window.height, 0, 1, -1);
         glfwSwapInterval(1);
+    }
+
+    /**
+     * Sets the window title
+     * 
+     * @param subtitle New window title
+     */
+    public static void setSubtitle(String subtitle) {
+        if (subtitle == null || subtitle.isEmpty()) {
+            subtitle = "";
+        } else {
+            subtitle = " - " + subtitle;
+        }
+        glfwSetWindowTitle(GameState.windowHandle, Const.APP_TITLE + subtitle);
     }
 
     /**

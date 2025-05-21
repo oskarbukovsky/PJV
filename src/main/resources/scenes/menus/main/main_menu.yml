@@ -1,33 +1,36 @@
-dimension: 2
+title: "Hlavni menu"
 elements:
   [
     {
-      type: "label",
-      align: "center",
-      position: [[-50, -50], [50, -30]],
-      text: "Play",
-      actions: [{ click: start_game }],
-    },
-    {
-      type: "button",
-      align: "center",
-      position: [[-50, -20], [50, 10]],
-      text: "Settings",
-      actions: [{ click: open_settings }],
-    },
-    {
-      type: "button",
-      align: "center",
-      position: [[-50, 20], [50, 50]],
-      text: "Exit",
-      actions: [{ click: exit_game }],
-    },
-    {
       type: "image",
       position: [[screen.minX, screen.minY], [screen.maxX, screen.maxY]],
-      src: "scenes/menus/main/background.png",
+      src: "background.png",
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-130, -100]],
+      text: "Hrat hru",
+      actions: [{ click: start_game }],
+      scale: 4,
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-90, 0]],
+      text: "Navod",
+      actions: [{ click: open_help }],
+      scale: 4,
+    },
+    {
+      type: "label",
+      align: "center",
+      position: [[-120, 100]],
+      text: "Ukoncit",
+      actions: [{ click: exit_game }],
+      scale: 4,
     },
   ]
 audio:
-  src: "background.wav"
+  src: "music.wav"
   loop: true

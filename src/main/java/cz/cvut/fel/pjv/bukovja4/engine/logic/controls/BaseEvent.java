@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import cz.cvut.fel.pjv.bukovja4.engine.elements.BaseElement;
 import cz.cvut.fel.pjv.bukovja4.utils.logging.LOG;
 
 /**
@@ -17,6 +18,9 @@ public abstract class BaseEvent {
 
     /** Type for invoking in specific types */
     protected ControlTypes eventType;
+
+    @SuppressWarnings("rawtypes")
+    BaseElement element;
 
     public static Map<Selector, Function<Object[], ?>> events = new HashMap<>();
 
@@ -35,8 +39,9 @@ public abstract class BaseEvent {
     public void init(Selector selector, Function<Object[], ?> callback) {
         BaseEvent.events.put(selector, callback);
         this.eventType = selector.eventType;
+        this.element = selector.element;
         LOG.debug(
-                "Registering event: " + this.getClass().getSimpleName() + " Type: " + selector.eventType + " Element: "
+                "Registering event: " + selector.eventType + " on element: "
                         + (selector.element != null ? selector.element.getClass().getSimpleName() : "null"));
     }
 

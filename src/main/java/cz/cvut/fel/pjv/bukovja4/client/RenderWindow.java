@@ -2,6 +2,8 @@ package cz.cvut.fel.pjv.bukovja4.client;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import cz.cvut.fel.pjv.bukovja4.engine.logic.GameState;
+
 /**
  * The RenderWindow class handles the rendering operations for the game window.
  * It provides functionality for setting up the rendering environment and
@@ -16,7 +18,7 @@ public class RenderWindow {
      */
     public static final void Render() {
         glClearColor(0.8f, 0f, 0.7f, 0f);
-        Window.gameState.getScene().getElements().forEach(element -> {
+        GameState.getScene().getElements().forEach(element -> {
             element.render();
         });
     }

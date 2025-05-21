@@ -8,6 +8,7 @@ import cz.cvut.fel.pjv.bukovja4.utils.Exceptions.SceneException;
 import cz.cvut.fel.pjv.bukovja4.utils.clocks.Clock;
 import cz.cvut.fel.pjv.bukovja4.utils.config.AppConfig;
 import cz.cvut.fel.pjv.bukovja4.utils.config.Config;
+import cz.cvut.fel.pjv.bukovja4.utils.constants.Const;
 import cz.cvut.fel.pjv.bukovja4.utils.engine.SpriteManager;
 import cz.cvut.fel.pjv.bukovja4.engine.scenes.*;
 
@@ -30,7 +31,7 @@ import static org.lwjgl.glfw.GLFW.*;
 public final class GameLoop extends Thread {
 
     /** Application configuration with window settings, FPS limits, etc. */
-    private static Config config;
+    public static Config config;
 
     /**
      * Gets the current application configuration.
@@ -171,50 +172,53 @@ public final class GameLoop extends Thread {
         // } catch (Throwable e) {
         // LOG.error("Error while registering handlers", (RuntimeException) e);
         // }
-
+        
         GameState gameState = null;
         try {
             gameState = new GameState(window.getHandle());
-
+            
             // Load the initial scene
-            gameState.setScene(SceneFactory.create(this.initSceneType, this.initSceneName));
+            GameState.setScene(SceneFactory.create(this.initSceneType, this.initSceneName));
         } catch (Throwable e) {
             LOG.error("Error while creating game state", (RuntimeException) e);
         }
         window.setGameState(gameState);
-
+        
         try {
-            SpriteManager.loadSprite("imgs/font.png");
+            SpriteManager.loadSprite(Const.DEFAULT_FONT, true);
             LOG.debug("Default font loaded");
         } catch (URISyntaxException e) {
             LOG.error("Failed to load default font", e, true);
         }
-
+        
         /**
          * Main game loop counter for debug purposes.
          * Tracks how many ticks have occurred since the game started.
          */
         long counter = 0;
 
-        while (!glfwWindowShouldClose(window.getHandle())) {
-            // Wait for the next tick to maintain consistent update rate
-            clock.awaitTick();
-            LOG.debug("Tick: " + counter++);
-
-            // Clear the screen for the next frame
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-            // Update game state and render the frame
-            gameState.getScene().tick();
-            window.render();
-
-            // Display the rendered frame and check for window events
-            glfwSwapBuffers(window.getHandle());
-            glfwPollEvents();
+        try{
+            while (!glfwWindowShouldClose(window.getHandle())) {
+                // Wait for the next tick to maintain consistent update rate
+                clock.awaitTick();
+                LOG.debug("Tick: " + counter++);
+                
+                // Clear the screen for the next frame
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                
+                // Update game state and render the frame
+                GameState.getScene().tick();
+                window.render();
+                
+                // Display the rendered frame and check for window events
+                glfwSwapBuffers(window.getHandle());
+                glfwPollEvents();
+            }
+        } catch (final Throwable ignored) {
         }
 
         // Cleanup resources when the game loop exits
-        gameState.getScene().Unload();
+        GameState.getScene().Unload();
         glfwDestroyWindow(window.getHandle());
         glfwTerminate();
         LOG.info("GameLoop finished");

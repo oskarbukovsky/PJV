@@ -16,6 +16,7 @@ import cz.cvut.fel.pjv.bukovja4.utils.engine.*;
 public class Image<D extends Dim> extends BaseElement<D> {
 
     private Sprite sprite;
+    private float scale = 1f;
 
     /**
      * Renders the image to the screen.
@@ -23,17 +24,21 @@ public class Image<D extends Dim> extends BaseElement<D> {
      */
     @Override
     public void init(Object... args){
+        // LOG.warn("Image.init()");
         if (args.length == 0) {
             throw new IllegalArgumentException("Image requires at least one argument: the texture to display.");
         }
         String texture = (String) args[0];
-        LOG.warn("Loading image: " + texture);
         try {
-            sprite = SpriteManager.loadSprite(texture);
+            this.sprite = SpriteManager.loadSprite(texture);
         } catch (URISyntaxException e) {
             throw new RuntimeException("Failed to load image texture: " + texture, e);
         } catch (NullPointerException e) {
             throw new RuntimeException("Failed to load image texture: " + texture, e);
+        }
+
+        if (args.length > 1) {
+            this.scale = (float) args[1];
         }
     }
 
@@ -42,8 +47,11 @@ public class Image<D extends Dim> extends BaseElement<D> {
      */
     @Override
     public void render() {
-        sprite.draw(bounds.x1, bounds.y1, 1);
-
+        try {
+            this.sprite.draw(bounds.x1, bounds.y1, this.scale);
+        } catch (NullPointerException e) {
+            LOG.error("Missing image texture", e);
+        }
     }
 
     /**
